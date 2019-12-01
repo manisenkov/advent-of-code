@@ -1,0 +1,19 @@
+{
+  "name": "aoc2019",
+  "version": "1.0.0",
+  "description": "Advent of Code 2019",
+  "main": "lib/day1/day1.js",
+  "repository": "git@github.com:manisenkov/aoc2019",
+  "author": "Maksim Anisenkov <manisenkov@gmail.com>",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "lint": "eslint ./**/*.js",
+    "day1": "node lib/day1.js < inputs/day1/input"
+  },
+  "devDependencies": {
+    "eslint": "^6.7.2",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2"
+  }
+}
