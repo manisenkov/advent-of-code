@@ -9,11 +9,14 @@
   "private": true,
   "scripts": {
     "lint": "eslint ./**/*.js",
-    "day1": "node lib/day1.js < inputs/day1/input"
+    "day1": "node lib/day1.js < inputs/day1/input",
+    "day2": "node lib/day2.js < inputs/day2/input"
   },
   "devDependencies": {
     "eslint": "^6.7.2",
     "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.18.2"
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-prettier": "^3.1.1"
   }
 }
