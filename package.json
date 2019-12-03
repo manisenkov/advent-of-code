@@ -10,7 +10,8 @@
   "scripts": {
     "lint": "eslint ./**/*.js",
     "day1": "node lib/day1.js < inputs/day1/input",
-    "day2": "node lib/day2.js < inputs/day2/input"
+    "day2": "node lib/day3.js < inputs/day3/input",
+    "day3": "node lib/day3.js < inputs/day3/input"
   },
   "devDependencies": {
     "eslint": "^6.7.2",

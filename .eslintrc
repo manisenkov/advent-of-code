@@ -6,6 +6,8 @@
     "jest": true
   },
   "rules": {
+    "default-case": ["off"],
+    "no-bitwise": ["off"],
     "no-console": ["off"],
     "no-plusplus": ["off"],
     "no-restricted-syntax": ["off"]
