@@ -14,7 +14,8 @@
     "day2": "node lib/day2.js < inputs/day2/input",
     "day3": "node lib/day3.js < inputs/day3/input",
     "day4": "node lib/day4.js < inputs/day4/input",
-    "day5": "node lib/day5.js < inputs/day5/input"
+    "day5": "node lib/day5.js < inputs/day5/input",
+    "day6": "node lib/day6.js < inputs/day6/input"
   },
   "devDependencies": {
     "eslint": "^6.7.2",
@@ -22,6 +23,7 @@
     "eslint-config-prettier": "^6.7.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-prettier": "^3.1.1",
-    "jest": "^24.9.0"
+    "jest": "^24.9.0",
+    "prettier": "^1.19.1"
   }
 }
