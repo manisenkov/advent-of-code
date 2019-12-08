@@ -16,7 +16,8 @@
     "day4": "node lib/day4.js < inputs/day4/input",
     "day5": "node lib/day5.js < inputs/day5/input",
     "day6": "node lib/day6.js < inputs/day6/input",
-    "day7": "node lib/day7.js < inputs/day7/input"
+    "day7": "node lib/day7.js < inputs/day7/input",
+    "day8": "node lib/day8.js < inputs/day8/input"
   },
   "devDependencies": {
     "eslint": "^6.7.2",
