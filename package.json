@@ -10,15 +10,7 @@
   "scripts": {
     "lint": "eslint ./**/*.js",
     "test": "jest",
-    "day1": "node lib/day1.js < inputs/day1/input",
-    "day2": "node lib/day2.js < inputs/day2/input",
-    "day3": "node lib/day3.js < inputs/day3/input",
-    "day4": "node lib/day4.js < inputs/day4/input",
-    "day5": "node lib/day5.js < inputs/day5/input",
-    "day6": "node lib/day6.js < inputs/day6/input",
-    "day7": "node lib/day7.js < inputs/day7/input",
-    "day8": "node lib/day8.js < inputs/day8/input",
-    "day9": "node lib/day9.js < inputs/day9/input"
+    "day": "node run.js"
   },
   "devDependencies": {
     "eslint": "^6.7.2",
