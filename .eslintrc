@@ -15,6 +15,7 @@
     "no-continue": ["off"],
     "no-console": ["off"],
     "no-constant-condition": ["off"],
+    "no-param-reassign": ["off"],
     "no-plusplus": ["off"],
     "no-restricted-syntax": ["off"]
   }
