@@ -1,12 +1,10 @@
 {
-  "name": "aoc2019",
+  "name": "advent-of-code-2019",
   "version": "1.0.0",
   "description": "Advent of Code 2019",
-  "main": "lib/day1/day1.js",
-  "repository": "git@github.com:manisenkov/aoc2019",
-  "author": "Maksim Anisenkov <manisenkov@gmail.com>",
-  "license": "UNLICENSED",
-  "private": true,
+  "main": "lib/run.js",
+  "repository": "https://github.com/manisenkov/advent-of-code",
+  "author": "Maksim Anisenkov",
   "scripts": {
     "lint": "eslint ./**/*.js",
     "test": "jest",
