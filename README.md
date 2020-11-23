@@ -2,4 +2,5 @@
 
 My solutions for Advent of Code
 
-- [2019](./2019)
+- [2018 (in progress)](./pkg/2018)
+- [2019 (JS)](./2019-js)
