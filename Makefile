@@ -23,4 +23,4 @@ rungen: buildgen
 	./bin/gensolution $(YEAR) $(DAY)
 
 test:
-	go test -v ./$(YEAR)/solutions/day$(PADDED_DAY)
+	go test -v ./pkg/$(YEAR)/solutions/day$(PADDED_DAY)
