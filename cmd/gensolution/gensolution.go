@@ -19,7 +19,6 @@ func fail(errorMessage string) {
 }
 
 func main() {
-	fmt.Println("hello world")
 	year, err := strconv.Atoi(os.Args[1])
 	if err != nil && year >= 2010 && year <= 2100 {
 		fail("Year should be a 4-digit integer")
@@ -35,10 +34,6 @@ func main() {
 
 	dayTemplate := template.Must(template.New("day").Parse(dayTemplateStr))
 	testTemplate := template.Must(template.New("test").Parse(testTemplateStr))
-
-	fmt.Println(year)
-	fmt.Println(day)
-	fmt.Println(paddedDay)
 
 	solutionPath := filepath.Join("pkg", yearStr, "solutions", fmt.Sprintf("day%v", paddedDay))
 	if err := os.MkdirAll(solutionPath, os.ModePerm); err != nil {
