@@ -3,7 +3,7 @@ package main
 const dayTemplateStr = `package day{{.PaddedDay}}
 
 import (
-	"github.com/manisenkov/advent-of-code/common"
+	"github.com/manisenkov/advent-of-code/pkg/common"
 )
 
 // Solution contains solution for day {{.Day}}
