@@ -7,6 +7,7 @@ import (
 
 	day2020_01 "github.com/manisenkov/advent-of-code/pkg/2020/solutions/day01"
 	day2020_02 "github.com/manisenkov/advent-of-code/pkg/2020/solutions/day02"
+	day2020_03 "github.com/manisenkov/advent-of-code/pkg/2020/solutions/day03"
 )
 
 func init() {
@@ -16,4 +17,5 @@ func init() {
 
 	Register(2020, 1, new(day2020_01.Solution))
 	Register(2020, 2, new(day2020_02.Solution))
+	Register(2020, 3, new(day2020_03.Solution))
 }
