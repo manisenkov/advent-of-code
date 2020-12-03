@@ -34,7 +34,7 @@ func validatePasswordNew(pol policy, password string) bool {
 }
 
 // Init initializes solution with input data
-func (s *Solution) Init(input []string) error {
+func (s *Solution) Init(input []string) {
 	policies := make([]policy, len(input))
 	passwords := make([]string, len(input))
 	for i, inp := range input {
@@ -50,7 +50,6 @@ func (s *Solution) Init(input []string) error {
 	}
 	s.policies = policies
 	s.passwords = passwords
-	return nil
 }
 
 // Part1 .

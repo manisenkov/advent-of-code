@@ -4,7 +4,7 @@ import "github.com/manisenkov/advent-of-code/pkg/common"
 
 // DaySolution contains day solutions (both part 1 and part 2)
 type DaySolution interface {
-	Init([]string) error
+	Init([]string)
 	Part1() common.Any
 	Part2() common.Any
 }

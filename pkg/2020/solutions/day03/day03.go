@@ -10,7 +10,7 @@ type Solution struct {
 }
 
 // Init initializes solution with input data
-func (s *Solution) Init(input []string) error {
+func (s *Solution) Init(input []string) {
 	treeMap := make([][]bool, len(input))
 	for i, inp := range input {
 		treeMap[i] = make([]bool, len(inp))
@@ -21,7 +21,6 @@ func (s *Solution) Init(input []string) error {
 		}
 	}
 	s.treeMap = treeMap
-	return nil
 }
 
 // Part1 .
