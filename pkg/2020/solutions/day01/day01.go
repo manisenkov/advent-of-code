@@ -10,13 +10,12 @@ type Solution struct {
 }
 
 // Init initializes solution with input data
-func (s *Solution) Init(input []string) error {
+func (s *Solution) Init(input []string) {
 	entries := make([]int, len(input))
 	for i, inp := range input {
 		entries[i] = common.MustAtoi(inp)
 	}
 	s.entries = entries
-	return nil
 }
 
 // Part1 .

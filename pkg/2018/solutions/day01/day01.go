@@ -12,13 +12,12 @@ type Solution struct {
 }
 
 // Init initializes solution with input data
-func (s *Solution) Init(input []string) error {
+func (s *Solution) Init(input []string) {
 	freqChanges := make([]int, len(input))
 	for i, s := range input {
 		freqChanges[i], _ = strconv.Atoi(s)
 	}
 	s.freqChanges = freqChanges
-	return nil
 }
 
 // Part1 .

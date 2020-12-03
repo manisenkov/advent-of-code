@@ -48,9 +48,7 @@ func main() {
 		fail(fmt.Sprintf("Can't read input: %s", err))
 	}
 
-	if err := sol.Init(input); err != nil {
-		fail(fmt.Sprintf("Can't initialize solution: %s", err))
-	}
+	sol.Init(input)
 
 	res1 := sol.Part1()
 	fmt.Printf("Part 1: %v\n", res1)

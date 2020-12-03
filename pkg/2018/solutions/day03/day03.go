@@ -16,7 +16,7 @@ type Solution struct {
 }
 
 // Init initializes solution with input data
-func (s *Solution) Init(input []string) error {
+func (s *Solution) Init(input []string) {
 	s.fabric = make(map[string][]string)
 	s.ids = make([]string, len(input))
 	for i, inp := range input {
@@ -34,7 +34,6 @@ func (s *Solution) Init(input []string) error {
 		}
 		s.ids[i] = id
 	}
-	return nil
 }
 
 // Part1 .

@@ -10,10 +10,9 @@ type Solution struct {
 }
 
 // Init initializes solution with input data
-func (s *Solution) Init(input []string) error {
+func (s *Solution) Init(input []string) {
 	s.ids = make([]string, len(input))
 	copy(s.ids, input)
-	return nil
 }
 
 func contains2Letters(s string) bool {

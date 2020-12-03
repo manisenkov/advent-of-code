@@ -11,8 +11,7 @@ type Solution struct {
 }
 
 // Init initializes solution with input data
-func (s *Solution) Init(input []string) error {
-	return nil
+func (s *Solution) Init(input []string) {
 }
 
 // Part1 .
