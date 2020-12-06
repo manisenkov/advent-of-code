@@ -1,6 +1,6 @@
 package main
 
-const dayTemplateStr = `package day{{.PaddedDay}}
+const dayTemplateStr = `package main
 
 import (
 	"github.com/manisenkov/advent-of-code/pkg/common"
@@ -23,11 +23,16 @@ func (sol *Solution) Part1() common.Any {
 func (sol *Solution) Part2() common.Any {
   return 0
 }
+
+func main() {
+	common.Run(new(Solution))
+}
 `
 
-const testTemplateStr = `package day{{.PaddedDay}}
+const testTemplateStr = `package main
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/suite"
@@ -48,7 +53,7 @@ func (st *Day{{.PaddedDay}}TestSuite) SetupTest() {
 }
 
 func (st *Day{{.PaddedDay}}TestSuite) Test1() {
-	strings.Split(strings.Trim(testInput, " \n"), "\n")
+	input := strings.Split(strings.Trim(testInput, " \n"), "\n")
 	st.sol.Init(input)
 	st.Equal(0, st.sol.Part1())
 	st.Equal(0, st.sol.Part2())
