@@ -11,16 +11,16 @@ type Solution struct {
 }
 
 // Init initializes solution with input data
-func (s *Solution) Init(input []string) {
+func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (s *Solution) Part1() common.Any {
+func (sol *Solution) Part1() common.Any {
   return 0
 }
 
 // Part2 .
-func (s *Solution) Part2() common.Any {
+func (sol *Solution) Part2() common.Any {
   return 0
 }
 `
