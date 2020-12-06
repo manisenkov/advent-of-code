@@ -21,13 +21,13 @@ type Solution struct {
 }
 
 // Init initializes solution with input data
-func (s *Solution) Init(input []string) {
-	passports := make([]map[string]string, 0)
+func (sol *Solution) Init(input []string) {
+	sol.passports = make([]map[string]string, 0)
 	currentPassport := make(map[string]string)
 	newPassport := true
 	for _, inp := range input {
 		if inp == "" {
-			passports = append(passports, currentPassport)
+			sol.passports = append(sol.passports, currentPassport)
 			currentPassport = make(map[string]string)
 			newPassport = true
 			continue
@@ -40,15 +40,14 @@ func (s *Solution) Init(input []string) {
 		newPassport = false
 	}
 	if !newPassport {
-		passports = append(passports, currentPassport)
+		sol.passports = append(sol.passports, currentPassport)
 	}
-	s.passports = passports
 }
 
 // Part1 .
-func (s *Solution) Part1() common.Any {
+func (sol *Solution) Part1() common.Any {
 	res := 0
-	for _, p := range s.passports {
+	for _, p := range sol.passports {
 		_, cidPresent := p["cid"]
 		if (len(p) == 7 && !cidPresent) || len(p) > 7 {
 			res++
@@ -58,9 +57,9 @@ func (s *Solution) Part1() common.Any {
 }
 
 // Part2 .
-func (s *Solution) Part2() common.Any {
+func (sol *Solution) Part2() common.Any {
 	res := 0
-	for _, p := range s.passports {
+	for _, p := range sol.passports {
 		if validate(p) {
 			res++
 		}

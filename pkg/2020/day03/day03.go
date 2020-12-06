@@ -10,26 +10,25 @@ type Solution struct {
 }
 
 // Init initializes solution with input data
-func (s *Solution) Init(input []string) {
-	treeMap := make([][]bool, len(input))
+func (sol *Solution) Init(input []string) {
+	sol.treeMap = make([][]bool, len(input))
 	for i, inp := range input {
-		treeMap[i] = make([]bool, len(inp))
+		sol.treeMap[i] = make([]bool, len(inp))
 		for j, c := range inp {
 			if c == '#' {
-				treeMap[i][j] = true
+				sol.treeMap[i][j] = true
 			}
 		}
 	}
-	s.treeMap = treeMap
 }
 
 // Part1 .
-func (s *Solution) Part1() common.Any {
-	return s.checkSlope(3, 1)
+func (sol *Solution) Part1() common.Any {
+	return sol.checkSlope(3, 1)
 }
 
 // Part2 .
-func (s *Solution) Part2() common.Any {
+func (sol *Solution) Part2() common.Any {
 	slopes := [][]int{
 		{1, 1},
 		{3, 1},
@@ -41,17 +40,17 @@ func (s *Solution) Part2() common.Any {
 	for _, slope := range slopes {
 		dx := slope[0]
 		dy := slope[1]
-		res *= s.checkSlope(dx, dy)
+		res *= sol.checkSlope(dx, dy)
 	}
 	return res
 }
 
-func (s *Solution) checkSlope(dx, dy int) int {
+func (sol *Solution) checkSlope(dx, dy int) int {
 	res := 0
-	w := len(s.treeMap[0])
+	w := len(sol.treeMap[0])
 	x := dx
-	for y := dy; y < len(s.treeMap); y += dy {
-		if s.treeMap[y][x] {
+	for y := dy; y < len(sol.treeMap); y += dy {
+		if sol.treeMap[y][x] {
 			res++
 		}
 		x = (x + dx) % w

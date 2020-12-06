@@ -16,9 +16,9 @@ type Solution struct {
 }
 
 // Init initializes solution with input data
-func (s *Solution) Init(input []string) {
-	s.fabric = make(map[string][]string)
-	s.ids = make([]string, len(input))
+func (sol *Solution) Init(input []string) {
+	sol.fabric = make(map[string][]string)
+	sol.ids = make([]string, len(input))
 	for i, inp := range input {
 		m := claimRegex.FindAllStringSubmatch(inp, -1)
 		id := m[0][1]
@@ -29,17 +29,17 @@ func (s *Solution) Init(input []string) {
 		for x := left; x < left+width; x++ {
 			for y := top; y < top+height; y++ {
 				k := fmt.Sprintf("%v,%v", x, y)
-				s.fabric[k] = append(s.fabric[k], id)
+				sol.fabric[k] = append(sol.fabric[k], id)
 			}
 		}
-		s.ids[i] = id
+		sol.ids[i] = id
 	}
 }
 
 // Part1 .
-func (s *Solution) Part1() common.Any {
+func (sol *Solution) Part1() common.Any {
 	res := 0
-	for _, ids := range s.fabric {
+	for _, ids := range sol.fabric {
 		if len(ids) > 1 {
 			res++
 		}
@@ -48,12 +48,12 @@ func (s *Solution) Part1() common.Any {
 }
 
 // Part2 .
-func (s *Solution) Part2() common.Any {
+func (sol *Solution) Part2() common.Any {
 	idsLeft := map[string]bool{}
-	for _, id := range s.ids {
+	for _, id := range sol.ids {
 		idsLeft[id] = true
 	}
-	for _, ids := range s.fabric {
+	for _, ids := range sol.fabric {
 		if len(ids) > 1 {
 			for _, id := range ids {
 				delete(idsLeft, id)

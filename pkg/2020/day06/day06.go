@@ -16,12 +16,12 @@ type Solution struct {
 
 // Init initializes solution with input data
 func (sol *Solution) Init(input []string) {
-	groups := make([]group, 0)
+	sol.groups = make([]group, 0)
 	currentGroup := group{size: 0, counts: map[rune]int{}}
 	newGroup := true
 	for _, inp := range input {
 		if inp == "" {
-			groups = append(groups, currentGroup)
+			sol.groups = append(sol.groups, currentGroup)
 			currentGroup = group{size: 0, counts: map[rune]int{}}
 			newGroup = true
 			continue
@@ -33,9 +33,8 @@ func (sol *Solution) Init(input []string) {
 		currentGroup.size++
 	}
 	if !newGroup {
-		groups = append(groups, currentGroup)
+		sol.groups = append(sol.groups, currentGroup)
 	}
-	sol.groups = groups
 }
 
 // Part1 .

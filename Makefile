@@ -17,10 +17,10 @@ clean:
 	rm -rf bin
 
 run: build
-	./bin/main $(YEAR) $(DAY) < pkg/$(YEAR)/inputs/$(PADDED_DAY).txt
+	./bin/main $(YEAR) $(DAY) < inputs/$(YEAR)/$(PADDED_DAY).txt
 
 rungen: buildgen
 	./bin/gensolution $(YEAR) $(DAY)
 
 test:
-	go test -v ./pkg/$(YEAR)/solutions/day$(PADDED_DAY)
+	go test -v ./pkg/$(YEAR)/day$(PADDED_DAY)

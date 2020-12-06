@@ -13,13 +13,7 @@ type policy struct {
 	letter     rune
 }
 
-// Solution contains solution for day 2
-type Solution struct {
-	policies  []policy
-	passwords []string
-}
-
-func validatePasswordOld(pol policy, password string) bool {
+func (pol *policy) validatePasswordOld(password string) bool {
 	letterBuckets := map[rune]int{}
 	for _, c := range password {
 		letterBuckets[c]++
@@ -27,16 +21,22 @@ func validatePasswordOld(pol policy, password string) bool {
 	return letterBuckets[pol.letter] >= pol.pos1 && letterBuckets[pol.letter] <= pol.pos2
 }
 
-func validatePasswordNew(pol policy, password string) bool {
+func (pol *policy) validatePasswordNew(password string) bool {
 	sPassword := []rune(password)
 	return (sPassword[pol.pos1-1] == pol.letter && sPassword[pol.pos2-1] != pol.letter) ||
 		(sPassword[pol.pos1-1] != pol.letter && sPassword[pol.pos2-1] == pol.letter)
 }
 
+// Solution contains solution for day 2
+type Solution struct {
+	policies  []policy
+	passwords []string
+}
+
 // Init initializes solution with input data
-func (s *Solution) Init(input []string) {
-	policies := make([]policy, len(input))
-	passwords := make([]string, len(input))
+func (sol *Solution) Init(input []string) {
+	sol.policies = make([]policy, len(input))
+	sol.passwords = make([]string, len(input))
 	for i, inp := range input {
 		m := inputRegex.FindAllStringSubmatch(inp, -1)
 		pol := policy{
@@ -45,18 +45,16 @@ func (s *Solution) Init(input []string) {
 			letter: ([]rune(m[0][3]))[0],
 		}
 		password := m[0][4]
-		policies[i] = pol
-		passwords[i] = password
+		sol.policies[i] = pol
+		sol.passwords[i] = password
 	}
-	s.policies = policies
-	s.passwords = passwords
 }
 
 // Part1 .
-func (s *Solution) Part1() common.Any {
+func (sol *Solution) Part1() common.Any {
 	result := 0
-	for i, p := range s.passwords {
-		if validatePasswordOld(s.policies[i], p) {
+	for i, p := range sol.passwords {
+		if sol.policies[i].validatePasswordOld(p) {
 			result++
 		}
 	}
@@ -64,10 +62,10 @@ func (s *Solution) Part1() common.Any {
 }
 
 // Part2 .
-func (s *Solution) Part2() common.Any {
+func (sol *Solution) Part2() common.Any {
 	result := 0
-	for i, p := range s.passwords {
-		if validatePasswordNew(s.policies[i], p) {
+	for i, p := range sol.passwords {
+		if sol.policies[i].validatePasswordNew(p) {
 			result++
 		}
 	}

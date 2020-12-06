@@ -33,23 +33,29 @@ import (
 	"github.com/stretchr/testify/suite"
 )
 
+const testInput = ` + "`" + `
+hello
+world
+` + "`" + `
+
 type Day{{.PaddedDay}}TestSuite struct {
 	suite.Suite
 	sol *Solution
 }
 
-func (s *Day{{.PaddedDay}}TestSuite) SetupTest() {
-	s.sol = new(Solution)
+func (st *Day{{.PaddedDay}}TestSuite) SetupTest() {
+	st.sol = new(Solution)
 }
 
-func (s *Day{{.PaddedDay}}TestSuite) Test1() {
-	s.sol.Init([]string{"foo"})
-	s.Equal(0, s.sol.Part1())
-	s.Equal(0, s.sol.Part2())
+func (st *Day{{.PaddedDay}}TestSuite) Test1() {
+	strings.Split(strings.Trim(testInput, " \n"), "\n")
+	st.sol.Init(input)
+	st.Equal(0, st.sol.Part1())
+	st.Equal(0, st.sol.Part2())
 }
 
 func TestDay{{.PaddedDay}}(t *testing.T) {
-	s := new(Day{{.PaddedDay}}TestSuite)
-	suite.Run(t, s)
+	st := new(Day{{.PaddedDay}}TestSuite)
+	suite.Run(t, st)
 }
 `

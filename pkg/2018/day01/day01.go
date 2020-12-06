@@ -12,29 +12,28 @@ type Solution struct {
 }
 
 // Init initializes solution with input data
-func (s *Solution) Init(input []string) {
-	freqChanges := make([]int, len(input))
+func (sol *Solution) Init(input []string) {
+	sol.freqChanges = make([]int, len(input))
 	for i, s := range input {
-		freqChanges[i], _ = strconv.Atoi(s)
+		sol.freqChanges[i], _ = strconv.Atoi(s)
 	}
-	s.freqChanges = freqChanges
 }
 
 // Part1 .
-func (s *Solution) Part1() common.Any {
-	resultFreq := 0
-	for _, f := range s.freqChanges {
-		resultFreq += f
+func (sol *Solution) Part1() common.Any {
+	res := 0
+	for _, f := range sol.freqChanges {
+		res += f
 	}
-	return resultFreq
+	return res
 }
 
 // Part2 .
-func (s *Solution) Part2() common.Any {
+func (sol *Solution) Part2() common.Any {
 	buckets := map[int]bool{0: true}
 	currentFreq := 0
 	for {
-		for _, df := range s.freqChanges {
+		for _, df := range sol.freqChanges {
 			currentFreq += df
 			_, ok := buckets[currentFreq]
 			if ok {

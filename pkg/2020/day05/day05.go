@@ -14,10 +14,10 @@ type Solution struct {
 }
 
 // Init initializes solution with input data
-func (s *Solution) Init(input []string) {
-	seatIDs := make([]int, len(input))
-	minSeatID := math.MaxInt32
-	maxSeatID := 0
+func (sol *Solution) Init(input []string) {
+	sol.seatIDs = make([]int, len(input))
+	sol.minSeatID = math.MaxInt32
+	sol.maxSeatID = 0
 	for i, inp := range input {
 		idStr := ""
 		for _, c := range inp {
@@ -33,31 +33,28 @@ func (s *Solution) Init(input []string) {
 			}
 		}
 		seatID := int(common.MustParseInt(idStr, 2, 32))
-		seatIDs[i] = seatID
-		if seatID > maxSeatID {
-			maxSeatID = seatID
+		sol.seatIDs[i] = seatID
+		if seatID > sol.maxSeatID {
+			sol.maxSeatID = seatID
 		}
-		if seatID < minSeatID {
-			minSeatID = seatID
+		if seatID < sol.minSeatID {
+			sol.minSeatID = seatID
 		}
 	}
-	s.seatIDs = seatIDs
-	s.minSeatID = minSeatID
-	s.maxSeatID = maxSeatID
 }
 
 // Part1 .
-func (s *Solution) Part1() common.Any {
-	return s.maxSeatID
+func (sol *Solution) Part1() common.Any {
+	return sol.maxSeatID
 }
 
 // Part2 .
-func (s *Solution) Part2() common.Any {
+func (sol *Solution) Part2() common.Any {
 	taken := make(map[int]bool)
-	for _, seatID := range s.seatIDs {
+	for _, seatID := range sol.seatIDs {
 		taken[seatID] = true
 	}
-	for id := s.minSeatID + 1; id < s.maxSeatID; id++ {
+	for id := sol.minSeatID + 1; id < sol.maxSeatID; id++ {
 		if !taken[id] {
 			return id
 		}
