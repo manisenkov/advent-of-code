@@ -35,17 +35,17 @@ func main() {
 	dayTemplate := template.Must(template.New("day").Parse(dayTemplateStr))
 	testTemplate := template.Must(template.New("test").Parse(testTemplateStr))
 
-	solutionPath := filepath.Join("pkg", yearStr, "solutions", fmt.Sprintf("day%v", paddedDay))
+	solutionPath := filepath.Join("cmd", yearStr, paddedDay)
 	if err := os.MkdirAll(solutionPath, os.ModePerm); err != nil {
 		fail(err.Error())
 	}
 
-	dayFile, err := os.Create(filepath.Join(solutionPath, fmt.Sprintf("day%v.go", paddedDay)))
+	dayFile, err := os.Create(filepath.Join(solutionPath, fmt.Sprintf("%v.go", paddedDay)))
 	if err != nil {
 		fail(err.Error())
 	}
 
-	testFile, err := os.Create(filepath.Join(solutionPath, fmt.Sprintf("day%v_test.go", paddedDay)))
+	testFile, err := os.Create(filepath.Join(solutionPath, fmt.Sprintf("%v_test.go", paddedDay)))
 	if err != nil {
 		fail(err.Error())
 	}
