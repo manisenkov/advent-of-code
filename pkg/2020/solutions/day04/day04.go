@@ -70,75 +70,47 @@ func (s *Solution) Part2() common.Any {
 
 func validate(p map[string]string) bool {
 	// Birth year
-	byr, ok := p["byr"]
-	if !ok {
-		return false
-	}
-	nByr, err := strconv.Atoi(byr)
-	if err != nil || nByr < 1920 || nByr > 2002 {
+	byr, _ := strconv.Atoi(p["byr"])
+	if byr < 1920 || byr > 2002 {
 		return false
 	}
 
 	// Issue year
-	iyr, ok := p["iyr"]
-	if !ok {
-		return false
-	}
-	nIyr, err := strconv.Atoi(iyr)
-	if nIyr < 2010 || nIyr > 2020 {
+	iyr, _ := strconv.Atoi(p["iyr"])
+	if iyr < 2010 || iyr > 2020 {
 		return false
 	}
 
 	// Expiration year
-	eyr, ok := p["eyr"]
-	if !ok {
-		return false
-	}
-	nEyr, err := strconv.Atoi(eyr)
-	if nEyr < 2020 || nEyr > 2030 {
+	eyr, _ := strconv.Atoi(p["eyr"])
+	if eyr < 2020 || eyr > 2030 {
 		return false
 	}
 
 	// Height
-	hgt, ok := p["hgt"]
-	if !ok {
-		return false
-	}
-	m := hgtRegex.FindAllStringSubmatch(hgt, -1)
+	m := hgtRegex.FindAllStringSubmatch(p["hgt"], -1)
 	if len(m) == 0 {
 		return false
 	}
-	nHgt, err := strconv.Atoi(m[0][1])
 	hgtType := m[0][2]
+	nHgt, _ := strconv.Atoi(m[0][1])
 	if (hgtType == "cm" && (nHgt < 150 || nHgt > 193)) ||
-			(hgtType == "in" && (nHgt < 59 || nHgt > 76)) {
+		(hgtType == "in" && (nHgt < 59 || nHgt > 76)) {
 		return false
 	}
 
 	// Hair color
-	hcl, ok := p["hcl"]
-	if !ok {
-		return false
-	}
-	if !hclRegex.MatchString(hcl) {
+	if !hclRegex.MatchString(p["hcl"]) {
 		return false
 	}
 
 	// Eye color
-	ecl, ok := p["ecl"]
-	if !ok {
-		return false
-	}
-	if !eclRegex.MatchString(ecl) {
+	if !eclRegex.MatchString(p["ecl"]) {
 		return false
 	}
 
 	// Passport ID
-	pid, ok := p["pid"]
-	if !ok {
-		return false
-	}
-	if !pidRegex.MatchString(pid) {
+	if !pidRegex.MatchString(p["pid"]) {
 		return false
 	}
 
