@@ -1,16 +1,16 @@
 package registry
 
 import (
-	day2018_01 "github.com/manisenkov/advent-of-code/pkg/2018/solutions/day01"
-	day2018_02 "github.com/manisenkov/advent-of-code/pkg/2018/solutions/day02"
-	day2018_03 "github.com/manisenkov/advent-of-code/pkg/2018/solutions/day03"
+	day2018_01 "github.com/manisenkov/advent-of-code/pkg/2018/day01"
+	day2018_02 "github.com/manisenkov/advent-of-code/pkg/2018/day02"
+	day2018_03 "github.com/manisenkov/advent-of-code/pkg/2018/day03"
 
-	day2020_01 "github.com/manisenkov/advent-of-code/pkg/2020/solutions/day01"
-	day2020_02 "github.com/manisenkov/advent-of-code/pkg/2020/solutions/day02"
-	day2020_03 "github.com/manisenkov/advent-of-code/pkg/2020/solutions/day03"
-	day2020_04 "github.com/manisenkov/advent-of-code/pkg/2020/solutions/day04"
-	day2020_05 "github.com/manisenkov/advent-of-code/pkg/2020/solutions/day05"
-	day2020_06 "github.com/manisenkov/advent-of-code/pkg/2020/solutions/day06"
+	day2020_01 "github.com/manisenkov/advent-of-code/pkg/2020/day01"
+	day2020_02 "github.com/manisenkov/advent-of-code/pkg/2020/day02"
+	day2020_03 "github.com/manisenkov/advent-of-code/pkg/2020/day03"
+	day2020_04 "github.com/manisenkov/advent-of-code/pkg/2020/day04"
+	day2020_05 "github.com/manisenkov/advent-of-code/pkg/2020/day05"
+	day2020_06 "github.com/manisenkov/advent-of-code/pkg/2020/day06"
 )
 
 func init() {
