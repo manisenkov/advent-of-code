@@ -46,33 +46,45 @@ func (sol *Solution) Part1() common.Any {
 	return diff1Count * diff3Count
 }
 
-// Part2 .
+// Part2 dynamic programming
 func (sol *Solution) Part2() common.Any {
-	i := 0
-	j := i + 1
-	res := 1
-	for j < len(sol.jolts) {
-		if sol.jolts[j]-sol.jolts[j-1] == 3 {
-			res *= sol.countArrangements(i, j)
-			i = j
-			j = i + 1
-			continue
+	numArrangements := make([]int, len(sol.jolts))
+	numArrangements[0] = 1
+	for i := 0; i < len(sol.jolts); i++ {
+		for j := i + 1; j < len(sol.jolts) && sol.jolts[j]-sol.jolts[i] <= 3; j++ {
+			numArrangements[j] += numArrangements[i]
 		}
-		j++
 	}
-	return res
+	return numArrangements[len(numArrangements)-1]
 }
 
-func (sol *Solution) countArrangements(startIndex, endIndex int) int {
-	if startIndex == endIndex {
-		return 1
-	}
-	res := 0
-	for i := startIndex + 1; i <= endIndex && sol.jolts[i]-sol.jolts[startIndex] <= 3; i++ {
-		res += sol.countArrangements(i, endIndex)
-	}
-	return res
-}
+// Part2 groups and recursions
+// func (sol *Solution) Part2() common.Any {
+// 	i := 0
+// 	j := i + 1
+// 	res := 1
+// 	for j < len(sol.jolts) {
+// 		if sol.jolts[j]-sol.jolts[j-1] == 3 {
+// 			res *= sol.countArrangements(i, j)
+// 			i = j
+// 			j = i + 1
+// 			continue
+// 		}
+// 		j++
+// 	}
+// 	return res
+// }
+
+// func (sol *Solution) countArrangements(startIndex, endIndex int) int {
+// 	if startIndex == endIndex {
+// 		return 1
+// 	}
+// 	res := 0
+// 	for i := startIndex + 1; i <= endIndex && sol.jolts[i]-sol.jolts[startIndex] <= 3; i++ {
+// 		res += sol.countArrangements(i, endIndex)
+// 	}
+// 	return res
+// }
 
 func main() {
 	common.Run(new(Solution))
