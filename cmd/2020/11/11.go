@@ -15,7 +15,7 @@ type seatMap struct {
 	seats        []rune
 }
 
-func (m seatMap) turn() seatMap {
+func (m seatMap) turnNear() seatMap {
 	res := seatMap{
 		nCols: m.nCols,
 		nRows: m.nRows,
@@ -69,6 +69,76 @@ func (m seatMap) turn() seatMap {
 		}
 	}
 	return res
+}
+
+func (m seatMap) turnBroad() seatMap {
+	res := seatMap{
+		nCols: m.nCols,
+		nRows: m.nRows,
+		seats: make([]rune, len(m.seats)),
+	}
+	for row := 0; row < m.nRows; row++ {
+		for col := 0; col < m.nCols; col++ {
+			seat := m.get(row, col)
+			if seat == floor {
+				res.seats[row*m.nCols+col] = floor
+				continue
+			}
+
+			isOccupied := seat == occupied
+			countAdj := 0
+
+			if m.checkDir(row, col, -1, -1) {
+				countAdj++
+			}
+			if m.checkDir(row, col, -1, 0) {
+				countAdj++
+			}
+			if m.checkDir(row, col, -1, 1) {
+				countAdj++
+			}
+			if m.checkDir(row, col, 0, -1) {
+				countAdj++
+			}
+			if m.checkDir(row, col, 0, 1) {
+				countAdj++
+			}
+			if m.checkDir(row, col, 1, -1) {
+				countAdj++
+			}
+			if m.checkDir(row, col, 1, 0) {
+				countAdj++
+			}
+			if m.checkDir(row, col, 1, 1) {
+				countAdj++
+			}
+
+			if !isOccupied && countAdj == 0 {
+				res.seats[row*m.nCols+col] = occupied
+			} else if isOccupied && countAdj >= 5 {
+				res.seats[row*m.nCols+col] = empty
+			} else {
+				res.seats[row*m.nCols+col] = m.seats[row*m.nCols+col]
+			}
+		}
+	}
+	return res
+}
+
+func (m seatMap) checkDir(row, col, dRow, dCol int) bool {
+	row += dRow
+	col += dCol
+	for row >= 0 && col >= 0 && row < m.nRows && col < m.nCols {
+		if m.get(row, col) == occupied {
+			return true
+		}
+		if m.get(row, col) == empty {
+			return false
+		}
+		row += dRow
+		col += dCol
+	}
+	return false
 }
 
 func (m seatMap) get(row, col int) rune {
@@ -133,17 +203,23 @@ func (sol *Solution) Init(input []string) {
 // Part1 .
 func (sol *Solution) Part1() common.Any {
 	prev := sol.plan
-	next := sol.plan.turn()
+	next := sol.plan.turnNear()
 	for !next.equal(prev) {
 		prev = next
-		next = next.turn()
+		next = next.turnNear()
 	}
 	return next.howManyOccupied()
 }
 
 // Part2 .
 func (sol *Solution) Part2() common.Any {
-	return 0
+	prev := sol.plan
+	next := sol.plan.turnBroad()
+	for !next.equal(prev) {
+		prev = next
+		next = next.turnBroad()
+	}
+	return next.howManyOccupied()
 }
 
 func main() {

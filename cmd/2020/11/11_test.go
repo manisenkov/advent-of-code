@@ -33,7 +33,7 @@ func (st *Day11TestSuite) Test1() {
 	input := strings.Split(strings.Trim(testInput, " \n"), "\n")
 	st.sol.Init(input)
 	st.Equal(37, st.sol.Part1())
-	st.Equal(0, st.sol.Part2())
+	st.Equal(26, st.sol.Part2())
 }
 
 func TestDay11(t *testing.T) {
