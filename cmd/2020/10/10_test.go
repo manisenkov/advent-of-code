@@ -67,15 +67,15 @@ func (st *Day10TestSuite) SetupTest() {
 func (st *Day10TestSuite) Test1() {
 	input := strings.Split(strings.Trim(testInput1, " \n"), "\n")
 	st.sol.Init(input)
-	st.Equal(35, st.sol.Part1())
-	st.Equal(8, st.sol.Part2())
+	st.Equal(int64(35), st.sol.Part1())
+	st.Equal(int64(8), st.sol.Part2())
 }
 
 func (st *Day10TestSuite) Test2() {
 	input := strings.Split(strings.Trim(testInput2, " \n"), "\n")
 	st.sol.Init(input)
-	st.Equal(220, st.sol.Part1())
-	st.Equal(19208, st.sol.Part2())
+	st.Equal(int64(220), st.sol.Part1())
+	st.Equal(int64(19208), st.sol.Part2())
 }
 
 func TestDay10(t *testing.T) {
