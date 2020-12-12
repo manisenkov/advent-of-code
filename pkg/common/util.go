@@ -2,6 +2,14 @@ package common
 
 import "strconv"
 
+// AbsInt returns absolute value of the given integer
+func AbsInt(v int) int {
+	if v < 0 {
+		return -v
+	}
+	return v
+}
+
 // MustAtoi converts string to integer and panics in case of error
 func MustAtoi(s string) int {
 	res, err := strconv.Atoi(s)
