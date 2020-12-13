@@ -10,6 +10,25 @@ func AbsInt(v int) int {
 	return v
 }
 
+// ExtGCD implements extended euler algorithm to find roots of a*x+b*y=gcd(a,b).
+// It returns a tuple of in form of (gcd(a,b), x, y) for given a, b.
+func ExtGCD(a, b int64) (int64, int64, int64) {
+	if a == 0 {
+		return b, 0, 1
+	}
+	g, y, x := ExtGCD(b%a, a)
+	return g, x - (b/a)*y, y
+}
+
+// ModInv returns modulo inversion for a modulo m
+func ModInv(a, m int64) int64 {
+	g, x, _ := ExtGCD(a, m)
+	if g != 1 {
+		panic("no solution")
+	}
+	return x % m
+}
+
 // MustAtoi converts string to integer and panics in case of error
 func MustAtoi(s string) int {
 	res, err := strconv.Atoi(s)
