@@ -3,7 +3,9 @@ package common
 import (
 	"bufio"
 	"fmt"
+	"math"
 	"os"
+	"time"
 )
 
 // DaySolution represents a one AoC day solution
@@ -20,13 +22,17 @@ func Run(sol DaySolution) {
 		fail(fmt.Sprintf("Can't read input: %s", err))
 	}
 
+	startTime := time.Now()
 	sol.Init(input)
-
 	res1 := sol.Part1()
-	fmt.Printf("Part 1: %v\n", res1)
-
+	p1Time := time.Now()
 	res2 := sol.Part2()
+	p2Time := time.Now()
+	fmt.Printf("Part 1: %v\n", res1)
 	fmt.Printf("Part 2: %v\n", res2)
+	fmt.Printf(" - Part 1 time: %vms\n", math.Round(float64(p1Time.Sub(startTime).Nanoseconds()) / 1000) / 1000)
+	fmt.Printf(" - Part 2 time: %vms\n", math.Round(float64(p2Time.Sub(p1Time).Nanoseconds()) / 1000) / 1000)
+	fmt.Printf(" - Total time: %vms\n", math.Round(float64(p2Time.Sub(startTime).Nanoseconds()) / 1000) / 1000)
 }
 
 func fail(errorMessage string) {
