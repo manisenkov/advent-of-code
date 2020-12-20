@@ -130,7 +130,7 @@ func (st *Day20TestSuite) Test1() {
 	input := strings.Split(strings.Trim(testInput, " \n"), "\n")
 	st.sol.Init(input)
 	st.Equal(20899048083289, st.sol.Part1())
-	st.Equal(0, st.sol.Part2())
+	st.Equal(273, st.sol.Part2())
 }
 
 func TestDay20(t *testing.T) {
