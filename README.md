@@ -1,8 +1,7 @@
 # Advent of Code
 
-My solutions for Advent of Code
+My solutions for [Advent of Code](https://adventofcode.com).
 
-- [2018 (in progress)](./cmd/2018)
-- [2020 (in progress)](./cmd/2020)
-
-[2019 in Javascript](./2019-js)
+- [2018 (Go, in progress)](./cmd/2018)
+- [2019 (JS)](./2019-js)
+- [2020 (Go)](./cmd/2020)
