@@ -2,6 +2,9 @@
 
 My solutions for [Advent of Code](https://adventofcode.com).
 
-- [2018 (Go, in progress)](./go/cmd/2018)
-- [2019 (JS)](./js/2019)
-- [2020 (Go)](./go/cmd/2020)
+- [2018 (in progress)](./cmd/2018)
+- [2020](./cmd/2020)
+
+## Archive
+
+- [2019 (JS)](https://github.com/manisenkov/advent-of-code/tree/js-2019)
