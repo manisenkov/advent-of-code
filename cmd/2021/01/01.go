@@ -18,28 +18,26 @@ func (sol *Solution) Init(input []string) {
 	sol.measurements = measurements
 }
 
-func calcIncreases(measurements []int) int {
+// Part1 .
+func (sol *Solution) Part1() common.Any {
 	res := 0
-	for i := 1; i < len(measurements); i++ {
-		if measurements[i] > measurements[i-1] {
+	for i := 0; i < len(sol.measurements)-1; i++ {
+		if sol.measurements[i+1] > sol.measurements[i] {
 			res++
 		}
 	}
 	return res
 }
 
-// Part1 .
-func (sol *Solution) Part1() common.Any {
-	return calcIncreases(sol.measurements)
-}
-
 // Part2 .
 func (sol *Solution) Part2() common.Any {
-	windows := make([]int, len(sol.measurements)-2)
-	for i := 0; i < len(sol.measurements)-2; i++ {
-		windows[i] = sol.measurements[i] + sol.measurements[i+1] + sol.measurements[i+2]
+	res := 0
+	for i := 0; i < len(sol.measurements)-3; i++ {
+		if sol.measurements[i+3] > sol.measurements[i] {
+			res++
+		}
 	}
-	return calcIncreases(windows)
+	return res
 }
 
 func main() {
