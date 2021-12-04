@@ -4,6 +4,7 @@ My solutions for [Advent of Code](https://adventofcode.com).
 
 - [2018 (in progress)](./cmd/2018)
 - [2020](./cmd/2020)
+- [2021 (in progress)](./cmd/2021)
 
 ## Archive
 
