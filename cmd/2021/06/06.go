@@ -26,16 +26,16 @@ func (sol *Solution) solve(days int) int64 {
 		ageBuckets[age]++
 	}
 	for day := 0; day < days; day++ {
-		nextBuckets := [9]int64{}
-		for age, count := range ageBuckets {
-			if age > 0 {
-				nextBuckets[age-1] += count
-			} else {
-				nextBuckets[8] += count
-				nextBuckets[6] += count
-			}
-		}
-		ageBuckets = nextBuckets
+		count0 := ageBuckets[0]
+		ageBuckets[0] = ageBuckets[1]
+		ageBuckets[1] = ageBuckets[2]
+		ageBuckets[2] = ageBuckets[3]
+		ageBuckets[3] = ageBuckets[4]
+		ageBuckets[4] = ageBuckets[5]
+		ageBuckets[5] = ageBuckets[6]
+		ageBuckets[6] = count0 + ageBuckets[7]
+		ageBuckets[7] = ageBuckets[8]
+		ageBuckets[8] = count0
 	}
 	res := int64(0)
 	for _, count := range ageBuckets {
