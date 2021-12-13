@@ -30,9 +30,6 @@ func (sol *Solution) Part1() common.Any {
 // Part2 .
 func (sol *Solution) Part2() common.Any {
 	paths := sol.travel("start", map[string]int{}, true)
-	// for _, p := range paths {
-	// 	fmt.Println(strings.Join(p, ","))
-	// }
 	return len(paths)
 }
 

@@ -40,9 +40,9 @@ func (p paper) String() string {
 	for _, row := range p {
 		for _, point := range row {
 			if point {
-				res += "#"
+				res += "█"
 			} else {
-				res += "."
+				res += " "
 			}
 		}
 		res += "\n"
