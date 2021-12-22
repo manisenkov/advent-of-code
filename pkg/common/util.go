@@ -20,6 +20,24 @@ func ExtGCD(a, b int64) (int64, int64, int64) {
 	return g, x - (b/a)*y, y
 }
 
+// Max returns the bigger number of two
+func Max(a, b int) int {
+	if a > b {
+		return a
+	} else {
+		return b
+	}
+}
+
+// Max returns the smaller number of two
+func Min(a, b int) int {
+	if a < b {
+		return a
+	} else {
+		return b
+	}
+}
+
 // ModInv returns modulo inversion for a modulo m
 func ModInv(a, m int64) int64 {
 	g, x, _ := ExtGCD(a, m)
