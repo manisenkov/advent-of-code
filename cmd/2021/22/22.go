@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/manisenkov/advent-of-code/pkg/common"
@@ -58,7 +60,46 @@ func (sol *Solution) Part1() common.Any {
 
 // Part2 .
 func (sol *Solution) Part2() common.Any {
-	return 0
+	// Find borders
+	borderMap := [3]map[int]bool{{}, {}, {}}
+	for _, cuboid := range sol.cuboids {
+		for i, p := range cuboid {
+			borderMap[i][p[0]] = true
+			borderMap[i][p[1]+1] = true
+		}
+	}
+	borders := [3][]int{{}, {}, {}}
+	for i, m := range borderMap {
+		for p := range m {
+			borders[i] = append(borders[i], p)
+		}
+		sort.Ints(borders[i])
+	}
+
+	// Calculate size of blocks that are turned on
+	res := 0
+	for x := 0; x < len(borders[0])-1; x++ {
+		fmt.Printf("%v of %v\n", x+1, len(borders[0])-1)
+		for y := 0; y < len(borders[1])-1; y++ {
+			for z := 0; z < len(borders[2])-1; z++ {
+				pos := [3]int{borders[0][x], borders[1][y], borders[2][z]}
+				for i := len(sol.cuboids) - 1; i >= 0; i-- {
+					inCuboid := sol.cuboids[i][0][0] <= pos[0] && pos[0] <= sol.cuboids[i][0][1] &&
+						sol.cuboids[i][1][0] <= pos[1] && pos[1] <= sol.cuboids[i][1][1] &&
+						sol.cuboids[i][2][0] <= pos[2] && pos[2] <= sol.cuboids[i][2][1]
+					if inCuboid {
+						if sol.states[i] {
+							res += (borders[0][x+1] - borders[0][x]) *
+								(borders[1][y+1] - borders[1][y]) *
+								(borders[2][z+1] - borders[2][z])
+						}
+						break
+					}
+				}
+			}
+		}
+	}
+	return res
 }
 
 func main() {
