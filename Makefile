@@ -24,4 +24,4 @@ rungen: buildgen
 	./bin/gensolution $(YEAR) $(DAY)
 
 test:
-	go test -v ./cmd/$(YEAR)/$(PADDED_DAY)
+	go test -timeout 99999s -v ./cmd/$(YEAR)/$(PADDED_DAY)

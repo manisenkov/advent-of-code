@@ -6,22 +6,22 @@ import (
 	"github.com/manisenkov/advent-of-code/pkg/common"
 )
 
-// Solution contains solution for day {{.Day}}
+// Solution contains a solution for day {{.Day}}
 type Solution struct {
 }
 
-// Init initializes solution with input data
+// Init initializes the solution with the input data
 func (sol *Solution) Init(input []string) {
 }
 
-// Part1 .
+// Part1 to solve a "silver" part (for a first star)
 func (sol *Solution) Part1() common.Any {
-  return 0
+	return 0
 }
 
-// Part2 .
+// Part2 to solve a "gold" part (for a second star)
 func (sol *Solution) Part2() common.Any {
-  return 0
+	return 0
 }
 
 func main() {
