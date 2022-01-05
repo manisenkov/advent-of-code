@@ -16,7 +16,7 @@ type DaySolution interface {
 
 // Run day solution, taking input from stdin
 func Run(sol DaySolution) {
-	input, err := readInput()
+	input, err := ReadInput(os.Stdin)
 	if err != nil {
 		fail(fmt.Sprintf("Can't read input: %s", err))
 	}
@@ -36,16 +36,16 @@ func Run(sol DaySolution) {
 	fmt.Printf(" - Total time: %vμs\n", float64(p2Time.Sub(startTime).Nanoseconds())/1000)
 }
 
-func fail(errorMessage string) {
-	os.Stderr.WriteString(fmt.Sprintf("%v\n", errorMessage))
-	os.Exit(1)
-}
-
-func readInput() ([]string, error) {
-	scanner := bufio.NewScanner(os.Stdin)
+func ReadInput(f *os.File) ([]string, error) {
+	scanner := bufio.NewScanner(f)
 	lines := []string{}
 	for scanner.Scan() {
 		lines = append(lines, scanner.Text())
 	}
 	return lines, scanner.Err()
+}
+
+func fail(errorMessage string) {
+	os.Stderr.WriteString(fmt.Sprintf("%v\n", errorMessage))
+	os.Exit(1)
 }
