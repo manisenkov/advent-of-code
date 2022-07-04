@@ -37,7 +37,7 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	res := 0
 	for _, ids := range sol.fabric {
 		if len(ids) > 1 {
@@ -48,7 +48,7 @@ func (sol *Solution) Part1() common.Any {
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	idsLeft := map[string]bool{}
 	for _, id := range sol.ids {
 		idsLeft[id] = true

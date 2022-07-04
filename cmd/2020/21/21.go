@@ -69,7 +69,7 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	ingredientToAllergen := make(map[string]string)
 	for _, prod := range sol.products {
 		for _, ingredient := range prod.ingredients {
@@ -96,7 +96,7 @@ func (sol *Solution) Part1() common.Any {
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	ingredients := make([]string, 0)
 	for ingredient, allergen := range sol.ingredientToAllergen {
 		if allergen == "" {

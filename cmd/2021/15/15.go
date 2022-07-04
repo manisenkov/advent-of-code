@@ -21,12 +21,12 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	return findPath(sol.field)
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	height := len(sol.field)
 	width := len(sol.field[0])
 	bigField := make([][]int, height*5)

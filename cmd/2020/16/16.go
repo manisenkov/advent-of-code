@@ -57,7 +57,7 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	res := 0
 	sol.validTickets = [][]int{}
 	for _, ticket := range sol.otherTickets {
@@ -83,7 +83,7 @@ func (sol *Solution) Part1() common.Any {
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	possibleRules := make([][]string, len(sol.rules))
 	for i := 0; i < len(sol.rules); i++ {
 		possibleRules[i] = make([]string, 0)

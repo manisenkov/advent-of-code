@@ -56,7 +56,7 @@ func (sol *Solution) Eval(z, w int, step int) int {
 }
 
 // Part1 to solve a "silver" part (for a first star)
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	zs := map[int][]string{0: {""}}
 	for step := 0; step < 14; step++ {
 		nextZs := map[int][]string{}
@@ -85,7 +85,7 @@ func (sol *Solution) Part1() common.Any {
 }
 
 // Part2 to solve a "gold" part (for a second star)
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	return sol.sols[0]
 }
 

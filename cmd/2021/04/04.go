@@ -111,13 +111,13 @@ func (sol *Solution) playBingo() []stat {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	stats := sol.playBingo()
 	return stats[0].draw * stats[0].winner.sumUnmarked()
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	stats := sol.playBingo()
 	return stats[len(stats)-1].draw * stats[len(stats)-1].winner.sumUnmarked()
 }

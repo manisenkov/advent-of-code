@@ -32,7 +32,7 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	// Find start vertex
 	verticesLeft := map[byte]bool{}
 	for v := range sol.vertices {
@@ -86,7 +86,7 @@ func (sol *Solution) Part1() common.Any {
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	return 0
 }
 

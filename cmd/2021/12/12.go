@@ -22,13 +22,13 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	paths := sol.travel("start", map[string]int{}, false)
 	return len(paths)
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	paths := sol.travel("start", map[string]int{}, true)
 	return len(paths)
 }

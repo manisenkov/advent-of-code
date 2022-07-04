@@ -19,7 +19,7 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	res := 0
 	for i := 0; i < len(sol.measurements)-1; i++ {
 		if sol.measurements[i+1] > sol.measurements[i] {
@@ -30,7 +30,7 @@ func (sol *Solution) Part1() common.Any {
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	res := 0
 	for i := 0; i < len(sol.measurements)-3; i++ {
 		if sol.measurements[i+3] > sol.measurements[i] {

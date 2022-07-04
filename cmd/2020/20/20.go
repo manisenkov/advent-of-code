@@ -34,7 +34,7 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	side := int(math.Sqrt(float64(len(sol.tiles))))
 	tileGrid := make([][]tile, side)
 	for i := 0; i < side; i++ {
@@ -69,7 +69,7 @@ func (sol *Solution) Part1() common.Any {
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	variants := [][][]rune{
 		sol.grid,
 		turnGrid(sol.grid),

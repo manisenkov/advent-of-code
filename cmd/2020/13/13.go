@@ -26,7 +26,7 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	minTimeToWait := int64(math.MaxInt64)
 	busIDToWait := int64(0)
 	for _, busID := range sol.busIDs {
@@ -43,7 +43,7 @@ func (sol *Solution) Part1() common.Any {
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	// Can be solved as system of congruence equations. We're looking into *end* of the window (not the begin).
 	// Algorithm is taken from https://math.stackexchange.com/questions/79282/solving-simultaneous-congruences
 	// Calculate factors represented as [2]int64{r, bus_id} for congruent equations such as

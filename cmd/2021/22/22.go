@@ -33,7 +33,7 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	reactor := map[[3]int]bool{}
 	for i, cuboid := range sol.cuboids {
 		st := sol.states[i]
@@ -59,7 +59,7 @@ func (sol *Solution) Part1() common.Any {
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	// Find borders
 	borderMap := [3]map[int]bool{{}, {}, {}}
 	for _, cuboid := range sol.cuboids {

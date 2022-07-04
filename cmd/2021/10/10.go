@@ -44,7 +44,7 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	res := 0
 	for _, line := range sol.lines {
 		switch testLine(line) {
@@ -64,7 +64,7 @@ func (sol *Solution) Part1() common.Any {
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	scores := make([]int, len(sol.incompleteLines))
 	for i, line := range sol.incompleteLines {
 		completion := completeLine(line)

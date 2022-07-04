@@ -68,12 +68,12 @@ func (sol *Solution) solve(includeDiagonals bool) int {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	return sol.solve(false)
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	return sol.solve(true)
 }
 

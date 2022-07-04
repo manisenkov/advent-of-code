@@ -31,7 +31,7 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	h := 0
 	d := 0
 	for _, c := range sol.commands {
@@ -48,7 +48,7 @@ func (sol *Solution) Part1() common.Any {
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	h := 0
 	d := 0
 	aim := 0

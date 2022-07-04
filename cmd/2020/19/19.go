@@ -86,7 +86,7 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	res := 0
 	for _, msg := range sol.messages {
 		left, ok := sol.rules[0].match(msg, sol.rules)
@@ -98,7 +98,7 @@ func (sol *Solution) Part1() common.Any {
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	updRules := make(map[int]rule)
 	for id, r := range sol.rules {
 		updRules[id] = r

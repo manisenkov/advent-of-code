@@ -23,12 +23,12 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	return sol.checkSlope(3, 1)
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	slopes := [][]int{
 		{1, 1},
 		{3, 1},

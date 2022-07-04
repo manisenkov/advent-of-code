@@ -72,7 +72,7 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	maxTotalSleepDuration := 0
 	sleepiestGuardID := ""
 	for guardID, dur := range sol.guardTotalSleepDurations {
@@ -95,7 +95,7 @@ func (sol *Solution) Part1() common.Any {
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	maxTotalSleepMinuteDuration := 0
 	maxSleepMinute := -1
 	sleepiestGuardID := ""

@@ -16,7 +16,7 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	twoLet := 0
 	threeLet := 0
 	for _, id := range sol.ids {
@@ -31,7 +31,7 @@ func (sol *Solution) Part1() common.Any {
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	res := ""
 	for i := 0; i < len(sol.ids)-1; i++ {
 		for j := i + 1; j < len(sol.ids); j++ {

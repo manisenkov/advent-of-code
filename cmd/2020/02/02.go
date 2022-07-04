@@ -51,7 +51,7 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	result := 0
 	for i, p := range sol.passwords {
 		if sol.policies[i].validatePasswordOld(p) {
@@ -62,7 +62,7 @@ func (sol *Solution) Part1() common.Any {
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	result := 0
 	for i, p := range sol.passwords {
 		if sol.policies[i].validatePasswordNew(p) {

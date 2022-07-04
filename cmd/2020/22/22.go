@@ -31,7 +31,7 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	ptrs := [2]int{len(sol.startDecks[0]) - 1, len(sol.startDecks[1]) - 1}
 	decks := play(sol.startDecks, ptrs, false, 1)
 	winner := whoWin(decks)
@@ -43,7 +43,7 @@ func (sol *Solution) Part1() common.Any {
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	ptrs := [2]int{len(sol.startDecks[0]) - 1, len(sol.startDecks[1]) - 1}
 	decks := play(sol.startDecks, ptrs, true, 1)
 	winner := whoWin(decks)

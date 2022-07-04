@@ -71,7 +71,7 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	// Calculate distances
 	grid := make([][]distance, sol.height)
 	for row := range grid {
@@ -131,7 +131,7 @@ func (sol *Solution) Part1() common.Any {
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	// Calculate distances
 	grid := make([][][]distance, sol.height)
 	for row := range grid {

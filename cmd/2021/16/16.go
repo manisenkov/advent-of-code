@@ -111,7 +111,7 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	bytes := []int{}
 	for _, h := range sol.hexString {
 		bytes = append(bytes, hexMap[h]...)
@@ -121,7 +121,7 @@ func (sol *Solution) Part1() common.Any {
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	bytes := []int{}
 	for _, h := range sol.hexString {
 		bytes = append(bytes, hexMap[h]...)
