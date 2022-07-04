@@ -15,12 +15,12 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 to solve a "silver" part (for a first star)
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	return 0
 }
 
 // Part2 to solve a "gold" part (for a second star)
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	return 0
 }
 

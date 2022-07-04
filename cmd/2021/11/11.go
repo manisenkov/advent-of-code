@@ -78,7 +78,7 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	res := 0
 	grid := sol.grid
 	for i := 0; i < 100; i++ {
@@ -90,7 +90,7 @@ func (sol *Solution) Part1() common.Any {
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	grid := sol.grid
 	step := 1
 	for {

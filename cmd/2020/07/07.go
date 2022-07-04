@@ -33,7 +33,7 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	// Create reverse mapping to -> from
 	colorMapping := map[string][]string{}
 	for _, r := range sol.rules {
@@ -57,7 +57,7 @@ func (sol *Solution) Part1() common.Any {
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	return sol.getNumberOfBags(startBag) - 1
 }
 

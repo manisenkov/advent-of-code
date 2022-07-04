@@ -41,14 +41,14 @@ func (sol *Solution) solve(distFn func(curPos, initPos int) int) int {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	return sol.solve(func(curPos, initPos int) int {
 		return common.AbsInt(curPos - initPos)
 	})
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	return sol.solve(func(curPos, initPos int) int {
 		n := common.AbsInt(curPos - initPos)
 		return n * (n + 1) / 2

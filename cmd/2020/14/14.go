@@ -119,7 +119,7 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	st := state{
 		currentMask: mask{},
 		mem:         make(map[int64]int64),
@@ -135,7 +135,7 @@ func (sol *Solution) Part1() common.Any {
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	st := state{
 		currentMask: mask{},
 		mem:         make(map[int64]int64),

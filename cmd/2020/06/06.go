@@ -38,7 +38,7 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	res := 0
 	for _, g := range sol.groups {
 		res += len(g.counts)
@@ -47,7 +47,7 @@ func (sol *Solution) Part1() common.Any {
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	res := 0
 	for _, g := range sol.groups {
 		for _, c := range g.counts {

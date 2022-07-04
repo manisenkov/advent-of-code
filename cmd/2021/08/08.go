@@ -42,7 +42,7 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	res := 0
 	for _, s := range sol.signals {
 		for _, d := range s[len(s)-4:] {
@@ -55,7 +55,7 @@ func (sol *Solution) Part1() common.Any {
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	perms := generatePermutations([]byte("abcdefg"), 0)
 	patterns := make([]map[byte]int, len(perms))
 	for i, p := range perms {

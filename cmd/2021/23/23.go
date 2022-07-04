@@ -25,7 +25,7 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 to solve a "silver" part (for a first star)
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	res := map[state]int{sol.initState: 0}
 	queue := []state{sol.initState}
 	step := 0
@@ -52,7 +52,7 @@ func (sol *Solution) Part1() common.Any {
 }
 
 // Part2 to solve a "gold" part (for a second star)
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	p2InitState := state{
 		rooms: [4][4]byte{
 			{sol.initState.rooms[0][0], 'D', 'D', sol.initState.rooms[0][1]},

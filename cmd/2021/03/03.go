@@ -15,7 +15,7 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	bitsize := len(sol.input[0])
 	gamma := ""
 	epsilon := ""
@@ -38,7 +38,7 @@ func (sol *Solution) Part1() common.Any {
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	bitsize := len(sol.input[0])
 
 	// O2

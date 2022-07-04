@@ -18,7 +18,7 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	for i := 0; i < len(sol.entries)-1; i++ {
 		for j := i + 1; j < len(sol.entries); j++ {
 			if sol.entries[i]+sol.entries[j] == 2020 {
@@ -30,7 +30,7 @@ func (sol *Solution) Part1() common.Any {
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	for i := 0; i < len(sol.entries)-2; i++ {
 		for j := i + 1; j < len(sol.entries)-1; j++ {
 			for k := j + 1; k < len(sol.entries); k++ {

@@ -23,7 +23,7 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	res := 0
 	for i, row := range sol.field {
 		for j, n := range row {
@@ -49,7 +49,7 @@ func (sol *Solution) Part1() common.Any {
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	bassinMap := make([][]int, len(sol.field))
 	for i, row := range sol.field {
 		bassinMap[i] = make([]int, len(row))

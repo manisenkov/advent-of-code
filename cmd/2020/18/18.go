@@ -34,7 +34,7 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	res := 0
 	for _, expr := range sol.exprs {
 		r, _ := eval(expr, 0)
@@ -44,7 +44,7 @@ func (sol *Solution) Part1() common.Any {
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	res := 0
 	for _, expr := range sol.exprs {
 		r, _ := evalOrder(expr, 0, 0)

@@ -25,7 +25,7 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	lastItem := &item{
 		value: sol.initOrder[len(sol.initOrder)-1],
 	}
@@ -58,7 +58,7 @@ func (sol *Solution) Part1() common.Any {
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	lastItem := &item{
 		value: 1000000,
 	}

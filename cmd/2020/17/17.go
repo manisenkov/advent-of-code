@@ -49,7 +49,7 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	curSpace := sol.initSpace
 	for i := 0; i < 6; i++ {
 		curSpace = simulate3d(curSpace)
@@ -58,7 +58,7 @@ func (sol *Solution) Part1() common.Any {
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	curSpace := sol.initSpace
 	for i := 0; i < 6; i++ {
 		curSpace = simulate4d(curSpace)

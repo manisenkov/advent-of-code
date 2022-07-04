@@ -22,7 +22,7 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	for i := sol.preambleSize; i < len(sol.nums); i++ {
 		testNum := sol.nums[i]
 		if !hasSumPair(sol.nums[i-sol.preambleSize:i], testNum) {
@@ -34,7 +34,7 @@ func (sol *Solution) Part1() common.Any {
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	// Find partial sums
 	partSums := make([]int64, len(sol.nums)+1)
 	sum := int64(0)

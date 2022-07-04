@@ -29,13 +29,13 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	acc, _ := runProg(sol.program)
 	return acc
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	for i, ins := range sol.program {
 		if ins.cmd == "acc" {
 			continue

@@ -124,7 +124,7 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	res := sol.numbers[0]
 	for _, num := range sol.numbers[1:] {
 		res = res.add(num)
@@ -133,7 +133,7 @@ func (sol *Solution) Part1() common.Any {
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	maxMagnitude := -0x7fffffff
 	for i := range sol.numbers {
 		for j := range sol.numbers {

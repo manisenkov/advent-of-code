@@ -75,13 +75,13 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	res := foldPaper(sol.dots, sol.folds[0])
 	return len(res)
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	dots := sol.dots
 	for _, f := range sol.folds {
 		dots = foldPaper(dots, f)

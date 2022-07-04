@@ -39,7 +39,7 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	dir := 'E'
 	pos := [2]int{0, 0}
 	for _, ins := range sol.instructions {
@@ -49,7 +49,7 @@ func (sol *Solution) Part1() common.Any {
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	waypoint := [2]int{10, 1}
 	pos := [2]int{0, 0}
 	for _, ins := range sol.instructions {

@@ -25,7 +25,7 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	minVX := int(-1.0 + math.Sqrt(float64(1+8*sol.minX))/2.0)
 	if minVX*(minVX+1)/2 < sol.minX {
 		minVX++
@@ -48,7 +48,7 @@ func (sol *Solution) Part1() common.Any {
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	return len(sol.velocities)
 }
 

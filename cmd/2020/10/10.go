@@ -30,7 +30,7 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	curJolt := int64(0)
 	diff1Count := int64(0)
 	diff3Count := int64(0)
@@ -47,7 +47,7 @@ func (sol *Solution) Part1() common.Any {
 }
 
 // Part2 dynamic programming
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	numArrangements := make([]int64, len(sol.jolts))
 	numArrangements[0] = 1
 	for i := 0; i < len(sol.jolts); i++ {
@@ -59,7 +59,7 @@ func (sol *Solution) Part2() common.Any {
 }
 
 // Part2 groups and recursions
-// func (sol *Solution) Part2() common.Any {
+// func (sol *Solution) Part2() any {
 // 	i := 0
 // 	j := i + 1
 // 	res := int64(1)

@@ -44,12 +44,12 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	return sol.maxSeatID
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	taken := make(map[int]bool)
 	for _, seatID := range sol.seatIDs {
 		taken[seatID] = true

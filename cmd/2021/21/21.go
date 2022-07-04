@@ -34,7 +34,7 @@ func (sol *Solution) Init(input []string) {
 }
 
 // Part1 .
-func (sol *Solution) Part1() common.Any {
+func (sol *Solution) Part1() any {
 	st := sol.initState
 	dice := 0
 	rolledTimes := 0
@@ -57,7 +57,7 @@ func (sol *Solution) Part1() common.Any {
 }
 
 // Part2 .
-func (sol *Solution) Part2() common.Any {
+func (sol *Solution) Part2() any {
 	const goal = 21
 	diceProbabilities := map[int]int64{
 		3: 1,
