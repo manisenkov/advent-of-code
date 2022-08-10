@@ -10,8 +10,8 @@ import (
 // DaySolution represents a one AoC day solution
 type DaySolution interface {
 	Init([]string)
-	Part1() Any
-	Part2() Any
+	Part1() any
+	Part2() any
 }
 
 // Run day solution, taking input from stdin
