@@ -1,11 +1,12 @@
-# Advent of Code
+# Advent of Code in Go
 
-My solutions for [Advent of Code](https://adventofcode.com).
+## Completed
 
-- [2018 (in progress)](./cmd/2018)
+- [2021](./cmd/2021)
 - [2020](./cmd/2020)
-- [2021 (in progress)](./cmd/2021)
 
-## Archive
+## Incompleted
 
-- [2019 (JS)](https://github.com/manisenkov/advent-of-code/tree/js-2019)
+- [2018](./cmd/2018)
+- [2015](./cmd/2015)
+
