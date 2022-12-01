@@ -1,6 +1,18 @@
 use std::fmt::Display;
 use std::io::{self, Read};
-use std::time::Instant;
+use std::time::{Duration, Instant};
+
+fn format_dur(dur: Duration) -> String {
+    if dur.as_secs() > 0 {
+        format!("{}.{} s", dur.as_secs(), dur.as_millis())
+    } else if dur.as_millis() > 0 {
+        format!("{}.{} ms", dur.as_millis(), dur.as_micros())
+    } else if dur.as_micros() > 0 {
+        format!("{}.{} μs", dur.as_micros(), dur.as_nanos() % 1000)
+    } else {
+        format!("{} ns", dur.as_nanos())
+    }
+}
 
 pub trait Solution<T1, T2 = T1>
 where
@@ -15,27 +27,32 @@ where
     fn part_two(&mut self) -> T2;
 
     fn run_on_stdin(&mut self) {
+        let start_inst = Instant::now();
         let mut stdin = io::stdin();
         let mut input = String::new();
         stdin.read_to_string(&mut input).unwrap();
-        self.run(input.trim())
+        let reading_time = start_inst.elapsed();
+        println!(" -- Reading time: {}", format_dur(reading_time));
+
+        self.run(input.trim());
     }
 
     fn run(&mut self, input: &str) {
-        let start_instant = Instant::now();
-
+        let start_inst = Instant::now();
         self.init(input);
-        let init_time = start_instant.elapsed().as_nanos();
-        println!("Init time {} ns", init_time);
+        let init_time = start_inst.elapsed();
+        println!(" -- Init time: {}", format_dur(init_time));
 
-        let t1 = self.part_one();
-        let part_one_time = start_instant.elapsed().as_nanos() - init_time;
-        println!("Part one: {}", t1);
-        println!("Time spent on part one: {} ns", part_one_time);
+        let part_one_start_inst = Instant::now();
+        let part_one_result = self.part_one();
+        let part_one_time = part_one_start_inst.elapsed();
+        println!("Part one: {}", part_one_result);
+        println!(" -- Part one time: {}", format_dur(part_one_time));
 
-        let t2 = self.part_two();
-        let part_two_time = start_instant.elapsed().as_nanos() - part_one_time;
-        println!("Part two: {}", t2);
-        println!("Time spent on part two: {} ns", part_two_time);
+        let part_two_start_inst = Instant::now();
+        let part_two_result = self.part_two();
+        let part_two_time = part_two_start_inst.elapsed();
+        println!("Part two: {}", part_two_result);
+        println!(" -- Part two time: {}", format_dur(part_two_time));
     }
 }
