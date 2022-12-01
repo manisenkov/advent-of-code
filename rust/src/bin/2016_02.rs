@@ -153,15 +153,12 @@ mod tests {
     use crate::Day2016_02;
     use aoc::solution::Solution;
 
+    const TEST_INPUT: &str = include_str!("../../examples/2016_02.txt");
+
     #[test]
     fn test_1() {
         let mut sol = Day2016_02::new();
-        sol.init(
-            "ULL
-        RRDDD
-        LURDL
-        UUUUD",
-        );
+        sol.init(TEST_INPUT);
         assert_eq!(sol.part_one(), "1985");
         assert_eq!(sol.part_two(), "5DB3");
     }
