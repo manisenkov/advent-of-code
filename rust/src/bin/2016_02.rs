@@ -115,7 +115,7 @@ impl Solution<String> for Day2016_02 {
             .iter()
             .map(|moves| {
                 let mut cur_pos = pos;
-                for mov in moves.iter() {
+                for mov in moves {
                     cur_pos = mov.apply(cur_pos);
                 }
                 pos = cur_pos;
@@ -132,7 +132,7 @@ impl Solution<String> for Day2016_02 {
             .iter()
             .map(|moves| {
                 let mut cur_pos = pos;
-                for mov in moves.iter() {
+                for mov in moves {
                     cur_pos = mov.apply_ext(cur_pos);
                 }
                 pos = cur_pos;
