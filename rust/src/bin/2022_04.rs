@@ -1,12 +1,11 @@
 use aoc::solution::Solution;
 
-#[derive(Clone, Copy)]
 struct IDRange(u32, u32);
 
 impl IDRange {
     fn parse(input: &str) -> IDRange {
-        let p: Vec<&str> = input.split("-").collect();
-        IDRange(p[0].parse().unwrap(), p[1].parse().unwrap())
+        let mut p = input.split("-").map(|s| s.parse::<u32>().unwrap());
+        IDRange(p.next().unwrap(), p.next().unwrap())
     }
 
     fn include(&self, other: &IDRange) -> bool {
@@ -18,13 +17,12 @@ impl IDRange {
     }
 }
 
-#[derive(Clone, Copy)]
 struct IDRangePair(IDRange, IDRange);
 
 impl IDRangePair {
     fn parse(input: &str) -> IDRangePair {
-        let p: Vec<&str> = input.split(",").collect();
-        IDRangePair(IDRange::parse(p[0]), IDRange::parse(p[1]))
+        let mut p = input.split(",").map(|s| IDRange::parse(s));
+        IDRangePair(p.next().unwrap(), p.next().unwrap())
     }
 }
 
