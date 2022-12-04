@@ -1,10 +1,10 @@
 use aoc::solution::Solution;
 
 struct DaySolution {
-    count: i32,
+    count: u32,
 }
 
-impl Solution<i32> for DaySolution {
+impl Solution<u32> for DaySolution {
     fn new() -> DaySolution {
         DaySolution { count: 0 }
     }
@@ -12,16 +12,16 @@ impl Solution<i32> for DaySolution {
     fn init(&mut self, input: &str) {
         for line in input.lines() {
             println!("{}", line);
-            self.count += line.parse::<i32>().unwrap()
+            self.count += line.parse::<u32>().unwrap()
         }
     }
 
-    fn part_one(&mut self) -> i32 {
+    fn part_one(&mut self) -> u32 {
         self.count += 1;
         self.count
     }
 
-    fn part_two(&mut self) -> i32 {
+    fn part_two(&mut self) -> u32 {
         self.count += 1;
         self.count
     }
