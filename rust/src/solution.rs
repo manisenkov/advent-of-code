@@ -34,7 +34,7 @@ where
         let reading_time = start_inst.elapsed();
         println!(" -- Reading time: {}", format_dur(reading_time));
 
-        self.run(input.trim());
+        self.run(input.as_str());
     }
 
     fn run(&mut self, input: &str) {

@@ -37,19 +37,13 @@ mod tests {
     use crate::DaySolution;
     use aoc::solution::Solution;
 
+    const TEST_INPUT: &str = include_str!("../../examples/day.txt");
+
     #[test]
     fn test_1() {
         let mut sol = DaySolution::new();
-        sol.init("0");
+        sol.init(TEST_INPUT);
         assert_eq!(sol.part_one(), 1);
         assert_eq!(sol.part_two(), 2);
-    }
-
-    #[test]
-    fn test_2() {
-        let mut sol = DaySolution::new();
-        sol.init("42");
-        assert_eq!(sol.part_one(), 43);
-        assert_eq!(sol.part_two(), 44);
     }
 }
