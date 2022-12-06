@@ -18,57 +18,37 @@ impl Move {
 }
 
 struct Day2022_05 {
-    init_stacks: Vec<Vec<char>>,
+    plan: Vec<Vec<char>>,
     moves: Vec<Move>,
 }
 
 impl Solution<String> for Day2022_05 {
     fn new() -> Day2022_05 {
         Day2022_05 {
-            init_stacks: Vec::new(),
+            plan: Vec::new(),
             moves: Vec::new(),
         }
     }
 
     fn init(&mut self, input: &str) {
-        let mut box_plan = Vec::<String>::new();
-        let mut box_part_done = false;
-        for line in input.lines() {
-            if line.trim() == "" {
-                box_part_done = true;
-                continue;
-            }
-            if box_part_done {
-                // Parse moves
-                self.moves.push(Move::parse(line.trim()))
-            } else {
-                // Add new line to map
-                box_plan.push(String::from(line))
-            }
-        }
+        let (plan, moves) = input.split_once("\n\n").unwrap();
 
-        // Parse initial box map
-        let num_col = (box_plan.last().unwrap().len() + 2) / 4;
-        self.init_stacks.extend((0..num_col).map(|_| Vec::new()));
-        for plan_line in box_plan.iter().take(box_plan.len() - 1).rev() {
-            let chars: Vec<char> = plan_line.chars().collect();
-            for i in 0..num_col {
-                match chars.get((i * 4) + 1) {
-                    Some(c) => {
-                        if !c.is_whitespace() {
-                            self.init_stacks[i].push(*c);
-                        }
-                    }
-                    None => {
-                        break;
-                    }
+        let plan_lines: Vec<&str> = plan.lines().collect();
+        let num_col = (plan_lines.last().unwrap().trim().len() + 3) / 4;
+        self.plan.extend((0..num_col).map(|_| vec![]));
+        for line in plan_lines.iter().take(plan_lines.len() - 1).rev() {
+            for (i, c) in line.chars().skip(1).step_by(4).enumerate() {
+                if !c.is_whitespace() {
+                    self.plan[i].push(c)
                 }
             }
         }
+
+        self.moves = moves.lines().map(|s| Move::parse(s.trim())).collect();
     }
 
     fn part_one(&mut self) -> String {
-        let mut state = self.init_stacks.to_vec();
+        let mut state = self.plan.to_vec();
         for mov in &self.moves {
             for _ in 0..mov.count {
                 let c = state[mov.from].pop().unwrap();
@@ -79,7 +59,7 @@ impl Solution<String> for Day2022_05 {
     }
 
     fn part_two(&mut self) -> String {
-        let mut state = self.init_stacks.to_vec();
+        let mut state = self.plan.to_vec();
         for mov in &self.moves {
             let skip_count = state[mov.from].len() - mov.count;
             let mut target = vec![];
