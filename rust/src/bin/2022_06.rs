@@ -1,9 +1,28 @@
-use std::collections::HashSet;
-
 use aoc::solution::Solution;
 
 struct DaySolution {
     signal: Vec<char>,
+}
+
+fn is_all_different(s: &[char]) -> bool {
+    for i in 0..s.len() - 1 {
+        for j in (i + 1)..s.len() {
+            if s[i] == s[j] {
+                return false;
+            }
+        }
+    }
+    true
+}
+
+fn find_packet_index(signal: &[char], size: usize) -> usize {
+    signal
+        .windows(size)
+        .enumerate()
+        .find(|(_, s)| is_all_different(s))
+        .unwrap()
+        .0
+        + size
 }
 
 impl Solution<usize> for DaySolution {
@@ -16,23 +35,11 @@ impl Solution<usize> for DaySolution {
     }
 
     fn part_one(&mut self) -> usize {
-        self.signal
-            .windows(4)
-            .enumerate()
-            .find(|(_, w)| HashSet::<&char>::from_iter(w.iter()).len() == 4)
-            .unwrap()
-            .0
-            + 4
+        find_packet_index(&self.signal, 4)
     }
 
     fn part_two(&mut self) -> usize {
-        self.signal
-            .windows(14)
-            .enumerate()
-            .find(|(_, w)| HashSet::<&char>::from_iter(w.iter()).len() == 14)
-            .unwrap()
-            .0
-            + 14
+        find_packet_index(&self.signal, 14)
     }
 }
 
