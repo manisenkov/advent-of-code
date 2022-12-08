@@ -1,6 +1,6 @@
 use aoc::solution::Solution;
 
-struct DaySolution {
+struct Day2022_06 {
     signal: Vec<char>,
 }
 
@@ -25,9 +25,9 @@ fn find_packet_index(signal: &[char], size: usize) -> usize {
         + size
 }
 
-impl Solution<usize> for DaySolution {
-    fn new() -> DaySolution {
-        DaySolution { signal: Vec::new() }
+impl Solution<usize> for Day2022_06 {
+    fn new() -> Day2022_06 {
+        Day2022_06 { signal: Vec::new() }
     }
 
     fn init(&mut self, input: &str) {
@@ -44,18 +44,18 @@ impl Solution<usize> for DaySolution {
 }
 
 fn main() {
-    let mut sol = DaySolution::new();
+    let mut sol = Day2022_06::new();
     sol.run_on_stdin()
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::DaySolution;
+    use crate::Day2022_06;
     use aoc::solution::Solution;
 
     #[test]
     fn test_1() {
-        let mut sol = DaySolution::new();
+        let mut sol = Day2022_06::new();
         sol.init("mjqjpqmgbljsphdztnvjfqwrcgsmlb");
         assert_eq!(sol.part_one(), 7);
         assert_eq!(sol.part_two(), 19);
@@ -63,7 +63,7 @@ mod tests {
 
     #[test]
     fn test_2() {
-        let mut sol = DaySolution::new();
+        let mut sol = Day2022_06::new();
         sol.init("bvwbjplbgvbhsrlpgdmjqwftvncz");
         assert_eq!(sol.part_one(), 5);
         assert_eq!(sol.part_two(), 23);
@@ -71,7 +71,7 @@ mod tests {
 
     #[test]
     fn test_3() {
-        let mut sol = DaySolution::new();
+        let mut sol = Day2022_06::new();
         sol.init("nppdvjthqldpwncqszvftbrmjlhg");
         assert_eq!(sol.part_one(), 6);
         assert_eq!(sol.part_two(), 23);
@@ -79,7 +79,7 @@ mod tests {
 
     #[test]
     fn test_4() {
-        let mut sol = DaySolution::new();
+        let mut sol = Day2022_06::new();
         sol.init("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg");
         assert_eq!(sol.part_one(), 10);
         assert_eq!(sol.part_two(), 29);
@@ -87,7 +87,7 @@ mod tests {
 
     #[test]
     fn test_5() {
-        let mut sol = DaySolution::new();
+        let mut sol = Day2022_06::new();
         sol.init("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw");
         assert_eq!(sol.part_one(), 11);
         assert_eq!(sol.part_two(), 26);
