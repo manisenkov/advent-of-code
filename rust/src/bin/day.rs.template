@@ -10,7 +10,6 @@ impl Solution<usize> for DaySolution {
     fn init(&mut self, input: &str) {
         for line in input.lines() {
             println!("{}", line);
-            self.count += line.parse::<usize>().unwrap()
         }
     }
 
