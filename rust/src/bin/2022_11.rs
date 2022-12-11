@@ -1,10 +1,24 @@
 use aoc::solution::Solution;
 
-#[derive(Debug, Clone)]
+#[derive(Clone)]
 enum Operation {
     Plus(u64),
     Prod(u64),
     Square,
+}
+
+enum Mode {
+    Simple,
+    Extended(u64),
+}
+
+impl Mode {
+    fn apply(&self, arg: u64) -> u64 {
+        match self {
+            Mode::Simple => arg / 3,
+            Mode::Extended(n) => arg % n,
+        }
+    }
 }
 
 impl Operation {
@@ -32,7 +46,7 @@ impl Operation {
     }
 }
 
-#[derive(Debug, Clone)]
+#[derive(Clone)]
 struct Monkey {
     items: Vec<u64>,
     operation: Operation,
@@ -97,11 +111,11 @@ impl<'a> Monkey {
     }
 }
 
-fn turn_simple(index: usize, monkeys: &mut Vec<Monkey>) -> usize {
+fn turn(index: usize, monkeys: &mut Vec<Monkey>, mode: Mode) -> usize {
     let count = monkeys[index].items.len();
     let to_inspect: Vec<u64> = monkeys[index].items.drain(..count).collect();
     for item in to_inspect {
-        let worry_level = monkeys[index].operation.run(item) / 3;
+        let worry_level = mode.apply(monkeys[index].operation.run(item));
         let test_factor = monkeys[index].test_factor;
         let to_index = if worry_level % test_factor == 0 {
             monkeys[index].if_true
@@ -109,22 +123,6 @@ fn turn_simple(index: usize, monkeys: &mut Vec<Monkey>) -> usize {
             monkeys[index].if_false
         };
         monkeys[to_index].items.push(worry_level);
-    }
-    count
-}
-
-fn turn_extend(index: usize, monkeys: &mut Vec<Monkey>, mul_factor: u64) -> usize {
-    let count = monkeys[index].items.len();
-    let to_inspect: Vec<u64> = monkeys[index].items.drain(..count).collect();
-    for item in to_inspect {
-        let worry_level = monkeys[index].operation.run(item);
-        let test_factor = monkeys[index].test_factor;
-        let to_index = if worry_level % test_factor == 0 {
-            monkeys[index].if_true
-        } else {
-            monkeys[index].if_false
-        };
-        monkeys[to_index].items.push(worry_level % mul_factor);
     }
     count
 }
@@ -152,11 +150,12 @@ impl Solution<usize> for Day2022_11 {
         let mut counters = vec![0; monkeys.len()];
         for _ in 0..20 {
             for i in 0..monkeys.len() {
-                counters[i] += turn_simple(i, &mut monkeys);
+                counters[i] += turn(i, &mut monkeys, Mode::Simple);
             }
         }
-        counters.sort();
-        counters[counters.len() - 1] * counters[counters.len() - 2]
+        counters.sort_unstable();
+        counters.reverse();
+        counters[0] * counters[1]
     }
 
     fn part_two(&mut self) -> usize {
@@ -165,11 +164,12 @@ impl Solution<usize> for Day2022_11 {
         let mul_factor = monkeys.iter().fold(1, |acc, m| acc * m.test_factor);
         for _ in 0..10000 {
             for i in 0..monkeys.len() {
-                counters[i] += turn_extend(i, &mut monkeys, mul_factor);
+                counters[i] += turn(i, &mut monkeys, Mode::Extended(mul_factor));
             }
         }
-        counters.sort();
-        counters[counters.len() - 1] * counters[counters.len() - 2]
+        counters.sort_unstable();
+        counters.reverse();
+        counters[0] * counters[1]
     }
 }
 
