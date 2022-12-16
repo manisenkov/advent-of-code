@@ -1,18 +1,17 @@
-use std::collections::{HashMap, HashSet};
+use std::collections::{HashMap, HashSet, VecDeque};
 
 use aoc::solution::Solution;
 
 fn calc_dists(start: &String, tunnels: &HashMap<String, Vec<String>>) -> HashMap<String, u64> {
-    let mut stack: Vec<String> = vec![start.clone()];
+    let mut queue: VecDeque<String> = VecDeque::from([start.clone()]);
     let mut dists: HashMap<String, u64> = HashMap::from([(start.clone(), 0)]);
-    while stack.len() > 0 {
-        let cur_pos = stack.pop().unwrap();
+    while let Some(cur_pos) = queue.pop_front() {
         let cur_dist = dists[&cur_pos];
         for next in tunnels[&cur_pos].iter() {
             let next_dist = *dists.get(next).unwrap_or(&0x7fffffff);
             if next_dist > cur_dist + 1 {
                 dists.insert(next.clone(), cur_dist + 1);
-                stack.push(next.clone());
+                queue.push_back(next.clone());
             }
         }
     }
