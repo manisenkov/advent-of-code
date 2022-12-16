@@ -1,28 +1,6 @@
-use std::cmp::Ordering;
-use std::collections::{BinaryHeap, HashMap};
+use std::collections::{HashMap, VecDeque};
 
 use aoc::solution::Solution;
-
-#[derive(Clone, Copy, PartialEq, Eq)]
-struct State {
-    pos: (isize, isize),
-    dist: usize,
-}
-
-impl Ord for State {
-    fn cmp(&self, other: &Self) -> Ordering {
-        other
-            .dist
-            .cmp(&self.dist)
-            .then_with(|| self.pos.cmp(&other.pos))
-    }
-}
-
-impl PartialOrd for State {
-    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
-        Some(self.cmp(other))
-    }
-}
 
 struct Day2022_12 {
     dist_map: HashMap<(isize, isize), usize>,
@@ -66,48 +44,35 @@ impl Solution<usize> for Day2022_12 {
     }
 
     fn part_one(&mut self) -> usize {
-        let mut states = BinaryHeap::<State>::new();
+        let mut queue = VecDeque::<(isize, isize)>::from([self.end_point]);
 
         self.dist_map.insert(self.end_point, 0);
-        states.push(State {
-            dist: 0,
-            pos: self.end_point,
-        });
 
-        while states.len() > 0 {
-            let cur_state = states.pop().unwrap();
-            let cur_height = *self.height_map.get(&cur_state.pos).unwrap();
+        while let Some(cur_pos) = queue.pop_front() {
+            let cur_dist = self.dist_map[&cur_pos];
+            let cur_height = self.height_map[&cur_pos];
             let to_visit: Vec<(isize, isize)> = vec![
-                (cur_state.pos.0 - 1, cur_state.pos.1),
-                (cur_state.pos.0 + 1, cur_state.pos.1),
-                (cur_state.pos.0, cur_state.pos.1 - 1),
-                (cur_state.pos.0, cur_state.pos.1 + 1),
+                (cur_pos.0 - 1, cur_pos.1),
+                (cur_pos.0 + 1, cur_pos.1),
+                (cur_pos.0, cur_pos.1 - 1),
+                (cur_pos.0, cur_pos.1 + 1),
             ]
             .iter()
             .filter(|p| self.height_map.contains_key(p))
-            .filter(|p| self.height_map.get(p).unwrap() + 1 >= cur_height)
+            .filter(|p| self.height_map[p] + 1 >= cur_height)
             .map(|p| *p)
             .collect();
 
-            if let Some(d) = self.dist_map.get(&cur_state.pos) {
-                if cur_state.dist > *d {
-                    continue;
-                }
-            }
-
             for target_pos in to_visit.iter() {
-                let next = State {
-                    dist: cur_state.dist + 1,
-                    pos: *target_pos,
-                };
+                let next_dist = cur_dist + 1;
                 let target_dist = *self.dist_map.get(&target_pos).unwrap_or(&0x7fffffff);
-                if next.dist < target_dist {
-                    self.dist_map.insert(*target_pos, next.dist);
-                    states.push(next);
+                if next_dist < target_dist {
+                    self.dist_map.insert(*target_pos, next_dist);
+                    queue.push_back(*target_pos);
                 }
             }
         }
-        *self.dist_map.get(&self.start_point).unwrap()
+        self.dist_map[&self.start_point]
     }
 
     fn part_two(&mut self) -> usize {
