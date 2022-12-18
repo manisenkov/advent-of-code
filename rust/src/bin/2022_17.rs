@@ -1,4 +1,7 @@
-use std::collections::HashSet;
+use std::{
+    collections::{HashMap, HashSet},
+    hash::Hash,
+};
 
 use aoc::solution::Solution;
 
@@ -36,9 +39,68 @@ impl Rock {
     }
 }
 
+#[derive(PartialEq, Eq, Hash)]
+struct Step {
+    rock_index: usize,
+    dir_index: usize,
+    fingerprint: i64,
+}
+
+fn calc_fingerprint(occupied: &HashSet<(i64, i64)>, top: i64) -> i64 {
+    let mut res: i64 = 0;
+    let mut idx = 0;
+    for row in (top - 8..top).rev() {
+        for col in 0..7 {
+            if occupied.contains(&(row, col)) {
+                res += 1 << idx;
+            }
+            idx += 1;
+        }
+    }
+    res
+}
+
 struct Day2022_17 {
     figures: Vec<Figure>,
     directions: Vec<char>,
+}
+
+impl Day2022_17 {
+    fn cycle(&self) -> impl Iterator<Item = (Step, i64)> + '_ {
+        let mut occupied: HashSet<(i64, i64)> = HashSet::new();
+        let mut top = 0;
+        let mut dir_index = 0;
+        (0..).map(move |i| {
+            let mut rock = self.figures[i % self.figures.len()].to_rock(&(top + 3, 2));
+            loop {
+                let dir = self.directions[dir_index];
+                dir_index = (dir_index + 1) % self.directions.len();
+
+                let mut next_rock = rock.mov(if dir == '<' { &(0, -1) } else { &(0, 1) });
+                if next_rock.fit(&occupied) {
+                    rock = next_rock;
+                }
+
+                next_rock = rock.mov(&(-1, 0));
+                if next_rock.fit(&occupied) {
+                    rock = next_rock;
+                } else {
+                    let Rock(cells) = rock;
+                    occupied.extend(cells.iter());
+                    top = top.max(cells.iter().map(|(row, _)| *row + 1).max().unwrap());
+                    break;
+                }
+            }
+            (
+                Step {
+                    rock_index: i % self.figures.len(),
+                    dir_index: dir_index,
+                    fingerprint: calc_fingerprint(&occupied, top.max(8)),
+                },
+                top,
+            )
+        })
+    }
 }
 
 impl Solution<i64> for Day2022_17 {
@@ -64,36 +126,30 @@ impl Solution<i64> for Day2022_17 {
     }
 
     fn part_one(&mut self) -> i64 {
-        let mut occupied: HashSet<(i64, i64)> = HashSet::new();
-        let mut top = 0;
-        let mut dir_index = 0;
-        for i in 0..2022 {
-            let mut rock = self.figures[i % self.figures.len()].to_rock(&(top + 3, 2));
-            loop {
-                let dir = self.directions[dir_index];
-                dir_index = (dir_index + 1) % self.directions.len();
-
-                let mut next_rock = rock.mov(if dir == '<' { &(0, -1) } else { &(0, 1) });
-                if next_rock.fit(&occupied) {
-                    rock = next_rock;
-                }
-
-                next_rock = rock.mov(&(-1, 0));
-                if next_rock.fit(&occupied) {
-                    rock = next_rock;
-                } else {
-                    let Rock(cells) = rock;
-                    occupied.extend(cells.iter());
-                    top = top.max(cells.iter().map(|(row, _)| *row + 1).max().unwrap());
-                    break;
-                }
-            }
-        }
-        top
+        self.cycle().take(2022).last().unwrap().1
     }
 
     fn part_two(&mut self) -> i64 {
-        0
+        let mut steps: HashMap<Step, usize> = HashMap::new();
+        let mut tops: Vec<i64> = vec![];
+        let mut repeated_at: usize = 0;
+        for (i, (step, top)) in self.cycle().enumerate() {
+            if steps.contains_key(&step) {
+                repeated_at = steps[&step];
+                break;
+            }
+            steps.insert(step, i);
+            tops.push(top);
+        }
+        let cycle_size = steps.len() - repeated_at;
+        let diff = *tops.last().unwrap() - tops[repeated_at - 1];
+        let total = 1_000_000_000_000 - repeated_at;
+        let rest = total % cycle_size;
+
+        *tops.last().unwrap()
+            + (total / cycle_size - 1) as i64 * diff
+            + tops[repeated_at + rest - 1]
+            - tops[repeated_at - 1]
     }
 }
 
@@ -114,6 +170,6 @@ mod tests {
         let mut sol = Day2022_17::new();
         sol.init(TEST_INPUT);
         assert_eq!(sol.part_one(), 3068);
-        assert_eq!(sol.part_two(), 0);
+        assert_eq!(sol.part_two(), 1514285714288);
     }
 }
