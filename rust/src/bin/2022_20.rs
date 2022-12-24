@@ -7,7 +7,6 @@ const DECRYPTION_KEY: i64 = 811589153;
 
 type NodePtr = Rc<RefCell<Node>>;
 
-#[derive(Debug)]
 struct Node {
     index: usize,
     step: i64,

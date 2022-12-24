@@ -14,7 +14,7 @@ enum RobotType {
     Geode,
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash)]
 struct Blueprint {
     ore: u32,
     clay: u32,
@@ -44,7 +44,7 @@ impl Blueprint {
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash)]
 struct State {
     ore: u32,
     clay: u32,
