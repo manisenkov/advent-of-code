@@ -1,6 +1,5 @@
 use aoc::solution::Solution;
 
-#[derive(Debug)]
 enum Command {
     Noop,
     AddX(isize),

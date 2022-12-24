@@ -1,4 +1,4 @@
-use std::{collections::{HashMap, HashSet}};
+use std::collections::{HashMap, HashSet};
 
 use aoc::solution::Solution;
 
@@ -103,7 +103,12 @@ impl Solution<i32, usize> for Day2022_23 {
         let mut cur_pos: HashSet<(i32, i32)> = HashSet::from_iter(self.init_pos.iter().map(|p| *p));
         for round in 0.. {
             let next_pos = mov(&cur_pos, round);
-            if cur_pos.intersection(&next_pos).collect::<Vec<&(i32, i32)>>().len() == cur_pos.len() {
+            if cur_pos
+                .intersection(&next_pos)
+                .collect::<Vec<&(i32, i32)>>()
+                .len()
+                == cur_pos.len()
+            {
                 return round + 1;
             }
             cur_pos = next_pos;
