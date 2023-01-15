@@ -5,20 +5,18 @@ struct Day2022_08 {
 }
 
 impl Solution<usize> for Day2022_08 {
-    fn new() -> Day2022_08 {
-        Day2022_08 { talls: Vec::new() }
-    }
-
-    fn init(&mut self, input: &str) {
-        self.talls = input
-            .lines()
-            .map(|line| {
-                line.trim()
-                    .chars()
-                    .map(|c| c.to_string().parse::<usize>().unwrap())
-                    .collect()
-            })
-            .collect()
+    fn new(input: &str) -> Day2022_08 {
+        Day2022_08 {
+            talls: input
+                .lines()
+                .map(|line| {
+                    line.trim()
+                        .chars()
+                        .map(|c| c.to_string().parse::<usize>().unwrap())
+                        .collect()
+                })
+                .collect(),
+        }
     }
 
     fn part_one(&mut self) -> usize {
@@ -90,8 +88,7 @@ impl Solution<usize> for Day2022_08 {
 }
 
 fn main() {
-    let mut sol = Day2022_08::new();
-    sol.run_on_stdin()
+    Day2022_08::run_on_stdin();
 }
 
 #[cfg(test)]
@@ -103,8 +100,7 @@ mod tests {
 
     #[test]
     fn test_1() {
-        let mut sol = Day2022_08::new();
-        sol.init(TEST_INPUT);
+        let mut sol = Day2022_08::new(TEST_INPUT);
         assert_eq!(sol.part_one(), 21);
         assert_eq!(sol.part_two(), 8);
     }

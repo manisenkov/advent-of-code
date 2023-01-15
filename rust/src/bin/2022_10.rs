@@ -23,15 +23,11 @@ struct Day2022_10 {
 }
 
 impl Solution<isize, String> for Day2022_10 {
-    fn new() -> Day2022_10 {
+    fn new(input: &str) -> Day2022_10 {
         Day2022_10 {
-            commands: vec![],
+            commands: input.lines().map(Command::parse).collect(),
             display: String::new(),
         }
-    }
-
-    fn init(&mut self, input: &str) {
-        self.commands.extend(input.lines().map(Command::parse));
     }
 
     fn part_one(&mut self) -> isize {
@@ -76,8 +72,7 @@ impl Solution<isize, String> for Day2022_10 {
 }
 
 fn main() {
-    let mut sol = Day2022_10::new();
-    sol.run_on_stdin()
+    Day2022_10::run_on_stdin();
 }
 
 #[cfg(test)]
@@ -96,8 +91,7 @@ mod tests {
 
     #[test]
     fn test_1() {
-        let mut sol = Day2022_10::new();
-        sol.init(TEST_INPUT);
+        let mut sol = Day2022_10::new(TEST_INPUT);
         assert_eq!(sol.part_one(), 13140);
         assert_eq!(sol.part_two(), EXPECTED);
     }

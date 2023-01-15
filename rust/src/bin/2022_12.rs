@@ -2,56 +2,58 @@ use std::collections::{HashMap, VecDeque};
 
 use aoc::solution::Solution;
 
+type Pos = (isize, isize);
+
 struct Day2022_12 {
-    dist_map: HashMap<(isize, isize), usize>,
-    height_map: HashMap<(isize, isize), usize>,
-    possible_starts: Vec<(isize, isize)>,
-    start_point: (isize, isize),
-    end_point: (isize, isize),
+    dist_map: HashMap<Pos, usize>,
+    height_map: HashMap<Pos, usize>,
+    possible_starts: Vec<Pos>,
+    start_point: Pos,
+    end_point: Pos,
 }
 
 impl Solution<usize> for Day2022_12 {
-    fn new() -> Day2022_12 {
-        Day2022_12 {
-            dist_map: HashMap::new(),
-            height_map: HashMap::new(),
-            possible_starts: vec![],
-            start_point: (0, 0),
-            end_point: (0, 0),
-        }
-    }
-
-    fn init(&mut self, input: &str) {
+    fn new(input: &str) -> Day2022_12 {
+        let mut start_point: Pos = (0, 0);
+        let mut end_point: Pos = (0, 0);
+        let mut possible_starts: Vec<_> = vec![];
+        let mut height_map: HashMap<_, _> = HashMap::new();
         for (row, line) in input.lines().enumerate() {
-            self.height_map
-                .extend(line.trim().chars().enumerate().map(|(col, c)| {
-                    let pos = (row as isize, col as isize);
-                    let height = if c == 'S' {
-                        self.start_point = pos;
-                        1
-                    } else if c == 'E' {
-                        self.end_point = pos;
-                        26
-                    } else {
-                        (c as usize) - ('a' as usize) + 1
-                    };
-                    if c == 'a' || c == 'S' {
-                        self.possible_starts.push(pos);
-                    }
-                    (pos, height)
-                }));
+            for (col, c) in line.trim().chars().enumerate() {
+                let pos = (row as isize, col as isize);
+                let height = if c == 'S' {
+                    start_point = pos;
+                    1
+                } else if c == 'E' {
+                    end_point = pos;
+                    26
+                } else {
+                    (c as usize) - ('a' as usize) + 1
+                };
+                if c == 'a' || c == 'S' {
+                    possible_starts.push(pos);
+                }
+                height_map.insert(pos, height);
+            }
+        }
+        Day2022_12 {
+            height_map,
+            possible_starts,
+            start_point,
+            end_point,
+            dist_map: HashMap::new(),
         }
     }
 
     fn part_one(&mut self) -> usize {
-        let mut queue = VecDeque::<(isize, isize)>::from([self.end_point]);
+        let mut queue = VecDeque::<Pos>::from([self.end_point]);
 
         self.dist_map.insert(self.end_point, 0);
 
         while let Some(cur_pos) = queue.pop_front() {
             let cur_dist = self.dist_map[&cur_pos];
             let cur_height = self.height_map[&cur_pos];
-            let to_visit: Vec<(isize, isize)> = vec![
+            let to_visit: Vec<Pos> = vec![
                 (cur_pos.0 - 1, cur_pos.1),
                 (cur_pos.0 + 1, cur_pos.1),
                 (cur_pos.0, cur_pos.1 - 1),
@@ -85,8 +87,7 @@ impl Solution<usize> for Day2022_12 {
 }
 
 fn main() {
-    let mut sol = Day2022_12::new();
-    sol.run_on_stdin()
+    Day2022_12::run_on_stdin();
 }
 
 #[cfg(test)]
@@ -98,8 +99,7 @@ mod tests {
 
     #[test]
     fn test_1() {
-        let mut sol = Day2022_12::new();
-        sol.init(TEST_INPUT);
+        let mut sol = Day2022_12::new(TEST_INPUT);
         assert_eq!(sol.part_one(), 31);
         assert_eq!(sol.part_two(), 29);
     }

@@ -19,14 +19,16 @@ where
     T1: Display + PartialEq<T1>,
     T2: Display + PartialEq<T2>,
 {
-    fn new() -> Self
+    fn new(input: &str) -> Self
     where
         Self: Sized;
-    fn init(&mut self, input: &str);
     fn part_one(&mut self) -> T1;
     fn part_two(&mut self) -> T2;
 
-    fn run_on_stdin(&mut self) {
+    fn run_on_stdin()
+    where
+        Self: Sized,
+    {
         let start_inst = Instant::now();
         let mut stdin = io::stdin();
         let mut input = String::new();
@@ -34,23 +36,26 @@ where
         let reading_time = start_inst.elapsed();
         println!(" -- Reading time: {}", format_dur(reading_time));
 
-        self.run(input.as_str());
+        Self::run(input.as_str());
     }
 
-    fn run(&mut self, input: &str) {
+    fn run(input: &str)
+    where
+        Self: Sized,
+    {
         let start_inst = Instant::now();
-        self.init(input);
+        let mut solution = Self::new(input);
         let init_time = start_inst.elapsed();
         println!(" -- Init time: {}", format_dur(init_time));
 
         let part_one_start_inst = Instant::now();
-        let part_one_result = self.part_one();
+        let part_one_result = solution.part_one();
         let part_one_time = part_one_start_inst.elapsed();
         println!("Part one: {}", part_one_result);
         println!(" -- Part one time: {}", format_dur(part_one_time));
 
         let part_two_start_inst = Instant::now();
-        let part_two_result = self.part_two();
+        let part_two_result = solution.part_two();
         let part_two_time = part_two_start_inst.elapsed();
         println!("Part two: {}", part_two_result);
         println!(" -- Part two time: {}", format_dur(part_two_time));

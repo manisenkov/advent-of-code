@@ -69,30 +69,28 @@ struct Day2016_01 {
 }
 
 impl Solution<i32> for Day2016_01 {
-    fn new() -> Day2016_01 {
+    fn new(input: &str) -> Day2016_01 {
         Day2016_01 {
-            instructions: Vec::new(),
+            instructions: input
+                .split(", ")
+                .map(|r| {
+                    let dist: i32 = (&r[1..]).trim_end().parse().unwrap();
+                    match r.chars().nth(0) {
+                        Some('L') => Guide::Left(dist),
+                        Some('R') => Guide::Right(dist),
+                        _ => panic!("unknown direction"),
+                    }
+                })
+                .collect(),
         }
-    }
-
-    fn init(&mut self, input: &str) {
-        input.split(", ").for_each(|r| {
-            let dist: i32 = (&r[1..]).parse().unwrap();
-            let guide = match r.chars().nth(0) {
-                Some('L') => Guide::Left(dist),
-                Some('R') => Guide::Right(dist),
-                _ => panic!("unknown direction"),
-            };
-            self.instructions.push(guide)
-        })
     }
 
     fn part_one(&mut self) -> i32 {
         let mut pos = Pos(0, 0);
         let mut dir: Direction = Direction::North;
-        for guide in self.instructions.iter() {
-            dir = dir.rotate(*guide);
-            pos = pos.jump(dir, *guide);
+        for &guide in self.instructions.iter() {
+            dir = dir.rotate(guide);
+            pos = pos.jump(dir, guide);
         }
         pos.0.abs() + pos.1.abs()
     }
@@ -100,13 +98,12 @@ impl Solution<i32> for Day2016_01 {
     fn part_two(&mut self) -> i32 {
         let mut visited = HashSet::<Pos>::new();
         let mut pos = Pos(0, 0);
-        let mut dir: Direction = Direction::North;
+        let mut dir = Direction::North;
         visited.insert(pos);
-        'walking: for guide in self.instructions.iter() {
-            dir = dir.rotate(*guide);
-            let start_pos = pos;
-            let steps = start_pos.walk(dir, *guide);
-            for step in steps.into_iter() {
+        'walking: for &guide in self.instructions.iter() {
+            dir = dir.rotate(guide);
+            let steps = pos.walk(dir, guide);
+            for step in steps {
                 pos = step;
                 if visited.contains(&step) {
                     break 'walking;
@@ -119,8 +116,7 @@ impl Solution<i32> for Day2016_01 {
 }
 
 fn main() {
-    let mut sol = Day2016_01::new();
-    sol.run_on_stdin()
+    Day2016_01::run_on_stdin();
 }
 
 #[cfg(test)]
@@ -130,29 +126,25 @@ mod tests {
 
     #[test]
     fn test_1() {
-        let mut sol = Day2016_01::new();
-        sol.init("R2, L3");
+        let mut sol = Day2016_01::new("R2, L3");
         assert_eq!(sol.part_one(), 5);
     }
 
     #[test]
     fn test_2() {
-        let mut sol = Day2016_01::new();
-        sol.init("R2, R2, R2");
+        let mut sol = Day2016_01::new("R2, R2, R2");
         assert_eq!(sol.part_one(), 2);
     }
 
     #[test]
     fn test_3() {
-        let mut sol = Day2016_01::new();
-        sol.init("R5, L5, R5, R3");
+        let mut sol = Day2016_01::new("R5, L5, R5, R3");
         assert_eq!(sol.part_one(), 12);
     }
 
     #[test]
     fn test_4() {
-        let mut sol = Day2016_01::new();
-        sol.init("R8, R4, R4, R8");
+        let mut sol = Day2016_01::new("R8, R4, R4, R8");
         assert_eq!(sol.part_two(), 4);
     }
 }
