@@ -33,39 +33,36 @@ struct Day2022_14 {
 }
 
 impl Solution<usize> for Day2022_14 {
-    fn new() -> Day2022_14 {
-        Day2022_14 {
-            rocks: HashSet::new(),
-            max_y: 0,
-        }
-    }
-
-    fn init(&mut self, input: &str) {
+    fn new(input: &str) -> Day2022_14 {
+        let mut rocks = HashSet::new();
+        let mut max_y: i32 = 0;
         for line in input.lines() {
-            let path: Vec<(i32, i32)> = line
+            let path: Vec<_> = line
                 .split("->")
                 .map(|s| {
-                    let p: Vec<i32> = s.trim().split(",").map(|t| t.parse().unwrap()).collect();
+                    let p: Vec<_> = s.trim().split(",").map(|t| t.parse().unwrap()).collect();
                     (p[0], p[1])
                 })
                 .collect();
             for i in 0..path.len() - 1 {
-                let mut d = (path[i + 1].0 - path[i].0, path[i + 1].1 - path[i].1);
-                d = (d.0 / (d.0 + d.1).abs(), d.1 / (d.0 + d.1).abs());
+                let d_abs = (path[i + 1].0 - path[i].0, path[i + 1].1 - path[i].1);
+                let d_tot = ((d_abs.0 + d_abs.1) as i32).abs();
+                let d = (d_abs.0 / d_tot, d_abs.1 / d_tot);
                 let mut cur = path[i];
                 while cur != path[i + 1] {
-                    self.rocks.insert(cur);
+                    rocks.insert(cur);
                     cur = (cur.0 + d.0, cur.1 + d.1);
                 }
-                self.rocks.insert(path[i + 1]);
+                rocks.insert(path[i + 1]);
             }
-            self.max_y = *path
+            max_y = *path
                 .iter()
                 .map(|(_, y)| y)
-                .chain(vec![self.max_y].iter())
+                .chain(vec![max_y].iter())
                 .max()
                 .unwrap();
         }
+        Day2022_14 { rocks, max_y }
     }
 
     fn part_one(&mut self) -> usize {
@@ -94,8 +91,7 @@ impl Solution<usize> for Day2022_14 {
 }
 
 fn main() {
-    let mut sol = Day2022_14::new();
-    sol.run_on_stdin()
+    Day2022_14::run_on_stdin();
 }
 
 #[cfg(test)]
@@ -107,8 +103,7 @@ mod tests {
 
     #[test]
     fn test_1() {
-        let mut sol = Day2022_14::new();
-        sol.init(TEST_INPUT);
+        let mut sol = Day2022_14::new(TEST_INPUT);
         assert_eq!(sol.part_one(), 24);
         assert_eq!(sol.part_two(), 93);
     }

@@ -8,7 +8,7 @@ struct Move {
 
 impl Move {
     fn parse(input: &str) -> Move {
-        let v: Vec<&str> = input.split(" ").collect();
+        let v: Vec<_> = input.split(" ").collect();
         Move {
             count: v[1].parse().unwrap(),
             from: v[3].parse::<usize>().unwrap() - 1,
@@ -23,28 +23,25 @@ struct Day2022_05 {
 }
 
 impl Solution<String> for Day2022_05 {
-    fn new() -> Day2022_05 {
-        Day2022_05 {
-            plan: Vec::new(),
-            moves: Vec::new(),
-        }
-    }
+    fn new(input: &str) -> Day2022_05 {
+        let (plan_input, moves_input) = input.split_once("\n\n").unwrap();
 
-    fn init(&mut self, input: &str) {
-        let (plan, moves) = input.split_once("\n\n").unwrap();
-
-        let plan_lines: Vec<&str> = plan.lines().collect();
+        let plan_lines: Vec<_> = plan_input.lines().collect();
         let num_col = (plan_lines.last().unwrap().trim().len() + 3) / 4;
-        self.plan.extend((0..num_col).map(|_| vec![]));
+        let mut plan = vec![];
+        plan.extend((0..num_col).map(|_| vec![]));
         for line in plan_lines.iter().take(plan_lines.len() - 1).rev() {
             for (i, c) in line.chars().skip(1).step_by(4).enumerate() {
                 if !c.is_whitespace() {
-                    self.plan[i].push(c)
+                    plan[i].push(c)
                 }
             }
         }
 
-        self.moves = moves.lines().map(|s| Move::parse(s.trim())).collect();
+        Day2022_05 {
+            plan,
+            moves: moves_input.lines().map(|s| Move::parse(s.trim())).collect(),
+        }
     }
 
     fn part_one(&mut self) -> String {
@@ -55,7 +52,7 @@ impl Solution<String> for Day2022_05 {
                 state[mov.to].push(c);
             }
         }
-        state.iter().map(|v| v.last().unwrap()).collect::<String>()
+        state.iter().map(|v| v.last().unwrap()).collect()
     }
 
     fn part_two(&mut self) -> String {
@@ -74,13 +71,12 @@ impl Solution<String> for Day2022_05 {
             std::mem::swap(&mut target, &mut state[mov.to]);
             state[mov.from].truncate(skip_count)
         }
-        state.iter().map(|v| v.last().unwrap()).collect::<String>()
+        state.iter().map(|v| v.last().unwrap()).collect()
     }
 }
 
 fn main() {
-    let mut sol = Day2022_05::new();
-    sol.run_on_stdin()
+    Day2022_05::run_on_stdin();
 }
 
 #[cfg(test)]
@@ -92,8 +88,7 @@ mod tests {
 
     #[test]
     fn test_1() {
-        let mut sol = Day2022_05::new();
-        sol.init(TEST_INPUT);
+        let mut sol = Day2022_05::new(TEST_INPUT);
         assert_eq!(sol.part_one(), "CMZ");
         assert_eq!(sol.part_two(), "MCD");
     }

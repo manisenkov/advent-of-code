@@ -23,7 +23,7 @@ impl Mode {
 
 impl Operation {
     fn parse(input: &str) -> Operation {
-        let parts: Vec<&str> = input.split(" ").collect();
+        let parts: Vec<_> = input.split(" ").collect();
         if parts[3] == "+" {
             Operation::Plus(parts[4].parse().unwrap())
         } else if parts[3] == "*" {
@@ -85,19 +85,19 @@ impl<'a> Monkey {
 
         // Test factor
         {
-            let v: Vec<&str> = input[3].trim().split(" ").collect();
+            let v: Vec<_> = input[3].trim().split(" ").collect();
             test_factor = v[v.len() - 1].parse().unwrap();
         }
 
         // If true
         {
-            let v: Vec<&str> = input[4].trim().split(" ").collect();
+            let v: Vec<_> = input[4].trim().split(" ").collect();
             if_true = v[v.len() - 1].parse().unwrap();
         }
 
         // If false
         {
-            let v: Vec<&str> = input[5].trim().split(" ").collect();
+            let v: Vec<_> = input[5].trim().split(" ").collect();
             if_false = v[v.len() - 1].parse().unwrap();
         }
 
@@ -113,7 +113,7 @@ impl<'a> Monkey {
 
 fn turn(index: usize, monkeys: &mut Vec<Monkey>, mode: Mode) -> usize {
     let count = monkeys[index].items.len();
-    let to_inspect: Vec<u64> = monkeys[index].items.drain(..count).collect();
+    let to_inspect: Vec<_> = monkeys[index].items.drain(..count).collect();
     for item in to_inspect {
         let worry_level = mode.apply(monkeys[index].operation.run(item));
         let test_factor = monkeys[index].test_factor;
@@ -132,16 +132,13 @@ struct Day2022_11 {
 }
 
 impl Solution<usize> for Day2022_11 {
-    fn new() -> Day2022_11 {
+    fn new(input: &str) -> Day2022_11 {
+        let s: Vec<_> = input.lines().collect();
         Day2022_11 {
-            monkeys: Vec::new(),
-        }
-    }
-
-    fn init(&mut self, input: &str) {
-        let s: Vec<&str> = input.lines().collect();
-        for i in (0..s.len()).step_by(7) {
-            self.monkeys.push(Monkey::parse(&s[i..]));
+            monkeys: (0..s.len())
+                .step_by(7)
+                .map(|i| Monkey::parse(&s[i..]))
+                .collect(),
         }
     }
 
@@ -174,8 +171,7 @@ impl Solution<usize> for Day2022_11 {
 }
 
 fn main() {
-    let mut sol = Day2022_11::new();
-    sol.run_on_stdin()
+    Day2022_11::run_on_stdin();
 }
 
 #[cfg(test)]
@@ -187,8 +183,7 @@ mod tests {
 
     #[test]
     fn test_1() {
-        let mut sol = Day2022_11::new();
-        sol.init(TEST_INPUT);
+        let mut sol = Day2022_11::new(TEST_INPUT);
         assert_eq!(sol.part_one(), 10605);
         assert_eq!(sol.part_two(), 2713310158);
     }

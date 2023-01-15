@@ -67,19 +67,15 @@ struct Day2022_23 {
 }
 
 impl Solution<i32, usize> for Day2022_23 {
-    fn new() -> Day2022_23 {
+    fn new(input: &str) -> Day2022_23 {
         Day2022_23 {
-            init_pos: HashSet::new(),
-        }
-    }
-
-    fn init(&mut self, input: &str) {
-        for (row, line) in input.lines().enumerate() {
-            for (col, c) in line.trim().chars().enumerate() {
-                if c == '#' {
-                    self.init_pos.insert((row as i32, col as i32));
-                }
-            }
+            init_pos: HashSet::from_iter(input.lines().enumerate().flat_map(|(row, line)| {
+                line.trim()
+                    .chars()
+                    .enumerate()
+                    .filter(|(_, c)| *c == '#')
+                    .map(move |(col, _)| (row as i32, col as i32))
+            })),
         }
     }
 
@@ -103,12 +99,7 @@ impl Solution<i32, usize> for Day2022_23 {
         let mut cur_pos: HashSet<(i32, i32)> = HashSet::from_iter(self.init_pos.iter().map(|p| *p));
         for round in 0.. {
             let next_pos = mov(&cur_pos, round);
-            if cur_pos
-                .intersection(&next_pos)
-                .collect::<Vec<&(i32, i32)>>()
-                .len()
-                == cur_pos.len()
-            {
+            if cur_pos.intersection(&next_pos).collect::<Vec<_>>().len() == cur_pos.len() {
                 return round + 1;
             }
             cur_pos = next_pos;
@@ -118,8 +109,7 @@ impl Solution<i32, usize> for Day2022_23 {
 }
 
 fn main() {
-    let mut sol = Day2022_23::new();
-    sol.run_on_stdin()
+    Day2022_23::run_on_stdin();
 }
 
 #[cfg(test)]
@@ -131,8 +121,7 @@ mod tests {
 
     #[test]
     fn test_1() {
-        let mut sol = Day2022_23::new();
-        sol.init(TEST_INPUT);
+        let mut sol = Day2022_23::new(TEST_INPUT);
         assert_eq!(sol.part_one(), 110);
         assert_eq!(sol.part_two(), 20);
     }

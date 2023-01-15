@@ -101,13 +101,9 @@ struct Day2022_20 {
 }
 
 impl Solution<i64> for Day2022_20 {
-    fn new() -> Day2022_20 {
-        Day2022_20 { nums: vec![] }
-    }
-
-    fn init(&mut self, input: &str) {
-        for line in input.lines() {
-            self.nums.push(line.parse().unwrap())
+    fn new(input: &str) -> Day2022_20 {
+        Day2022_20 {
+            nums: input.lines().map(|line| line.parse().unwrap()).collect(),
         }
     }
 
@@ -129,8 +125,7 @@ impl Solution<i64> for Day2022_20 {
 }
 
 fn main() {
-    let mut sol = Day2022_20::new();
-    sol.run_on_stdin()
+    Day2022_20::run_on_stdin();
 }
 
 #[cfg(test)]
@@ -142,8 +137,7 @@ mod tests {
 
     #[test]
     fn test_1() {
-        let mut sol = Day2022_20::new();
-        sol.init(TEST_INPUT);
+        let mut sol = Day2022_20::new(TEST_INPUT);
         assert_eq!(sol.part_one(), 3);
         assert_eq!(sol.part_two(), 1623178306);
     }

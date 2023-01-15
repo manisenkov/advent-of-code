@@ -15,15 +15,12 @@ struct Day2022_03 {
 }
 
 impl Solution<u32> for Day2022_03 {
-    fn new() -> Day2022_03 {
+    fn new(input: &str) -> Day2022_03 {
         Day2022_03 {
-            rucksack_content: Vec::new(),
-        }
-    }
-
-    fn init(&mut self, input: &str) {
-        for line in input.lines() {
-            self.rucksack_content.push(line.trim().chars().collect());
+            rucksack_content: input
+                .lines()
+                .map(|line| line.trim().chars().collect())
+                .collect(),
         }
     }
 
@@ -63,8 +60,7 @@ impl Solution<u32> for Day2022_03 {
 }
 
 fn main() {
-    let mut sol = Day2022_03::new();
-    sol.run_on_stdin()
+    Day2022_03::run_on_stdin();
 }
 
 #[cfg(test)]
@@ -76,8 +72,7 @@ mod tests {
 
     #[test]
     fn test_1() {
-        let mut sol = Day2022_03::new();
-        sol.init(TEST_INPUT);
+        let mut sol = Day2022_03::new(TEST_INPUT);
         assert_eq!(sol.part_one(), 157);
         assert_eq!(sol.part_two(), 70);
     }

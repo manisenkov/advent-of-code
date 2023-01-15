@@ -41,17 +41,18 @@ fn compare(left: &Value, right: &Value) -> Ordering {
 }
 
 impl Solution<usize> for Day2022_13 {
-    fn new() -> Day2022_13 {
-        Day2022_13 { pairs: vec![] }
-    }
-
-    fn init(&mut self, input: &str) {
-        let lines: Vec<&str> = input.lines().collect();
-        for i in (0..lines.len()).step_by(3) {
-            self.pairs.push((
-                serde_json::from_str(lines[i]).unwrap(),
-                serde_json::from_str(lines[i + 1]).unwrap(),
-            ));
+    fn new(input: &str) -> Day2022_13 {
+        let lines: Vec<_> = input.lines().collect();
+        Day2022_13 {
+            pairs: (0..lines.len())
+                .step_by(3)
+                .map(|i| {
+                    (
+                        serde_json::from_str(lines[i]).unwrap(),
+                        serde_json::from_str(lines[i + 1]).unwrap(),
+                    )
+                })
+                .collect(),
         }
     }
 
@@ -65,7 +66,7 @@ impl Solution<usize> for Day2022_13 {
     }
 
     fn part_two(&mut self) -> usize {
-        let mut values: Vec<Value> = self
+        let mut values: Vec<_> = self
             .pairs
             .iter()
             .flat_map(|pair| vec![pair.0.clone(), pair.1.clone()])
@@ -88,8 +89,7 @@ impl Solution<usize> for Day2022_13 {
 }
 
 fn main() {
-    let mut sol = Day2022_13::new();
-    sol.run_on_stdin()
+    Day2022_13::run_on_stdin();
 }
 
 #[cfg(test)]
@@ -101,8 +101,7 @@ mod tests {
 
     #[test]
     fn test_1() {
-        let mut sol = Day2022_13::new();
-        sol.init(TEST_INPUT);
+        let mut sol = Day2022_13::new(TEST_INPUT);
         assert_eq!(sol.part_one(), 13);
         assert_eq!(sol.part_two(), 140);
     }

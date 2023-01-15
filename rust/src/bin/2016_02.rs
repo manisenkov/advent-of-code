@@ -9,23 +9,23 @@ enum Move {
 }
 
 impl Move {
-    fn apply(self, pos: u8) -> u8 {
+    fn apply(self, pos: char) -> char {
         match self {
             Move::Left => match pos {
-                1 | 4 | 7 => pos,
-                _ => pos - 1,
+                '1' | '4' | '7' => pos,
+                _ => char::from_u32(pos as u32 - 1).unwrap(),
             },
             Move::Right => match pos {
-                3 | 6 | 9 => pos,
-                _ => pos + 1,
+                '3' | '6' | '9' => pos,
+                _ => char::from_u32(pos as u32 + 1).unwrap(),
             },
             Move::Up => match pos {
-                1..=3 => pos,
-                _ => pos - 3,
+                '1'..='3' => pos,
+                _ => char::from_u32(pos as u32 - 3).unwrap(),
             },
             Move::Down => match pos {
-                7..=9 => pos,
-                _ => pos + 3,
+                '7'..='9' => pos,
+                _ => char::from_u32(pos as u32 + 3).unwrap(),
             },
         }
     }
@@ -95,23 +95,18 @@ struct Day2016_02 {
 }
 
 impl Solution<String> for Day2016_02 {
-    fn new() -> Day2016_02 {
+    fn new(input: &str) -> Day2016_02 {
         Day2016_02 {
-            instructions: Vec::new(),
-        }
-    }
-
-    fn init(&mut self, input: &str) {
-        for line in input.lines() {
-            let moves: Vec<Move> = line.trim().chars().map(Move::from_char).collect();
-            self.instructions.push(moves);
+            instructions: input
+                .lines()
+                .map(|line| line.trim().chars().map(Move::from_char).collect())
+                .collect(),
         }
     }
 
     fn part_one(&mut self) -> String {
-        let mut pos = 5;
-        let res = self
-            .instructions
+        let mut pos = '5';
+        self.instructions
             .iter()
             .map(|moves| {
                 let mut cur_pos = pos;
@@ -121,14 +116,12 @@ impl Solution<String> for Day2016_02 {
                 pos = cur_pos;
                 cur_pos.to_string()
             })
-            .collect();
-        res
+            .collect()
     }
 
     fn part_two(&mut self) -> String {
         let mut pos = '5';
-        let res = self
-            .instructions
+        self.instructions
             .iter()
             .map(|moves| {
                 let mut cur_pos = pos;
@@ -138,14 +131,12 @@ impl Solution<String> for Day2016_02 {
                 pos = cur_pos;
                 cur_pos.to_string()
             })
-            .collect();
-        res
+            .collect()
     }
 }
 
 fn main() {
-    let mut sol = Day2016_02::new();
-    sol.run_on_stdin()
+    Day2016_02::run_on_stdin();
 }
 
 #[cfg(test)]
@@ -157,8 +148,7 @@ mod tests {
 
     #[test]
     fn test_1() {
-        let mut sol = Day2016_02::new();
-        sol.init(TEST_INPUT);
+        let mut sol = Day2016_02::new(TEST_INPUT);
         assert_eq!(sol.part_one(), "1985");
         assert_eq!(sol.part_two(), "5DB3");
     }

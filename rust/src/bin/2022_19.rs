@@ -25,14 +25,14 @@ struct Blueprint {
 impl Blueprint {
     fn parse(input: &str) -> Self {
         let mut parts = input.split(". ");
-        let ore_parts: Vec<&str> = parts.next().unwrap().split(" ").collect();
+        let ore_parts: Vec<_> = parts.next().unwrap().split(" ").collect();
         let ore: u32 = ore_parts[6].parse().unwrap();
-        let clay_parts: Vec<&str> = parts.next().unwrap().split(" ").collect();
+        let clay_parts: Vec<_> = parts.next().unwrap().split(" ").collect();
         let clay: u32 = clay_parts[4].parse().unwrap();
-        let obsidian_parts: Vec<&str> = parts.next().unwrap().split(" ").collect();
+        let obsidian_parts: Vec<_> = parts.next().unwrap().split(" ").collect();
         let obsidian_ore: u32 = obsidian_parts[4].parse().unwrap();
         let obsidian_clay: u32 = obsidian_parts[7].parse().unwrap();
-        let geode_parts: Vec<&str> = parts.next().unwrap().split(" ").collect();
+        let geode_parts: Vec<_> = parts.next().unwrap().split(" ").collect();
         let geode_ore: u32 = geode_parts[4].parse().unwrap();
         let geode_obsidian: u32 = geode_parts[7].parse().unwrap();
         Blueprint {
@@ -179,12 +179,10 @@ struct Day2022_19 {
 }
 
 impl Solution<u32> for Day2022_19 {
-    fn new() -> Day2022_19 {
-        Day2022_19 { blueprints: vec![] }
-    }
-
-    fn init(&mut self, input: &str) {
-        self.blueprints.extend(input.lines().map(Blueprint::parse));
+    fn new(input: &str) -> Day2022_19 {
+        Day2022_19 {
+            blueprints: Vec::from_iter(input.lines().map(Blueprint::parse)),
+        }
     }
 
     fn part_one(&mut self) -> u32 {
@@ -241,8 +239,7 @@ impl Solution<u32> for Day2022_19 {
 }
 
 fn main() {
-    let mut sol = Day2022_19::new();
-    sol.run_on_stdin()
+    Day2022_19::run_on_stdin();
 }
 
 #[cfg(test)]
@@ -254,8 +251,7 @@ mod tests {
 
     #[test]
     fn test_1() {
-        let mut sol = Day2022_19::new();
-        sol.init(TEST_INPUT);
+        let mut sol = Day2022_19::new(TEST_INPUT);
         assert_eq!(sol.part_one(), 33);
         assert_eq!(sol.part_two(), 3472);
     }

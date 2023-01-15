@@ -6,7 +6,7 @@ type Pos = (i32, i32);
 
 type State = HashMap<Pos, Vec<(usize, Direction)>>;
 
-#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
+#[derive(Clone, Copy)]
 enum Direction {
     Up,
     Down,
@@ -67,89 +67,27 @@ fn travel_forward(
     let cur_state = &states[(steps + 1) as usize];
     let (row, col) = pos;
 
-    // Entrance
-    if row == -1 {
-        // Down
-        if !cur_state.contains_key(&(0, 0)) {
-            travel_forward(states, width, height, (0, 0), steps + 1, max_steps, visited)
-        }
-
-        // Wait
-        travel_forward(
-            states,
-            width,
-            height,
-            (-1, 0),
-            steps + 1,
-            max_steps,
-            visited,
-        )
+    let next = if row == -1 {
+        vec![(0, 0), (-1, 0)]
     } else {
-        // Right
-        if col < width - 1 && !cur_state.contains_key(&(row, col + 1)) {
-            travel_forward(
-                states,
-                width,
-                height,
-                (row, col + 1),
-                steps + 1,
-                max_steps,
-                visited,
-            )
-        }
-
-        // Down
-        if row < height - 1 && !cur_state.contains_key(&(row + 1, col)) {
-            travel_forward(
-                states,
-                width,
-                height,
-                (row + 1, col),
-                steps + 1,
-                max_steps,
-                visited,
-            )
-        }
-
-        // Up
-        if row > 0 && !cur_state.contains_key(&(row - 1, col)) {
-            travel_forward(
-                states,
-                width,
-                height,
-                (row - 1, col),
-                steps + 1,
-                max_steps,
-                visited,
-            )
-        }
-
-        // Left
-        if col > 0 && !cur_state.contains_key(&(row, col - 1)) {
-            travel_forward(
-                states,
-                width,
-                height,
-                (row, col - 1),
-                steps + 1,
-                max_steps,
-                visited,
-            )
-        }
-
-        // Wait
-        if !cur_state.contains_key(&(row, col)) {
-            travel_forward(
-                states,
-                width,
-                height,
-                (row, col),
-                steps + 1,
-                max_steps,
-                visited,
-            )
-        }
-    }
+        vec![
+            (row, col + 1),
+            (row + 1, col),
+            (row - 1, col),
+            (row, col - 1),
+            (row, col),
+        ]
+    };
+    next.iter()
+        .filter(|(r, c)| {
+            (row == -1 && (*r, *c) == (-1, 0))
+                || (*r >= 0
+                    && *c >= 0
+                    && *r < height
+                    && *c < width
+                    && !cur_state.contains_key(&(*r, *c)))
+        })
+        .for_each(|&pos| travel_forward(states, width, height, pos, steps + 1, max_steps, visited));
 }
 
 fn travel_backward(
@@ -175,97 +113,29 @@ fn travel_backward(
     let cur_state = &states[(steps + 1) as usize];
     let (row, col) = pos;
 
-    // Entrance
-    if row == height {
-        // Down
-        if !cur_state.contains_key(&(height - 1, width - 1)) {
-            travel_backward(
-                states,
-                width,
-                height,
-                (height - 1, width - 1),
-                steps + 1,
-                max_steps,
-                visited,
-            )
-        }
-
-        // Wait
-        travel_backward(
-            states,
-            width,
-            height,
-            (height, width - 1),
-            steps + 1,
-            max_steps,
-            visited,
-        )
+    let next = if row == height {
+        vec![(height - 1, width - 1), (height, width - 1)]
     } else {
-        // Left
-        if col > 0 && !cur_state.contains_key(&(row, col - 1)) {
-            travel_backward(
-                states,
-                width,
-                height,
-                (row, col - 1),
-                steps + 1,
-                max_steps,
-                visited,
-            )
-        }
-
-        // Up
-        if row > 0 && !cur_state.contains_key(&(row - 1, col)) {
-            travel_backward(
-                states,
-                width,
-                height,
-                (row - 1, col),
-                steps + 1,
-                max_steps,
-                visited,
-            )
-        }
-
-        // Right
-        if col < width - 1 && !cur_state.contains_key(&(row, col + 1)) {
-            travel_backward(
-                states,
-                width,
-                height,
-                (row, col + 1),
-                steps + 1,
-                max_steps,
-                visited,
-            )
-        }
-
-        // Down
-        if row < height - 1 && !cur_state.contains_key(&(row + 1, col)) {
-            travel_backward(
-                states,
-                width,
-                height,
-                (row + 1, col),
-                steps + 1,
-                max_steps,
-                visited,
-            )
-        }
-
-        // Wait
-        if !cur_state.contains_key(&(row, col)) {
-            travel_backward(
-                states,
-                width,
-                height,
-                (row, col),
-                steps + 1,
-                max_steps,
-                visited,
-            )
-        }
-    }
+        vec![
+            (row, col - 1),
+            (row - 1, col),
+            (row, col + 1),
+            (row + 1, col),
+            (row, col),
+        ]
+    };
+    next.iter()
+        .filter(|(r, c)| {
+            (row == height && (*r, *c) == (height, width - 1))
+                || (*r >= 0
+                    && *c >= 0
+                    && *r < height
+                    && *c < width
+                    && !cur_state.contains_key(&(*r, *c)))
+        })
+        .for_each(|&pos| {
+            travel_backward(states, width, height, pos, steps + 1, max_steps, visited)
+        });
 }
 
 struct Day2022_24 {
@@ -276,19 +146,11 @@ struct Day2022_24 {
 }
 
 impl Solution<i32> for Day2022_24 {
-    fn new() -> Day2022_24 {
-        Day2022_24 {
-            width: 0,
-            height: 0,
-            states: vec![],
-            part_one_res: 0,
-        }
-    }
-
-    fn init(&mut self, input: &str) {
-        let map: Vec<&str> = input.lines().map(|s| s.trim()).collect();
+    fn new(input: &str) -> Day2022_24 {
+        let map: Vec<_> = input.lines().map(|s| s.trim()).collect();
         let mut idx = 0;
         let mut state: State = State::new();
+        let mut states = vec![];
         for (row, &line) in map[1..map.len() - 1].iter().enumerate() {
             for (col, c) in line.chars().skip(1).enumerate() {
                 if let Some(dir) = Direction::from_char(c) {
@@ -297,13 +159,21 @@ impl Solution<i32> for Day2022_24 {
                 }
             }
         }
-        self.width = map[0].len() as i32 - 2;
-        self.height = map.len() as i32 - 2;
-        self.states.push(state);
+        let width = map[0].len() as i32 - 2;
+        let height = map.len() as i32 - 2;
+        states.push(state);
 
-        for _ in 0..(self.width * self.height * 10) {
-            let next_state = get_next_state(&self.states.last().unwrap(), self.width, self.height);
-            self.states.push(next_state);
+        // Precalculte states
+        for _ in 0..(width * height * 3) {
+            let next_state = get_next_state(&states.last().unwrap(), width, height);
+            states.push(next_state);
+        }
+
+        Day2022_24 {
+            width,
+            height,
+            states,
+            part_one_res: 0,
         }
     }
 
@@ -354,8 +224,7 @@ impl Solution<i32> for Day2022_24 {
 }
 
 fn main() {
-    let mut sol = Day2022_24::new();
-    sol.run_on_stdin()
+    Day2022_24::run_on_stdin();
 }
 
 #[cfg(test)]
@@ -367,8 +236,7 @@ mod tests {
 
     #[test]
     fn test_1() {
-        let mut sol = Day2022_24::new();
-        sol.init(TEST_INPUT);
+        let mut sol = Day2022_24::new(TEST_INPUT);
         assert_eq!(sol.part_one(), 18);
         assert_eq!(sol.part_two(), 54);
     }
