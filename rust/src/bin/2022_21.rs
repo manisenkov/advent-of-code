@@ -78,24 +78,20 @@ struct Day2022_21 {
 }
 
 impl Solution<i64> for Day2022_21 {
-    fn new() -> Day2022_21 {
+    fn new(input: &str) -> Day2022_21 {
         Day2022_21 {
-            monkeys: HashMap::new(),
-        }
-    }
-
-    fn init(&mut self, input: &str) {
-        for line in input.lines() {
-            let mut parts = line.trim().split(": ");
-            let name = parts.next().unwrap().to_owned();
-            let op = Op::parse(parts.next().unwrap());
-            self.monkeys.insert(
-                name.clone(),
-                Monkey {
-                    name: name.clone(),
-                    op,
-                },
-            );
+            monkeys: HashMap::from_iter(input.lines().map(|line| {
+                let mut parts = line.trim().split(": ");
+                let name = parts.next().unwrap().to_owned();
+                let op = Op::parse(parts.next().unwrap());
+                (
+                    name.clone(),
+                    Monkey {
+                        name: name.clone(),
+                        op,
+                    },
+                )
+            })),
         }
     }
 
@@ -156,8 +152,7 @@ impl Solution<i64> for Day2022_21 {
 }
 
 fn main() {
-    let mut sol = Day2022_21::new();
-    sol.run_on_stdin()
+    Day2022_21::run_on_stdin();
 }
 
 #[cfg(test)]
@@ -169,8 +164,7 @@ mod tests {
 
     #[test]
     fn test_1() {
-        let mut sol = Day2022_21::new();
-        sol.init(TEST_INPUT);
+        let mut sol = Day2022_21::new(TEST_INPUT);
         assert_eq!(sol.part_one(), 152);
         assert_eq!(sol.part_two(), 301);
     }

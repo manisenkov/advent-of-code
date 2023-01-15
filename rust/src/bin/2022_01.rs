@@ -5,23 +5,19 @@ struct Day2022_01 {
 }
 
 impl Solution<u32> for Day2022_01 {
-    fn new() -> Day2022_01 {
-        Day2022_01 {
-            elf_loads: Vec::new(),
-        }
-    }
-
-    fn init(&mut self, input: &str) {
-        let mut cur_load = Vec::<u32>::new();
+    fn new(input: &str) -> Day2022_01 {
+        let mut elf_loads = vec![];
+        let mut cur_load = vec![];
         for line in input.lines() {
-            if line.trim() == "" {
-                self.elf_loads.push(cur_load);
+            if line.trim().is_empty() {
+                elf_loads.push(cur_load);
                 cur_load = Vec::new();
             } else {
                 cur_load.push(line.trim().parse().unwrap());
             }
         }
-        self.elf_loads.push(cur_load);
+        elf_loads.push(cur_load);
+        Day2022_01 { elf_loads }
     }
 
     fn part_one(&mut self) -> u32 {
@@ -29,15 +25,14 @@ impl Solution<u32> for Day2022_01 {
     }
 
     fn part_two(&mut self) -> u32 {
-        let mut sums: Vec<u32> = self.elf_loads.iter().map(|v| v.iter().sum()).collect();
+        let mut sums: Vec<_> = self.elf_loads.iter().map(|v| v.iter().sum()).collect();
         sums.sort();
         sums.iter().rev().take(3).sum()
     }
 }
 
 fn main() {
-    let mut sol = Day2022_01::new();
-    sol.run_on_stdin()
+    Day2022_01::run_on_stdin();
 }
 
 #[cfg(test)]
@@ -49,8 +44,7 @@ mod tests {
 
     #[test]
     fn test_1() {
-        let mut sol = Day2022_01::new();
-        sol.init(TEST_INPUT);
+        let mut sol = Day2022_01::new(TEST_INPUT);
         assert_eq!(sol.part_one(), 24000);
         assert_eq!(sol.part_two(), 45000);
     }

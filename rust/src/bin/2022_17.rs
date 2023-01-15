@@ -104,25 +104,19 @@ impl Day2022_17 {
 }
 
 impl Solution<i64> for Day2022_17 {
-    fn new() -> Day2022_17 {
+    fn new(input: &str) -> Day2022_17 {
+        let mut figures = vec![];
+        let mut directions = vec![];
+        directions.extend(input.trim().chars());
+        figures.push(Figure::new(&[(0, 0), (0, 1), (0, 2), (0, 3)])); // -
+        figures.push(Figure::new(&[(0, 1), (1, 0), (1, 1), (1, 2), (2, 1)])); // +
+        figures.push(Figure::new(&[(0, 0), (0, 1), (0, 2), (1, 2), (2, 2)])); // J
+        figures.push(Figure::new(&[(0, 0), (1, 0), (2, 0), (3, 0)])); // I
+        figures.push(Figure::new(&[(0, 0), (0, 1), (1, 0), (1, 1)])); // o
         Day2022_17 {
-            figures: Vec::new(),
-            directions: Vec::new(),
+            figures,
+            directions,
         }
-    }
-
-    fn init(&mut self, input: &str) {
-        self.directions.extend(input.trim().chars());
-        self.figures
-            .push(Figure::new(&[(0, 0), (0, 1), (0, 2), (0, 3)])); // -
-        self.figures
-            .push(Figure::new(&[(0, 1), (1, 0), (1, 1), (1, 2), (2, 1)])); // +
-        self.figures
-            .push(Figure::new(&[(0, 0), (0, 1), (0, 2), (1, 2), (2, 2)])); // J
-        self.figures
-            .push(Figure::new(&[(0, 0), (1, 0), (2, 0), (3, 0)])); // I
-        self.figures
-            .push(Figure::new(&[(0, 0), (0, 1), (1, 0), (1, 1)])); // o
     }
 
     fn part_one(&mut self) -> i64 {
@@ -154,8 +148,7 @@ impl Solution<i64> for Day2022_17 {
 }
 
 fn main() {
-    let mut sol = Day2022_17::new();
-    sol.run_on_stdin()
+    Day2022_17::run_on_stdin();
 }
 
 #[cfg(test)]
@@ -167,8 +160,7 @@ mod tests {
 
     #[test]
     fn test_1() {
-        let mut sol = Day2022_17::new();
-        sol.init(TEST_INPUT);
+        let mut sol = Day2022_17::new(TEST_INPUT);
         assert_eq!(sol.part_one(), 3068);
         assert_eq!(sol.part_two(), 1514285714288);
     }

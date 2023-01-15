@@ -96,19 +96,17 @@ struct Day2022_02 {
 }
 
 impl Solution<u32> for Day2022_02 {
-    fn new() -> Day2022_02 {
+    fn new(input: &str) -> Day2022_02 {
         Day2022_02 {
-            strategy: Vec::new(),
-        }
-    }
-
-    fn init(&mut self, input: &str) {
-        for line in input.lines() {
-            let mut ch = line.chars();
-            let opponent = ch.nth(0).unwrap();
-            let me = ch.nth(1).unwrap();
-            self.strategy
-                .push(Round::new(RPS::parse(me), RPS::parse(opponent)));
+            strategy: input
+                .lines()
+                .map(|line| {
+                    let mut ch = line.chars();
+                    let opponent = ch.nth(0).unwrap();
+                    let me = ch.nth(1).unwrap();
+                    Round::new(RPS::parse(me), RPS::parse(opponent))
+                })
+                .collect(),
         }
     }
 
@@ -125,8 +123,7 @@ impl Solution<u32> for Day2022_02 {
 }
 
 fn main() {
-    let mut sol = Day2022_02::new();
-    sol.run_on_stdin()
+    Day2022_02::run_on_stdin();
 }
 
 #[cfg(test)]
@@ -138,8 +135,7 @@ mod tests {
 
     #[test]
     fn test_1() {
-        let mut sol = Day2022_02::new();
-        sol.init(TEST_INPUT);
+        let mut sol = Day2022_02::new(TEST_INPUT);
         assert_eq!(sol.part_one(), 15);
         assert_eq!(sol.part_two(), 12);
     }

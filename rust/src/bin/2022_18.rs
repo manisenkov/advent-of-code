@@ -36,16 +36,13 @@ struct Day2022_18 {
 }
 
 impl Solution<usize> for Day2022_18 {
-    fn new() -> Day2022_18 {
-        Day2022_18 { cubes: Vec::new() }
-    }
-
-    fn init(&mut self, input: &str) {
+    fn new(input: &str) -> Day2022_18 {
+        let mut cubes = vec![];
         for line in input.lines() {
             let mut it = line.trim().split(",").map(|s| s.parse::<i32>().unwrap());
-            self.cubes
-                .push((it.next().unwrap(), it.next().unwrap(), it.next().unwrap()));
+            cubes.push((it.next().unwrap(), it.next().unwrap(), it.next().unwrap()));
         }
+        Day2022_18 { cubes }
     }
 
     fn part_one(&mut self) -> usize {
@@ -100,8 +97,7 @@ impl Solution<usize> for Day2022_18 {
 }
 
 fn main() {
-    let mut sol = Day2022_18::new();
-    sol.run_on_stdin()
+    Day2022_18::run_on_stdin();
 }
 
 #[cfg(test)]
@@ -113,8 +109,7 @@ mod tests {
 
     #[test]
     fn test_1() {
-        let mut sol = Day2022_18::new();
-        sol.init(TEST_INPUT);
+        let mut sol = Day2022_18::new(TEST_INPUT);
         assert_eq!(sol.part_one(), 64);
         assert_eq!(sol.part_two(), 58);
     }

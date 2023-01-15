@@ -28,7 +28,7 @@ fn to_snafu(src: i64) -> String {
         res.push(char_map[&n]);
         left = (if n >= 3 { left + 5 } else { left }) / 5;
     }
-    res.chars().rev().collect::<String>()
+    res.chars().rev().collect()
 }
 
 struct Day2022_25 {
@@ -36,13 +36,9 @@ struct Day2022_25 {
 }
 
 impl Solution<String> for Day2022_25 {
-    fn new() -> Day2022_25 {
-        Day2022_25 { nums: vec![] }
-    }
-
-    fn init(&mut self, input: &str) {
-        for line in input.lines() {
-            self.nums.push(line.trim().to_owned());
+    fn new(input: &str) -> Day2022_25 {
+        Day2022_25 {
+            nums: input.lines().map(|line| line.trim().to_owned()).collect(),
         }
     }
 
@@ -57,8 +53,7 @@ impl Solution<String> for Day2022_25 {
 }
 
 fn main() {
-    let mut sol = Day2022_25::new();
-    sol.run_on_stdin()
+    Day2022_25::run_on_stdin();
 }
 
 #[cfg(test)]
@@ -70,8 +65,7 @@ mod tests {
 
     #[test]
     fn test_1() {
-        let mut sol = Day2022_25::new();
-        sol.init(TEST_INPUT);
+        let mut sol = Day2022_25::new(TEST_INPUT);
         assert_eq!(sol.part_one(), "2=-1=0");
         // assert_eq!(sol.part_two(), "");
     }

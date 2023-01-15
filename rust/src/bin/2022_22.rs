@@ -168,42 +168,32 @@ struct Day2022_22 {
 }
 
 impl Solution<usize> for Day2022_22 {
-    fn new() -> Day2022_22 {
-        Day2022_22 {
-            map: vec![],
-            start_point: (0, 0),
-            commands: vec![],
-            portals: get_portal_map(),
-        }
-    }
-
-    fn init(&mut self, input: &str) {
-        let lines: Vec<&str> = input.lines().collect();
+    fn new(input: &str) -> Day2022_22 {
+        let lines: Vec<_> = input.lines().collect();
         let map_lines = &lines[..lines.len() - 2];
         let mut width: usize = 0;
+        let mut map = vec![];
         for row in map_lines.iter() {
-            let row_chars: Vec<char> = row.trim_end().chars().collect();
+            let row_chars: Vec<_> = row.trim_end().chars().collect();
             width = width.max(row_chars.len());
-            self.map.push(row_chars);
+            map.push(row_chars);
         }
-        for row in &mut self.map {
+        for row in &mut map {
             row.extend(vec![' '; width - row.len()]);
         }
 
-        (self.start_point.1, _) = self.map[0]
-            .iter()
-            .enumerate()
-            .find(|(_, c)| **c == '.')
-            .unwrap();
+        let mut start_point: Pos = (0, 0);
 
-        let last_row: Vec<char> = lines.iter().last().unwrap().trim().chars().collect();
+        (start_point.1, _) = map[0].iter().enumerate().find(|(_, c)| **c == '.').unwrap();
+
+        let last_row: Vec<_> = lines.iter().last().unwrap().trim().chars().collect();
         let mut cur_token = "".to_owned();
         let mut idx = 0;
+        let mut commands = vec![];
         loop {
             if idx == last_row.len() {
                 if !cur_token.is_empty() {
-                    self.commands
-                        .push(Command::Step(cur_token.parse().unwrap()));
+                    commands.push(Command::Step(cur_token.parse().unwrap()));
                 }
                 break;
             }
@@ -211,25 +201,30 @@ impl Solution<usize> for Day2022_22 {
             match c {
                 'R' => {
                     if !cur_token.is_empty() {
-                        self.commands
-                            .push(Command::Step(cur_token.parse().unwrap()));
+                        commands.push(Command::Step(cur_token.parse().unwrap()));
                         cur_token = "".to_owned();
                     }
-                    self.commands.push(Command::TurnRight);
+                    commands.push(Command::TurnRight);
                 }
                 'L' => {
                     if !cur_token.is_empty() {
-                        self.commands
-                            .push(Command::Step(cur_token.parse().unwrap()));
+                        commands.push(Command::Step(cur_token.parse().unwrap()));
                         cur_token = "".to_owned();
                     }
-                    self.commands.push(Command::TurnLeft);
+                    commands.push(Command::TurnLeft);
                 }
                 _ => {
                     cur_token.push(c);
                 }
             }
             idx += 1;
+        }
+
+        Day2022_22 {
+            map,
+            start_point,
+            commands,
+            portals: get_portal_map(),
         }
     }
 
@@ -273,8 +268,7 @@ impl Solution<usize> for Day2022_22 {
 }
 
 fn main() {
-    let mut sol = Day2022_22::new();
-    sol.run_on_stdin()
+    Day2022_22::run_on_stdin();
 }
 
 #[cfg(test)]
@@ -319,8 +313,7 @@ mod tests {
 
     #[test]
     fn test_1() {
-        let mut sol = Day2022_22::new();
-        sol.init(TEST_INPUT);
+        let mut sol = Day2022_22::new(TEST_INPUT);
         sol.portals = get_portal_map_example();
         assert_eq!(sol.part_one(), 6032);
         assert_eq!(sol.part_two(), 5031);

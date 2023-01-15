@@ -60,14 +60,8 @@ struct Day2022_15 {
 }
 
 impl Solution<usize, i64> for Day2022_15 {
-    fn new() -> Day2022_15 {
-        Day2022_15 {
-            y_to_scan: 2_000_000,
-            reports: vec![],
-        }
-    }
-
-    fn init(&mut self, input: &str) {
+    fn new(input: &str) -> Day2022_15 {
+        let mut reports = vec![];
         for line in input.lines() {
             let mut parts = line.trim().split(": ");
             let sensor_part = parts.next().unwrap();
@@ -86,8 +80,11 @@ impl Solution<usize, i64> for Day2022_15 {
             let beacon_y: i64 = beacon_part[beacon_part.find("y=").unwrap() + 2..]
                 .parse()
                 .unwrap();
-            self.reports
-                .push(((sensor_x, sensor_y), (beacon_x, beacon_y)));
+            reports.push(((sensor_x, sensor_y), (beacon_x, beacon_y)));
+        }
+        Day2022_15 {
+            y_to_scan: 2_000_000,
+            reports,
         }
     }
 
@@ -127,8 +124,7 @@ impl Solution<usize, i64> for Day2022_15 {
 }
 
 fn main() {
-    let mut sol = Day2022_15::new();
-    sol.run_on_stdin()
+    Day2022_15::run_on_stdin();
 }
 
 #[cfg(test)]
@@ -140,8 +136,7 @@ mod tests {
 
     #[test]
     fn test_1() {
-        let mut sol = Day2022_15::new();
-        sol.init(TEST_INPUT);
+        let mut sol = Day2022_15::new(TEST_INPUT);
         sol.y_to_scan = 10;
         assert_eq!(sol.part_one(), 26);
         assert_eq!(sol.part_two(), 56000011);

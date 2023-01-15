@@ -2,6 +2,8 @@ use std::collections::HashSet;
 
 use aoc::solution::Solution;
 
+type Pos = (isize, isize);
+
 enum Move {
     Left(usize),
     Up(usize),
@@ -32,7 +34,7 @@ impl Move {
         }
     }
 
-    fn step(&self, pos: (isize, isize)) -> impl Iterator<Item = (isize, isize)> + '_ {
+    fn step(&self, pos: Pos) -> impl Iterator<Item = Pos> + '_ {
         let (x, y) = pos;
         let dist = self.dist();
         (1..=dist).map(move |i| match self {
@@ -44,7 +46,7 @@ impl Move {
     }
 }
 
-fn move_tail(pos_h: &(isize, isize), pos_t: &(isize, isize)) -> (isize, isize) {
+fn move_tail(pos_h: &Pos, pos_t: &Pos) -> Pos {
     let abs_0 = (pos_h.0 - pos_t.0).abs();
     let abs_1 = (pos_h.1 - pos_t.1).abs();
     if abs_0 <= 1 && abs_1 <= 1 {
@@ -77,20 +79,16 @@ struct Day2022_09 {
 }
 
 impl Solution<usize> for Day2022_09 {
-    fn new() -> Day2022_09 {
-        Day2022_09 { moves: Vec::new() }
-    }
-
-    fn init(&mut self, input: &str) {
-        for line in input.lines() {
-            self.moves.push(Move::parse(line));
+    fn new(input: &str) -> Day2022_09 {
+        Day2022_09 {
+            moves: input.lines().map(|line| Move::parse(line)).collect(),
         }
     }
 
     fn part_one(&mut self) -> usize {
-        let mut visited = HashSet::<(isize, isize)>::from([(0, 0)]);
-        let mut pos_h: (isize, isize) = (0, 0);
-        let mut pos_t: (isize, isize) = (0, 0);
+        let mut visited = HashSet::<Pos>::from([(0, 0)]);
+        let mut pos_h: Pos = (0, 0);
+        let mut pos_t: Pos = (0, 0);
         for mov in self.moves.iter() {
             for next_pos_h in mov.step(pos_h) {
                 pos_t = move_tail(&next_pos_h, &pos_t);
@@ -102,9 +100,9 @@ impl Solution<usize> for Day2022_09 {
     }
 
     fn part_two(&mut self) -> usize {
-        let mut visited = HashSet::<(isize, isize)>::from([(0, 0)]);
-        let mut pos_h: (isize, isize) = (0, 0);
-        let mut pos_ts: Vec<(isize, isize)> = vec![(0, 0); 9];
+        let mut visited = HashSet::<Pos>::from([(0, 0)]);
+        let mut pos_h: Pos = (0, 0);
+        let mut pos_ts: Vec<Pos> = vec![(0, 0); 9];
         for mov in self.moves.iter() {
             for next_pos_h in mov.step(pos_h) {
                 for i in 0..9 {
@@ -122,8 +120,7 @@ impl Solution<usize> for Day2022_09 {
 }
 
 fn main() {
-    let mut sol = Day2022_09::new();
-    sol.run_on_stdin()
+    Day2022_09::run_on_stdin();
 }
 
 #[cfg(test)]
@@ -136,16 +133,14 @@ mod tests {
 
     #[test]
     fn test_1() {
-        let mut sol = Day2022_09::new();
-        sol.init(TEST_INPUT_1);
+        let mut sol = Day2022_09::new(TEST_INPUT_1);
         assert_eq!(sol.part_one(), 13);
         assert_eq!(sol.part_two(), 1);
     }
 
     #[test]
     fn test_2() {
-        let mut sol = Day2022_09::new();
-        sol.init(TEST_INPUT_2);
+        let mut sol = Day2022_09::new(TEST_INPUT_2);
         assert_eq!(sol.part_one(), 88);
         assert_eq!(sol.part_two(), 36);
     }
