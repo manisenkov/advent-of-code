@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "adventofcode"
+version = "0.1.0"
+description = "My Advent of Code solutions in Python"
+authors = ["Maksim Anisenkov <manisenkov@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.11.0"
+mypy = "^1.7.1"
+ruff = "^0.1.6"
+ipython = "^8.18.1"
+ipdb = "^0.13.13"
+pytest = "^7.4.3"
+
+[tool.ruff]
+line-length = 88
+
+[[tool.mypy.overrides]]
+ignore_missing_imports = true
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
