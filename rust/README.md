@@ -1,6 +1,9 @@
 # Advent of Code in Rust
 
-## Incompleted
+## Completed
 
 - [2022](./src/bin)
+
+## Incompleted
+
 - [2016](./src/bin)
