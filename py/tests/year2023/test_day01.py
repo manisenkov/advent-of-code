@@ -1,6 +1,6 @@
 from io import StringIO
 
-from adventofcode.year2023 import day01
+from adventofcode.year2023.day01 import Day01
 
 
 INPUT_1 = """1abc2
@@ -19,10 +19,10 @@ zoneight234
 
 
 def test_day01_1():
-    sol = day01.Solution(StringIO(INPUT_1))
+    sol = Day01(StringIO(INPUT_1))
     assert sol.part1() == 142
 
 
-def test_day01_w():
-    sol = day01.Solution(StringIO(INPUT_2))
+def test_day01_2():
+    sol = Day01(StringIO(INPUT_2))
     assert sol.part2() == 281

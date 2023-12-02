@@ -15,7 +15,7 @@ WORD_MAP = {
 }
 
 
-class Solution:
+class Day01:
     def __init__(self, input: TextIO):
         self.lines = [s.strip() for s in input.readlines()]
 
@@ -60,7 +60,7 @@ class Solution:
 
 
 def main():
-    sol = Solution(stdin)
+    sol = Day01(stdin)
     print(f"Part 1: {sol.part1()}")
     print(f"Part 2: {sol.part2()}")
 
