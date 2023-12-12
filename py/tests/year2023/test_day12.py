@@ -1,0 +1,17 @@
+from io import StringIO
+
+from adventofcode.year2023.day12 import Day12
+
+
+INPUT = """???.### 1,1,3
+.??..??...?##. 1,1,3
+?#?#?#?#?#?#?#? 1,3,1,6
+????.#...#... 4,1,1
+????.######..#####. 1,6,5
+?###???????? 3,2,1"""
+
+
+def test_day12():
+    sol = Day12(StringIO(INPUT))
+    assert sol.part1() == 21
+    assert sol.part2() == 525152
