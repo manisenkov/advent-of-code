@@ -35,7 +35,7 @@ class Day04:
         card_counts = dict((i, 1) for i in self.cards)
         for i in range(1, len(card_counts) + 1):
             matches = self.match_counts[i]
-            for j in range (i + 1, i + matches + 1):
+            for j in range(i + 1, i + matches + 1):
                 card_counts[j] += card_counts[i]
         return sum(card_counts.values())
 
