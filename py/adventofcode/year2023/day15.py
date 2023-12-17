@@ -21,7 +21,7 @@ class Day15:
         return sum(hash(c) for c in self.commands)
 
     def part2(self) -> int:
-        boxes = defaultdict[dict[str, tuple[int, int]]](dict)
+        boxes = defaultdict[int, dict[str, tuple[int, int]]](dict)
         for c in self.commands:
             if c[-1] == "-":  # remove lense
                 label = c[:-1]
