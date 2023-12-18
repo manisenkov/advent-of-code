@@ -20,6 +20,7 @@ pytest = "^7.4.3"
 line-length = 88
 
 [[tool.mypy.overrides]]
+module = []
 ignore_missing_imports = true
 
 [build-system]
