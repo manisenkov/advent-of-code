@@ -52,13 +52,13 @@ def dig(commands: list[tuple[Direction, int, str]]) -> int:
     # Calculate area per row
     res = 0
     counter = 1
-    for row, trenches in horizontal_trenches.items():
+    for row, trench in horizontal_trenches.items():
         counter += 1
         if counter % 200000 == 0:
             progress = (counter / len(horizontal_trenches)) * 100
             print(f" -- {progress:.2f}% done...")
         start_pos = None
-        for t in trenches:
+        for t in trench:
             is_change = (
                 (row - 1) in horizontal_trenches
                 and (row + 1) in horizontal_trenches
