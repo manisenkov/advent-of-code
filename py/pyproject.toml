@@ -7,6 +7,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
+numpy = "^1.26.2"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.11.0"
