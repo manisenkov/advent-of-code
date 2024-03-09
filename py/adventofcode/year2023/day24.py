@@ -1,4 +1,4 @@
-import numpy as np
+from sympy.matrices import Matrix
 from math import sqrt
 from dataclasses import dataclass
 from typing import TextIO
@@ -95,7 +95,7 @@ class Day24:
 
     def part2(self) -> int:
         hs_0, hs_1, hs_2 = self.halestones[:3]
-        a = np.array(
+        a = Matrix(
             [
                 [
                     hs_1.vel.y - hs_0.vel.y,
@@ -145,24 +145,26 @@ class Day24:
                     hs_0.pos.z - hs_2.pos.z,
                     hs_2.pos.y - hs_0.pos.y,
                 ],
-            ]
+            ],
         )
-        b = [
-            (hs_0.pos.y * hs_0.vel.x - hs_1.pos.y * hs_1.vel.x)
-            - (hs_0.pos.x * hs_0.vel.y - hs_1.pos.x * hs_1.vel.y),
-            (hs_0.pos.y * hs_0.vel.x - hs_2.pos.y * hs_2.vel.x)
-            - (hs_0.pos.x * hs_0.vel.y - hs_2.pos.x * hs_2.vel.y),
-            (hs_0.pos.z * hs_0.vel.x - hs_1.pos.z * hs_1.vel.x)
-            - (hs_0.pos.x * hs_0.vel.z - hs_1.pos.x * hs_1.vel.z),
-            (hs_0.pos.z * hs_0.vel.x - hs_2.pos.z * hs_2.vel.x)
-            - (hs_0.pos.x * hs_0.vel.z - hs_2.pos.x * hs_2.vel.z),
-            (hs_0.pos.z * hs_0.vel.y - hs_1.pos.z * hs_1.vel.y)
-            - (hs_0.pos.y * hs_0.vel.z - hs_1.pos.y * hs_1.vel.z),
-            (hs_0.pos.z * hs_0.vel.y - hs_2.pos.z * hs_2.vel.y)
-            - (hs_0.pos.y * hs_0.vel.z - hs_2.pos.y * hs_2.vel.z),
-        ]
-        c = np.linalg.solve(a, b)
-        return round(c[0] + c[1] + c[2])
+        b = Matrix(
+            [
+                (hs_0.pos.y * hs_0.vel.x - hs_1.pos.y * hs_1.vel.x)
+                - (hs_0.pos.x * hs_0.vel.y - hs_1.pos.x * hs_1.vel.y),
+                (hs_0.pos.y * hs_0.vel.x - hs_2.pos.y * hs_2.vel.x)
+                - (hs_0.pos.x * hs_0.vel.y - hs_2.pos.x * hs_2.vel.y),
+                (hs_0.pos.z * hs_0.vel.x - hs_1.pos.z * hs_1.vel.x)
+                - (hs_0.pos.x * hs_0.vel.z - hs_1.pos.x * hs_1.vel.z),
+                (hs_0.pos.z * hs_0.vel.x - hs_2.pos.z * hs_2.vel.x)
+                - (hs_0.pos.x * hs_0.vel.z - hs_2.pos.x * hs_2.vel.z),
+                (hs_0.pos.z * hs_0.vel.y - hs_1.pos.z * hs_1.vel.y)
+                - (hs_0.pos.y * hs_0.vel.z - hs_1.pos.y * hs_1.vel.z),
+                (hs_0.pos.z * hs_0.vel.y - hs_2.pos.z * hs_2.vel.y)
+                - (hs_0.pos.y * hs_0.vel.z - hs_2.pos.y * hs_2.vel.z),
+            ],
+        )
+        c = a.inv() * b
+        return c[0] + c[1] + c[2]
 
 
 def main():
