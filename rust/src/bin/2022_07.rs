@@ -5,8 +5,8 @@ use aoc::solution::Solution;
 enum ConsoleLine {
     ChangeDir(String),
     List,
-    Dir(String),
-    File(usize, String),
+    Dir,
+    File(usize),
 }
 
 impl ConsoleLine {
@@ -20,8 +20,8 @@ impl ConsoleLine {
             }
         } else {
             match parts[0] {
-                "dir" => ConsoleLine::Dir(parts[1].into()),
-                size => ConsoleLine::File(size.parse().unwrap(), parts[1].into()),
+                "dir" => ConsoleLine::Dir,
+                size => ConsoleLine::File(size.parse().unwrap()),
             }
         }
     }
@@ -62,7 +62,7 @@ impl Solution<usize> for Day2022_07 {
                         path.push(join_paths(&cur_dir, &dir_name));
                     };
                 }
-                ConsoleLine::File(file_size, _) => {
+                ConsoleLine::File(file_size) => {
                     for dir_name in path.iter() {
                         dir_sizes
                             .entry(dir_name.to_string())
