@@ -3,7 +3,8 @@ package main
 import (
 	"math"
 
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/numbers"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 // Solution contains solution for day 9
@@ -17,7 +18,7 @@ type Solution struct {
 func (sol *Solution) Init(input []string) {
 	sol.nums = make([]int64, len(input))
 	for i, inp := range input {
-		sol.nums[i] = common.MustParseInt(inp, 10, 64)
+		sol.nums[i] = numbers.MustParseInt[int64](inp, 10)
 	}
 }
 
@@ -86,5 +87,5 @@ func hasSumPair(checkNums []int64, target int64) bool {
 }
 
 func main() {
-	common.Run(&Solution{preambleSize: 25})
+	problem.Solve(&Solution{preambleSize: 25})
 }

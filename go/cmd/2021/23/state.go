@@ -1,12 +1,12 @@
 package main
 
 import (
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/numbers"
 )
 
 var deriveCache map[int]map[state][]move = map[int]map[state][]move{
-	2: map[state][]move{},
-	4: map[state][]move{},
+	2: {},
+	4: {},
 }
 
 var (
@@ -206,5 +206,5 @@ func (st state) deriveNext() []move {
 }
 
 func dist(hallwayIndex, roomIndex, depth int) int {
-	return common.AbsInt(hallwayIndex-(2+2*roomIndex)) + depth
+	return numbers.Abs(hallwayIndex-(2+2*roomIndex)) + depth
 }

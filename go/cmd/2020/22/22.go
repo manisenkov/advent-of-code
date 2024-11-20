@@ -4,7 +4,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/numbers"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 // Solution contains solution for day 22
@@ -20,12 +21,12 @@ func (sol *Solution) Init(input []string) {
 	}
 	line := 1
 	for input[line] != "" {
-		sol.startDecks[0] = append(sol.startDecks[0], common.MustAtoi(input[line]))
+		sol.startDecks[0] = append(sol.startDecks[0], numbers.MustAtoi[int](input[line]))
 		line++
 	}
 	line += 2
 	for line < len(input) && input[line] != "" {
-		sol.startDecks[1] = append(sol.startDecks[1], common.MustAtoi(input[line]))
+		sol.startDecks[1] = append(sol.startDecks[1], numbers.MustAtoi[int](input[line]))
 		line++
 	}
 }
@@ -125,5 +126,5 @@ func gameKey(decks [2][]int, ptrs [2]int) string {
 }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }

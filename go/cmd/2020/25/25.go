@@ -1,7 +1,8 @@
 package main
 
 import (
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/numbers"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 const factor = 20201227
@@ -13,8 +14,8 @@ type Solution struct {
 
 // Init initializes solution with input data
 func (sol *Solution) Init(input []string) {
-	sol.publicKeys[0] = common.MustAtoi(input[0])
-	sol.publicKeys[1] = common.MustAtoi(input[1])
+	sol.publicKeys[0] = numbers.MustAtoi[int](input[0])
+	sol.publicKeys[1] = numbers.MustAtoi[int](input[1])
 }
 
 // Part1 .
@@ -41,5 +42,5 @@ func (sol *Solution) Part2() any {
 }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }

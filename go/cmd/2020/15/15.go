@@ -3,7 +3,8 @@ package main
 import (
 	"strings"
 
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/numbers"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 // Solution contains solution for day 15
@@ -16,7 +17,7 @@ func (sol *Solution) Init(input []string) {
 	parts := strings.Split(input[0], ",")
 	sol.nums = make([]int, len(parts))
 	for i, p := range parts {
-		sol.nums[i] = common.MustAtoi(p)
+		sol.nums[i] = numbers.MustAtoi[int](p)
 	}
 }
 
@@ -61,5 +62,5 @@ func (sol *Solution) solve(numTurns int) int {
 }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }

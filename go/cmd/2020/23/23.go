@@ -3,7 +3,7 @@ package main
 import (
 	"strconv"
 
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 type item struct {
@@ -119,5 +119,5 @@ func turn(cur *item, itemMap map[int]*item) {
 }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }

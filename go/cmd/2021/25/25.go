@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 // Solution contains solution for day 25
@@ -92,5 +92,5 @@ func isMapsEqual(map1, map2 [][]byte) bool {
 }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }

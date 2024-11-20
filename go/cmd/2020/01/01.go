@@ -1,7 +1,8 @@
 package main
 
 import (
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/numbers"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 // Solution contains solution for day 1
@@ -13,7 +14,7 @@ type Solution struct {
 func (sol *Solution) Init(input []string) {
 	sol.entries = make([]int, len(input))
 	for i, inp := range input {
-		sol.entries[i] = common.MustAtoi(inp)
+		sol.entries[i] = numbers.MustAtoi[int](inp)
 	}
 }
 
@@ -44,5 +45,5 @@ func (sol *Solution) Part2() any {
 }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }

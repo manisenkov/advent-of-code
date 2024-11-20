@@ -3,7 +3,8 @@ package main
 import (
 	"strconv"
 
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/numbers"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 var simpleTurns = map[rune]map[int]rune{
@@ -33,7 +34,7 @@ func (sol *Solution) Init(input []string) {
 	for i, inp := range input {
 		sol.instructions[i] = instruction{
 			command: []rune(inp)[0],
-			arg:     common.MustAtoi(inp[1:]),
+			arg:     numbers.MustAtoi[int](inp[1:]),
 		}
 	}
 }
@@ -45,7 +46,7 @@ func (sol *Solution) Part1() any {
 	for _, ins := range sol.instructions {
 		pos, dir = moveSimple(pos, dir, ins)
 	}
-	return common.AbsInt(pos[0]) + common.AbsInt(pos[1])
+	return numbers.Abs(pos[0]) + numbers.Abs(pos[1])
 }
 
 // Part2 .
@@ -55,7 +56,7 @@ func (sol *Solution) Part2() any {
 	for _, ins := range sol.instructions {
 		pos, waypoint = moveWaypoint(pos, waypoint, ins)
 	}
-	return common.AbsInt(pos[0]) + common.AbsInt(pos[1])
+	return numbers.Abs(pos[0]) + numbers.Abs(pos[1])
 }
 
 func moveSimple(pos [2]int, dir rune, ins instruction) ([2]int, rune) {
@@ -117,5 +118,5 @@ func moveWaypoint(pos [2]int, waypoint [2]int, ins instruction) ([2]int, [2]int)
 }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }

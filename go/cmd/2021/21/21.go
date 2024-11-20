@@ -3,7 +3,8 @@ package main
 import (
 	"strings"
 
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/numbers"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 type state struct {
@@ -24,8 +25,8 @@ type Solution struct {
 
 // Init initializes solution with input data
 func (sol *Solution) Init(input []string) {
-	startPos1 := common.MustAtoi(strings.Split(input[0], ": ")[1])
-	startPos2 := common.MustAtoi(strings.Split(input[1], ": ")[1])
+	startPos1 := numbers.MustAtoi[int](strings.Split(input[0], ": ")[1])
+	startPos2 := numbers.MustAtoi[int](strings.Split(input[1], ": ")[1])
 	sol.initState = state{
 		pos:    [2]int{startPos1, startPos2},
 		score:  [2]int{0, 0},
@@ -114,5 +115,5 @@ func loop(val, max int) int {
 }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }

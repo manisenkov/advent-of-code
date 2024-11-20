@@ -4,7 +4,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 var numbersMap = map[int]int{
@@ -125,5 +125,5 @@ func generatePermutations(source []byte, i int) [][]byte {
 }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }

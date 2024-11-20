@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 	"github.com/stretchr/testify/suite"
 )
 
@@ -22,7 +22,7 @@ func (st *Day24TestSuite) Test1() {
 	if err != nil {
 		panic(err)
 	}
-	input, err := common.ReadInput(f)
+	input, err := problem.ReadInput(f)
 	if err != nil {
 		panic(err)
 	}

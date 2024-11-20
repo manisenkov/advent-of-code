@@ -1,7 +1,8 @@
 package main
 
 import (
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/numbers"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 // Solution contains solution for day 3
@@ -34,7 +35,7 @@ func (sol *Solution) Part1() any {
 			epsilon += "1"
 		}
 	}
-	return int(common.MustParseInt(gamma, 2, 32) * common.MustParseInt(epsilon, 2, 32))
+	return numbers.MustParseInt[int](gamma, 2) * numbers.MustParseInt[int](epsilon, 2)
 }
 
 // Part2 .
@@ -99,9 +100,9 @@ func (sol *Solution) Part2() any {
 		scrubberFilter = nextScrubberFilter
 	}
 
-	return int(common.MustParseInt(oxygenFilter[0], 2, 32) * common.MustParseInt(scrubberFilter[0], 2, 32))
+	return numbers.MustParseInt[int](oxygenFilter[0], 2) * numbers.MustParseInt[int](scrubberFilter[0], 2)
 }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }

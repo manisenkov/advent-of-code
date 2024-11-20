@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 // tile represents a tile coord in hexagonal grid
@@ -115,5 +115,5 @@ func isNextBlack(t tile, grid map[tile]bool) bool {
 }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }

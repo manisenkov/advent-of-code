@@ -3,7 +3,8 @@ package main
 import (
 	"strings"
 
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/numbers"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 type coord struct {
@@ -11,7 +12,7 @@ type coord struct {
 }
 
 func (c coord) dist(other coord) int {
-	return common.AbsInt(c.row-other.row) + common.AbsInt(c.col-other.col)
+	return numbers.Abs(c.row-other.row) + numbers.Abs(c.col-other.col)
 }
 
 type distance struct {
@@ -36,7 +37,7 @@ func (sol *Solution) Init(input []string) {
 	}
 	for i, c := range input {
 		xs := strings.Split(c, ", ")
-		p := coord{col: common.MustAtoi(xs[0]), row: common.MustAtoi(xs[1])}
+		p := coord{col: numbers.MustAtoi[int](xs[0]), row: numbers.MustAtoi[int](xs[1])}
 		if p.row < boundRect[0].row {
 			boundRect[0].row = p.row
 		}
@@ -167,5 +168,5 @@ func (sol *Solution) Part2() any {
 }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }

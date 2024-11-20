@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 const (
@@ -223,5 +223,5 @@ func (sol *Solution) Part2() any {
 }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }

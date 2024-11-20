@@ -3,7 +3,8 @@ package main
 import (
 	"math"
 
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/numbers"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 // Solution contains solution for day 5
@@ -32,7 +33,7 @@ func (sol *Solution) Init(input []string) {
 				idStr += "1"
 			}
 		}
-		seatID := int(common.MustParseInt(idStr, 2, 32))
+		seatID := numbers.MustParseInt[int](idStr, 2)
 		sol.seatIDs[i] = seatID
 		if seatID > sol.maxSeatID {
 			sol.maxSeatID = seatID
@@ -63,5 +64,5 @@ func (sol *Solution) Part2() any {
 }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }

@@ -3,7 +3,8 @@ package main
 import (
 	"sort"
 
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/numbers"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 // Solution contains solution for day 10
@@ -17,7 +18,7 @@ func (sol *Solution) Init(input []string) {
 	sol.jolts[0] = 0
 	maxJolt := int64(0)
 	for i, inp := range input {
-		jolt := common.MustParseInt(inp, 10, 64)
+		jolt := numbers.MustParseInt[int64](inp, 10)
 		if jolt > maxJolt {
 			maxJolt = jolt
 		}
@@ -87,5 +88,5 @@ func (sol *Solution) Part2() any {
 // }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }

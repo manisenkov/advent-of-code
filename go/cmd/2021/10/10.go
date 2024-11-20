@@ -3,7 +3,7 @@ package main
 import (
 	"sort"
 
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 type byteStack struct {
@@ -137,5 +137,5 @@ func testLine(line []byte) byte {
 }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }

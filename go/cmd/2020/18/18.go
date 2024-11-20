@@ -3,7 +3,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/numbers"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 const (
@@ -109,7 +110,7 @@ func eval(expr []token, idx int) (int, int) {
 		t := expr[idx]
 		switch t.typ {
 		case tnum:
-			n := common.MustAtoi(t.value)
+			n := numbers.MustAtoi[int](t.value)
 			switch op {
 			case tplus:
 				res += n
@@ -170,7 +171,7 @@ func evalOrder(expr []token, idx int, level int) (int, int) {
 	for i < len(refinedTokens) {
 		if refinedTokens[i].typ == tplus {
 			tok := token{
-				value: fmt.Sprint(common.MustAtoi(refinedTokens[i-1].value) + common.MustAtoi(refinedTokens[i+1].value)),
+				value: fmt.Sprint(numbers.MustAtoi[int](refinedTokens[i-1].value) + numbers.MustAtoi[int](refinedTokens[i+1].value)),
 				typ:   tnum,
 			}
 			toks := make([]token, len(refinedTokens)-2)
@@ -187,7 +188,7 @@ func evalOrder(expr []token, idx int, level int) (int, int) {
 	res := 1
 	for _, tok := range refinedTokens {
 		if tok.typ == tnum {
-			res *= common.MustAtoi(tok.value)
+			res *= numbers.MustAtoi[int](tok.value)
 		}
 	}
 
@@ -195,5 +196,5 @@ func evalOrder(expr []token, idx int, level int) (int, int) {
 }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }

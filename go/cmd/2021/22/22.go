@@ -5,7 +5,8 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/numbers"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 // Solution contains solution for day 22
@@ -26,8 +27,8 @@ func (sol *Solution) Init(input []string) {
 		xs = strings.Split(xs[1], ",")
 		for j := 0; j < 3; j++ {
 			cs := strings.Split(xs[j][2:], "..")
-			sol.cuboids[i][j][0] = common.MustAtoi(cs[0])
-			sol.cuboids[i][j][1] = common.MustAtoi(cs[1])
+			sol.cuboids[i][j][0] = numbers.MustAtoi[int](cs[0])
+			sol.cuboids[i][j][1] = numbers.MustAtoi[int](cs[1])
 		}
 	}
 }
@@ -37,9 +38,9 @@ func (sol *Solution) Part1() any {
 	reactor := map[[3]int]bool{}
 	for i, cuboid := range sol.cuboids {
 		st := sol.states[i]
-		for x := common.Max(cuboid[0][0], -50); x <= common.Min(cuboid[0][1], 50); x++ {
-			for y := common.Max(cuboid[1][0], -50); y <= common.Min(cuboid[1][1], 50); y++ {
-				for z := common.Max(cuboid[2][0], -50); z <= common.Min(cuboid[2][1], 50); z++ {
+		for x := numbers.Max(cuboid[0][0], -50); x <= numbers.Min(cuboid[0][1], 50); x++ {
+			for y := numbers.Max(cuboid[1][0], -50); y <= numbers.Min(cuboid[1][1], 50); y++ {
+				for z := numbers.Max(cuboid[2][0], -50); z <= numbers.Min(cuboid[2][1], 50); z++ {
 					reactor[[3]int{x, y, z}] = st
 				}
 			}
@@ -103,5 +104,5 @@ func (sol *Solution) Part2() any {
 }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }
