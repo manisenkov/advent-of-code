@@ -1,7 +1,8 @@
 package main
 
 import (
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/numbers"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 type packet interface {
@@ -144,14 +145,14 @@ func parse(bytes []int, pos int) (packet, int) {
 				break
 			}
 		}
-		num := int64(common.MustParseInt(numStr, 2, 64))
+		num := numbers.MustParseInt[int64](numStr, 2)
 		return literal{version, typeID, num}, pos
 	} else {
 		lengthTypeID := bytes[pos]
 		args := []packet{}
 		pos++
 		if lengthTypeID == 0 {
-			length := int(common.MustParseInt(bytesToString(bytes[pos:pos+15]), 2, 32))
+			length := numbers.MustParseInt[int](bytesToString(bytes[pos:pos+15]), 2)
 			pos += 15
 			stopPos := pos + length
 			for pos < stopPos {
@@ -160,7 +161,7 @@ func parse(bytes []int, pos int) (packet, int) {
 				pos = nextPos
 			}
 		} else {
-			left := int(common.MustParseInt(bytesToString(bytes[pos:pos+11]), 2, 32))
+			left := numbers.MustParseInt[int](bytesToString(bytes[pos:pos+11]), 2)
 			pos += 11
 			for left > 0 {
 				arg, nextPos := parse(bytes, pos)
@@ -186,5 +187,5 @@ func bytesToString(bytes []int) string {
 }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }

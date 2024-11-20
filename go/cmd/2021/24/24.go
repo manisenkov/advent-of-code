@@ -5,7 +5,8 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/numbers"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 // Solution contains a solution for day 24
@@ -19,9 +20,9 @@ func (sol *Solution) Init(input []string) {
 	sol.args = [][3]int{}
 	for i := 0; i < len(input); i += 18 {
 		sol.args = append(sol.args, [3]int{
-			int(common.MustParseInt(strings.Split(input[i+4], " ")[2], 10, 64)),
-			int(common.MustParseInt(strings.Split(input[i+5], " ")[2], 10, 64)),
-			int(common.MustParseInt(strings.Split(input[i+15], " ")[2], 10, 64)),
+			numbers.MustParseInt[int](strings.Split(input[i+4], " ")[2], 10),
+			numbers.MustParseInt[int](strings.Split(input[i+5], " ")[2], 10),
+			numbers.MustParseInt[int](strings.Split(input[i+15], " ")[2], 10),
 		})
 	}
 }
@@ -90,5 +91,5 @@ func (sol *Solution) Part2() any {
 }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }

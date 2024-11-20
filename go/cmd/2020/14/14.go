@@ -3,7 +3,8 @@ package main
 import (
 	"regexp"
 
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/numbers"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 const (
@@ -109,8 +110,8 @@ func (sol *Solution) Init(input []string) {
 		m = memRegex.FindAllStringSubmatch(inp, -1)
 		if len(m) > 0 {
 			sol.commands[i] = setMemCommand{
-				address: common.MustParseInt(m[0][1], 10, 64),
-				value:   common.MustParseInt(m[0][2], 10, 64),
+				address: numbers.MustParseInt[int64](m[0][1], 10),
+				value:   numbers.MustParseInt[int64](m[0][2], 10),
 			}
 			continue
 		}
@@ -164,5 +165,5 @@ func getBitIndexes(arg int64) map[int]bool {
 }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }

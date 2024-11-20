@@ -3,7 +3,8 @@ package main
 import (
 	"strings"
 
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/numbers"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 // Solution contains solution for day 16
@@ -27,7 +28,7 @@ func (sol *Solution) Init(input []string) {
 		ranges := make([][2]int, len(rangeParts))
 		for i, part := range rangeParts {
 			vals := strings.Split(part, "-")
-			ranges[i] = [2]int{common.MustAtoi(vals[0]), common.MustAtoi((vals[1]))}
+			ranges[i] = [2]int{numbers.MustAtoi[int](vals[0]), numbers.MustAtoi[int]((vals[1]))}
 		}
 		sol.rules[name] = ranges
 		line++
@@ -38,7 +39,7 @@ func (sol *Solution) Init(input []string) {
 	parts := strings.Split(input[line], ",")
 	sol.yourTicket = make([]int, len(parts))
 	for i, part := range parts {
-		sol.yourTicket[i] = common.MustAtoi(part)
+		sol.yourTicket[i] = numbers.MustAtoi[int](part)
 	}
 	line += 3
 
@@ -49,7 +50,7 @@ func (sol *Solution) Init(input []string) {
 		parts := strings.Split(input[line], ",")
 		sol.otherTickets[i] = make([]int, len(parts))
 		for j, part := range parts {
-			sol.otherTickets[i][j] = common.MustAtoi(part)
+			sol.otherTickets[i][j] = numbers.MustAtoi[int](part)
 		}
 		i++
 		line++
@@ -160,5 +161,5 @@ func findOrder(order []string, idx int, taken map[string]bool, possibleRules [][
 }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }

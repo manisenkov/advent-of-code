@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 var (
@@ -117,5 +117,5 @@ func validate(p map[string]string) bool {
 }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }

@@ -4,7 +4,8 @@ import (
 	"math"
 	"strings"
 
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/numbers"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 // Solution contains solution for day 13
@@ -15,13 +16,13 @@ type Solution struct {
 
 // Init initializes solution with input data
 func (sol *Solution) Init(input []string) {
-	sol.ts = common.MustParseInt(input[0], 10, 64)
+	sol.ts = numbers.MustParseInt[int64](input[0], 10)
 	for _, inp := range strings.Split(input[1], ",") {
 		if inp == "x" {
 			sol.busIDs = append(sol.busIDs, -1)
 			continue
 		}
-		sol.busIDs = append(sol.busIDs, common.MustParseInt(inp, 10, 64))
+		sol.busIDs = append(sol.busIDs, numbers.MustParseInt[int64](inp, 10))
 	}
 }
 
@@ -68,7 +69,7 @@ func (sol *Solution) Part2() any {
 	}
 	res := int64(0)
 	for _, f := range factors {
-		_, y, _ := common.ExtGCD(n/f[1], f[1])
+		_, y, _ := numbers.ExtGCD(n/f[1], f[1])
 		res += y * (n / f[1]) * f[0]
 	}
 
@@ -78,5 +79,5 @@ func (sol *Solution) Part2() any {
 }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }

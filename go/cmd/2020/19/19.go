@@ -3,7 +3,8 @@ package main
 import (
 	"strings"
 
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/numbers"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 type rule interface {
@@ -58,7 +59,7 @@ func (sol *Solution) Init(input []string) {
 			break
 		}
 		parts := strings.Split(inp, ": ")
-		ruleID := common.MustAtoi(parts[0])
+		ruleID := numbers.MustAtoi[int](parts[0])
 		if strings.HasPrefix(parts[1], "\"") && strings.HasSuffix(parts[1], "\"") {
 			rules[ruleID] = charRule([]rune(parts[1])[1])
 		} else {
@@ -68,7 +69,7 @@ func (sol *Solution) Init(input []string) {
 				idxParts := strings.Split(p, " ")
 				branches[j] = make([]int, len(idxParts))
 				for k, rp := range idxParts {
-					branches[j][k] = common.MustAtoi(rp)
+					branches[j][k] = numbers.MustAtoi[int](rp)
 				}
 			}
 			rules[ruleID] = branchRule(branches)
@@ -132,5 +133,5 @@ func (sol *Solution) Part2() any {
 }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }

@@ -3,7 +3,8 @@ package main
 import (
 	"strings"
 
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/numbers"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 type command struct {
@@ -23,7 +24,7 @@ func (sol *Solution) Init(input []string) {
 		parts := strings.Split(s, " ")
 		cmd := command{
 			direction: parts[0],
-			arg:       common.MustAtoi(parts[1]),
+			arg:       numbers.MustAtoi[int](parts[1]),
 		}
 		commands[i] = cmd
 	}
@@ -67,5 +68,5 @@ func (sol *Solution) Part2() any {
 }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }

@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 type coord struct {
@@ -181,5 +181,5 @@ func calcNeighbors(s space, c coord) int {
 }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }

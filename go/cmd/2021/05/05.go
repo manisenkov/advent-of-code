@@ -3,7 +3,8 @@ package main
 import (
 	"strings"
 
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/numbers"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 type point struct {
@@ -29,12 +30,12 @@ func (sol *Solution) Init(input []string) {
 		sectors[i] = lineSector{
 			points: [2]point{
 				{
-					x: common.MustAtoi(ps1[0]),
-					y: common.MustAtoi(ps1[1]),
+					x: numbers.MustAtoi[int](ps1[0]),
+					y: numbers.MustAtoi[int](ps1[1]),
 				},
 				{
-					x: common.MustAtoi(ps2[0]),
-					y: common.MustAtoi(ps2[1]),
+					x: numbers.MustAtoi[int](ps2[0]),
+					y: numbers.MustAtoi[int](ps2[1]),
 				},
 			},
 		}
@@ -88,5 +89,5 @@ func calcStep(p0, p1 int) int {
 }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }

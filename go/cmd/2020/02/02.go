@@ -3,7 +3,8 @@ package main
 import (
 	"regexp"
 
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/numbers"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 var inputRegex = regexp.MustCompile(`^(\d+)-(\d+) ([a-z]{1}): ([a-z]+)$`)
@@ -40,8 +41,8 @@ func (sol *Solution) Init(input []string) {
 	for i, inp := range input {
 		m := inputRegex.FindAllStringSubmatch(inp, -1)
 		pol := policy{
-			pos1:   common.MustAtoi(m[0][1]),
-			pos2:   common.MustAtoi(m[0][2]),
+			pos1:   numbers.MustAtoi[int](m[0][1]),
+			pos2:   numbers.MustAtoi[int](m[0][2]),
 			letter: ([]rune(m[0][3]))[0],
 		}
 		password := m[0][4]
@@ -73,5 +74,5 @@ func (sol *Solution) Part2() any {
 }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }

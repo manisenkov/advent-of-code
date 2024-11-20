@@ -4,7 +4,8 @@ import (
 	"math"
 	"strings"
 
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/numbers"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 // Solution contains solution for day 17
@@ -17,11 +18,11 @@ type Solution struct {
 func (sol *Solution) Init(input []string) {
 	s := strings.Split(strings.Split(input[0], ": ")[1], ", ")
 	xs := strings.Split(string([]byte(s[0])[2:]), "..")
-	sol.minX = common.MustAtoi(xs[0])
-	sol.maxX = common.MustAtoi(xs[1])
+	sol.minX = numbers.MustAtoi[int](xs[0])
+	sol.maxX = numbers.MustAtoi[int](xs[1])
 	ys := strings.Split(string([]byte(s[1])[2:]), "..")
-	sol.minY = common.MustAtoi(ys[0])
-	sol.maxY = common.MustAtoi(ys[1])
+	sol.minY = numbers.MustAtoi[int](ys[0])
+	sol.maxY = numbers.MustAtoi[int](ys[1])
 }
 
 // Part1 .
@@ -69,5 +70,5 @@ func (sol *Solution) shot(vx, vy int) bool {
 }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }

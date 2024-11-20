@@ -3,7 +3,7 @@ package main
 import (
 	"math"
 
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 // Solution contains solution for day 20
@@ -119,5 +119,5 @@ func (sol *Solution) solve(side int, pos int, grid [][]tile, used map[int]bool) 
 }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }

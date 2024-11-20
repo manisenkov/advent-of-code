@@ -3,7 +3,8 @@ package main
 import (
 	"strings"
 
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/numbers"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 // Solution contains solution for day 19
@@ -28,9 +29,9 @@ func (sol *Solution) Init(input []string) {
 		}
 		xs := strings.Split(s, ",")
 		curScanner[[3]int{
-			common.MustAtoi(xs[0]),
-			common.MustAtoi(xs[1]),
-			common.MustAtoi(xs[2]),
+			numbers.MustAtoi[int](xs[0]),
+			numbers.MustAtoi[int](xs[1]),
+			numbers.MustAtoi[int](xs[2]),
 		}] = true
 	}
 }
@@ -79,7 +80,7 @@ func (sol *Solution) Part2() any {
 	maxDist := 0
 	for i, scanner1 := range sol.scanners {
 		for _, scanner2 := range sol.scanners[i:] {
-			dist := common.AbsInt(scanner1[0]-scanner2[0]) + common.AbsInt(scanner1[1]-scanner2[1]) + common.AbsInt(scanner1[2]-scanner2[2])
+			dist := numbers.Abs(scanner1[0]-scanner2[0]) + numbers.Abs(scanner1[1]-scanner2[1]) + numbers.Abs(scanner1[2]-scanner2[2])
 			if dist > maxDist {
 				maxDist = dist
 			}
@@ -129,5 +130,5 @@ func trans(target map[[3]int]bool, vector [3]int) map[[3]int]bool {
 }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }

@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/numbers"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 type fold struct {
@@ -65,12 +66,12 @@ func (sol *Solution) Init(input []string) {
 			break
 		}
 		xs := strings.Split(s, ",")
-		sol.dots[[2]int{common.MustAtoi(xs[0]), common.MustAtoi(xs[1])}] = true
+		sol.dots[[2]int{numbers.MustAtoi[int](xs[0]), numbers.MustAtoi[int](xs[1])}] = true
 		i++
 	}
 	for _, s := range input[i+1:] {
 		xs := strings.Split(string([]byte(s)[11:]), "=")
-		sol.folds = append(sol.folds, fold{xs[0], common.MustAtoi(xs[1])})
+		sol.folds = append(sol.folds, fold{xs[0], numbers.MustAtoi[int](xs[1])})
 	}
 }
 
@@ -115,5 +116,5 @@ func foldPaper(dots map[[2]int]bool, f fold) map[[2]int]bool {
 }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }

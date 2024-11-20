@@ -3,7 +3,8 @@ package main
 import (
 	"strings"
 
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/numbers"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 const startBag = "shiny gold"
@@ -80,7 +81,7 @@ func parseRule(inp string) rule {
 		for _, s := range strings.Split(ruleInp[1], ", ") {
 			spl := strings.Split(s, " ")
 			res.contain = append(res.contain, bagCount{
-				count: common.MustAtoi(spl[0]),
+				count: numbers.MustAtoi[int](spl[0]),
 				color: strings.Join(spl[1:3], " "),
 			})
 		}
@@ -89,5 +90,5 @@ func parseRule(inp string) rule {
 }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }

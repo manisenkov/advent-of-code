@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"regexp"
 
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/numbers"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 var claimRegex = regexp.MustCompile(`^#(\d+) @ (\d+),(\d+): (\d+)x(\d+)$`)
@@ -22,10 +23,10 @@ func (sol *Solution) Init(input []string) {
 	for i, inp := range input {
 		m := claimRegex.FindAllStringSubmatch(inp, -1)
 		id := m[0][1]
-		left := common.MustAtoi(m[0][2])
-		top := common.MustAtoi(m[0][3])
-		width := common.MustAtoi(m[0][4])
-		height := common.MustAtoi(m[0][5])
+		left := numbers.MustAtoi[int](m[0][2])
+		top := numbers.MustAtoi[int](m[0][3])
+		width := numbers.MustAtoi[int](m[0][4])
+		height := numbers.MustAtoi[int](m[0][5])
 		for x := left; x < left+width; x++ {
 			for y := top; y < top+height; y++ {
 				k := fmt.Sprintf("%v,%v", x, y)
@@ -67,5 +68,5 @@ func (sol *Solution) Part2() any {
 }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }

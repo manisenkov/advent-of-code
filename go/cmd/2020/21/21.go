@@ -4,7 +4,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 type product struct {
@@ -148,5 +148,5 @@ func (sol *Solution) checkIngredientToAllergen(ingredient, allergen string) bool
 }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }

@@ -1,6 +1,8 @@
 package main
 
-import "github.com/manisenkov/advent-of-code/pkg/common"
+import (
+	"github.com/manisenkov/advent-of-code/pkg/numbers"
+)
 
 const tileSize = 10
 
@@ -71,7 +73,7 @@ func parseTile(input []string) tile {
 		body[i] = [tileSize]rune{sInput[0], sInput[1], sInput[2], sInput[3], sInput[4], sInput[5], sInput[6], sInput[7], sInput[8], sInput[9]}
 	}
 	return tile{
-		id:   common.MustAtoi(input[0][5:9]),
+		id:   numbers.MustAtoi[int](input[0][5:9]),
 		body: body,
 		borders: tileBorders{
 			left:   calcBorder([tileSize]rune{body[0][0], body[1][0], body[2][0], body[3][0], body[4][0], body[5][0], body[6][0], body[7][0], body[8][0], body[9][0]}),

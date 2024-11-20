@@ -3,7 +3,8 @@ package main
 import (
 	"strings"
 
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/numbers"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 type board [5][5]int
@@ -67,7 +68,7 @@ func (sol *Solution) Init(input []string) {
 	xs := strings.Split(input[0], ",")
 	draws := make([]int, len(xs))
 	for i, s := range xs {
-		draws[i] = common.MustAtoi(s)
+		draws[i] = numbers.MustAtoi[int](s)
 	}
 	sol.draws = draws
 
@@ -78,7 +79,7 @@ func (sol *Solution) Init(input []string) {
 		for i := 0; i < 5; i++ {
 			for j := 0; j < 5; j++ {
 				s := strings.Trim(input[2+i+nb*6][j*3:j*3+2], " ")
-				boards[nb][i][j] = common.MustAtoi(s)
+				boards[nb][i][j] = numbers.MustAtoi[int](s)
 			}
 		}
 	}
@@ -123,5 +124,5 @@ func (sol *Solution) Part2() any {
 }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }

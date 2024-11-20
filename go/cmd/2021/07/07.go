@@ -3,7 +3,8 @@ package main
 import (
 	"strings"
 
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/numbers"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 // Solution contains solution for day 7
@@ -18,7 +19,7 @@ func (sol *Solution) Init(input []string) {
 	sol.initPos = make([]int, len(xs))
 	sol.maxPos = -0x7FFFFFFF
 	for i, s := range xs {
-		p := common.MustAtoi(s)
+		p := numbers.MustAtoi[int](s)
 		sol.initPos[i] = p
 		if p > sol.maxPos {
 			sol.maxPos = p
@@ -43,18 +44,18 @@ func (sol *Solution) solve(distFn func(curPos, initPos int) int) int {
 // Part1 .
 func (sol *Solution) Part1() any {
 	return sol.solve(func(curPos, initPos int) int {
-		return common.AbsInt(curPos - initPos)
+		return numbers.Abs(curPos - initPos)
 	})
 }
 
 // Part2 .
 func (sol *Solution) Part2() any {
 	return sol.solve(func(curPos, initPos int) int {
-		n := common.AbsInt(curPos - initPos)
+		n := numbers.Abs(curPos - initPos)
 		return n * (n + 1) / 2
 	})
 }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }

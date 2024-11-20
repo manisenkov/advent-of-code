@@ -5,7 +5,8 @@ import (
 	"sort"
 	"time"
 
-	"github.com/manisenkov/advent-of-code/pkg/common"
+	"github.com/manisenkov/advent-of-code/pkg/numbers"
+	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
 
 const timeLayout = "2006-01-02 15:04"
@@ -91,7 +92,7 @@ func (sol *Solution) Part1() any {
 		}
 	}
 
-	return common.MustAtoi(sleepiestGuardID) * maxSleepMinute
+	return numbers.MustAtoi[int](sleepiestGuardID) * maxSleepMinute
 }
 
 // Part2 .
@@ -108,9 +109,9 @@ func (sol *Solution) Part2() any {
 			}
 		}
 	}
-	return common.MustAtoi(sleepiestGuardID) * maxSleepMinute
+	return numbers.MustAtoi[int](sleepiestGuardID) * maxSleepMinute
 }
 
 func main() {
-	common.Run(new(Solution))
+	problem.Solve(new(Solution))
 }
