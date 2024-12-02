@@ -55,14 +55,11 @@ func (sol *Solution) Part1() any {
 	res := ""
 	processed := map[byte]bool{}
 	for len(queue) > 0 {
-		// fmt.Println(queue)
 		from := queue[0]
 		queue = queue[1:]
 		if processed[from] {
 			continue
 		}
-
-		// fmt.Println(processed)
 
 		// Check if requirements satisfied
 		reqsSatisfied := true

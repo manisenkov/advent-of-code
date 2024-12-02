@@ -2,6 +2,7 @@ package numbers
 
 import (
 	"strconv"
+	"strings"
 	"unsafe"
 )
 
@@ -56,6 +57,7 @@ func ModInv[N AnyInt](a, m N) N {
 
 // MustAtoi converts the given string to an integer. It panics in case of an error
 func MustAtoi[N AnyInt](s string) N {
+	s = strings.Trim(s, " \n\t")
 	res, err := strconv.Atoi(s)
 	if err != nil {
 		panic(err)
