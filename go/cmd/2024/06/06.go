@@ -3,6 +3,7 @@ package main
 import (
 	"maps"
 	"slices"
+	"sync"
 
 	"github.com/manisenkov/advent-of-code/pkg/problem"
 )
@@ -109,31 +110,46 @@ func (sol *Solution) Part1() any {
 // Part2 to solve a "gold" part (for a second star)
 func (sol *Solution) Part2() any {
 	moves, _, _ := simulate(sol.size, sol.obstacles, sol.startPos)
-	placesToPutObstacles := map[[2]int]bool{}
+	resCh := make(chan [2]int)
+	wg := new(sync.WaitGroup)
+	wg.Add(1)
+	go func() {
+		wg.Wait()
+		close(resCh)
+	}()
 	for _, step := range moves {
-		var toPlaceObstacle [2]int
-		switch step.dir {
-		case up:
-			toPlaceObstacle = [2]int{step.pos[0] - 1, step.pos[1]}
-		case down:
-			toPlaceObstacle = [2]int{step.pos[0] + 1, step.pos[1]}
-		case left:
-			toPlaceObstacle = [2]int{step.pos[0], step.pos[1] - 1}
-		case right:
-			toPlaceObstacle = [2]int{step.pos[0], step.pos[1] + 1}
-		}
-		if (toPlaceObstacle[0] < 0 && toPlaceObstacle[0] >= sol.size[0] &&
-			toPlaceObstacle[1] < 0 && toPlaceObstacle[1] >= sol.size[1]) ||
-			sol.obstacles[toPlaceObstacle] ||
-			toPlaceObstacle == sol.startPos {
-			continue
-		}
-		newObstacles := maps.Clone(sol.obstacles)
-		newObstacles[toPlaceObstacle] = true
-		_, _, looped := simulate(sol.size, newObstacles, sol.startPos)
-		if looped {
-			placesToPutObstacles[toPlaceObstacle] = true
-		}
+		go func(step move, resCh chan<- [2]int) {
+			wg.Add(1)
+			defer wg.Done()
+			var toPlaceObstacle [2]int
+			switch step.dir {
+			case up:
+				toPlaceObstacle = [2]int{step.pos[0] - 1, step.pos[1]}
+			case down:
+				toPlaceObstacle = [2]int{step.pos[0] + 1, step.pos[1]}
+			case left:
+				toPlaceObstacle = [2]int{step.pos[0], step.pos[1] - 1}
+			case right:
+				toPlaceObstacle = [2]int{step.pos[0], step.pos[1] + 1}
+			}
+			if (toPlaceObstacle[0] < 0 && toPlaceObstacle[0] >= sol.size[0] &&
+				toPlaceObstacle[1] < 0 && toPlaceObstacle[1] >= sol.size[1]) ||
+				sol.obstacles[toPlaceObstacle] ||
+				toPlaceObstacle == sol.startPos {
+				return
+			}
+			newObstacles := maps.Clone(sol.obstacles)
+			newObstacles[toPlaceObstacle] = true
+			_, _, looped := simulate(sol.size, newObstacles, sol.startPos)
+			if looped {
+				resCh <- toPlaceObstacle
+			}
+		}(step, resCh)
+	}
+	wg.Done()
+	placesToPutObstacles := map[[2]int]bool{}
+	for res := range resCh {
+		placesToPutObstacles[res] = true
 	}
 	return len(placesToPutObstacles)
 }
