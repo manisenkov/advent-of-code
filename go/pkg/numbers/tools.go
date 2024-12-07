@@ -4,6 +4,8 @@ import (
 	"strconv"
 	"strings"
 	"unsafe"
+
+	"github.com/manisenkov/advent-of-code/pkg/collections"
 )
 
 // Abs returns the absolute value of the given number
@@ -74,4 +76,10 @@ func MustParseInt[N AnyInt](s string, base int) N {
 		panic(err)
 	}
 	return N(res)
+}
+
+func Sum[N Number, S ~[]N](input S) N {
+	return collections.Reduce(input, func(a, b N) N {
+		return a + b
+	})
 }
