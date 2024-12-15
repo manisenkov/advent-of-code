@@ -35,6 +35,16 @@ func All[T any, S ~[]T](input S, predicate func(T) bool) bool {
 	return true
 }
 
+// Any returns true if any of the given items satisfies the given predicate
+func Any[T any, S ~[]T](input S, predicate func(T) bool) bool {
+	for _, item := range input {
+		if predicate(item) {
+			return true
+		}
+	}
+	return false
+}
+
 // Reduce takes a slice of values of type T and reduces it to a single value by applying
 // the given reducer function to each value in sequence to combine it with the current result.
 // It starts from the first element of the slice. It panics if the given slice is empty.
