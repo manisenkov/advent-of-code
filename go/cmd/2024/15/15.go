@@ -51,7 +51,7 @@ func moveBox(boxes collections.Set[[2]int], walls collections.Set[[2]int], pos [
 }
 
 func moveBigBox(bigBoxes collections.Set[[2]int], bigWalls collections.Set[[2]int], pos [][2]int, mov move) (collections.Set[[2]int], bool) {
-	toPos := collections.Map(pos, mov.to)
+	toPos := collections.MapTo(pos, mov.to)
 	if collections.Any(toPos, func(p [2]int) bool {
 		return bigWalls[p] || bigWalls[right.to(p)]
 	}) {

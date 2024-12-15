@@ -54,18 +54,18 @@ func solve(res int, nums []int, withConcat bool) bool {
 
 // Init initializes the solution with the input data
 func (sol *Solution) Init(input []string) {
-	sol.equations = collections.Map(input, func(s string) equation {
+	sol.equations = collections.MapTo(input, func(s string) equation {
 		parts := strings.Split(s, ": ")
 		return equation{
 			res:  numbers.MustAtoi[int](parts[0]),
-			nums: collections.Map(strings.Split(parts[1], " "), numbers.MustAtoi[int]),
+			nums: collections.MapTo(strings.Split(parts[1], " "), numbers.MustAtoi[int]),
 		}
 	})
 }
 
 // Part1 to solve a "silver" part (for a first star)
 func (sol *Solution) Part1() any {
-	return numbers.Sum(collections.Map(sol.equations, func(eq equation) int {
+	return numbers.Sum(collections.MapTo(sol.equations, func(eq equation) int {
 		if solve(eq.res, eq.nums, false) {
 			return eq.res
 		}
@@ -75,7 +75,7 @@ func (sol *Solution) Part1() any {
 
 // Part2 to solve a "gold" part (for a second star)
 func (sol *Solution) Part2() any {
-	return numbers.Sum(collections.Map(sol.equations, func(eq equation) int {
+	return numbers.Sum(collections.MapTo(sol.equations, func(eq equation) int {
 		if solve(eq.res, eq.nums, true) {
 			return eq.res
 		}

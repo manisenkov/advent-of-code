@@ -34,8 +34,8 @@ func (sol *Solution) Init(input []string) {
 			rules[a] = map[int]bool{b: true}
 		}
 	}
-	updates := collections.Map(input[idx:], func(s string) []int {
-		return collections.Map(strings.Split(s, ","), numbers.MustAtoi[int])
+	updates := collections.MapTo(input[idx:], func(s string) []int {
+		return collections.MapTo(strings.Split(s, ","), numbers.MustAtoi[int])
 	})
 	sol.rules = rules
 	sol.updates = updates
@@ -45,7 +45,7 @@ func (sol *Solution) Init(input []string) {
 func (sol *Solution) Part1() any {
 	sol.incorrectUpdates = [][]int{}
 	return collections.Reduce(
-		collections.Map(sol.updates, func(upd []int) int {
+		collections.MapTo(sol.updates, func(upd []int) int {
 			isCorrect := true
 			for i, a := range upd[:len(upd)-1] {
 				for _, b := range upd[i+1:] {
@@ -89,7 +89,7 @@ func (sol *Solution) Part2() any {
 		})
 	}
 	return collections.Reduce(
-		collections.Map(
+		collections.MapTo(
 			sol.incorrectUpdates,
 			func(upd []int) int {
 				return upd[(len(upd)-1)/2]
