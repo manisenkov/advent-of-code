@@ -28,7 +28,7 @@ func blink(stone int, count int) int {
 	} else {
 		nextStones = append(nextStones, stone*2024)
 	}
-	res := numbers.Sum(collections.Map(nextStones, func(s int) int {
+	res := numbers.Sum(collections.MapTo(nextStones, func(s int) int {
 		return blink(s, count-1)
 	}))
 	solutions[[2]int{stone, count}] = res
@@ -42,19 +42,19 @@ type Solution struct {
 
 // Init initializes the solution with the input data
 func (sol *Solution) Init(input []string) {
-	sol.stones = collections.Map(strings.Split(input[0], " "), numbers.MustAtoi[int])
+	sol.stones = collections.MapTo(strings.Split(input[0], " "), numbers.MustAtoi[int])
 }
 
 // Part1 to solve a "silver" part (for a first star)
 func (sol *Solution) Part1() any {
-	return numbers.Sum(collections.Map(sol.stones, func(s int) int {
+	return numbers.Sum(collections.MapTo(sol.stones, func(s int) int {
 		return blink(s, 25)
 	}))
 }
 
 // Part2 to solve a "gold" part (for a second star)
 func (sol *Solution) Part2() any {
-	return numbers.Sum(collections.Map(sol.stones, func(s int) int {
+	return numbers.Sum(collections.MapTo(sol.stones, func(s int) int {
 		return blink(s, 75)
 	}))
 }

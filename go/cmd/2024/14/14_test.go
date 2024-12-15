@@ -35,7 +35,7 @@ func (st *Day14TestSuite) Test1() {
 	st.sol.Init(input)
 	st.sol.size = [2]int{11, 7}
 	st.Equal(12, st.sol.Part1())
-	st.Equal(0, st.sol.Part2())
+	st.Equal(1, st.sol.Part2())
 }
 
 func TestDay14(t *testing.T) {

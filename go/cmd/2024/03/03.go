@@ -32,7 +32,7 @@ func (sol *Solution) Init(input []string) {
 	inp := strings.Join(input, "")
 	re := regexp.MustCompile(`don't|do|mul\((\d{1,3}),(\d{1,3})\)`)
 	matches := re.FindAllSubmatch([]byte(inp), -1)
-	sol.insts = collections.Map(matches, func(m [][]byte) instruction {
+	sol.insts = collections.MapTo(matches, func(m [][]byte) instruction {
 		switch string(m[0]) {
 		case "do":
 			return instruction{

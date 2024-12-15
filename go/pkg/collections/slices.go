@@ -16,8 +16,8 @@ func Filter[T any, S ~[]T](input S, predicate func(T) bool) []T {
 	return result
 }
 
-// Map applies the given function to every item in a slice and return slice of results
-func Map[T, R any, S ~[]T](input S, mapper func(T) R) []R {
+// MapTo applies the given function to every item in a slice and return slice of results
+func MapTo[T, R any, S ~[]T](input S, mapper func(T) R) []R {
 	result := make([]R, len(input))
 	for i, x := range input {
 		result[i] = mapper(x)

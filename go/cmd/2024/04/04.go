@@ -12,7 +12,7 @@ type Solution struct {
 
 // Init initializes the solution with the input data
 func (sol *Solution) Init(input []string) {
-	sol.board = collections.Map(input, func(s string) []rune {
+	sol.board = collections.MapTo(input, func(s string) []rune {
 		return []rune(s)
 	})
 }

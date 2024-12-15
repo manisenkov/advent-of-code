@@ -26,8 +26,8 @@ type Solution struct {
 
 // Init initializes the solution with the input data
 func (sol *Solution) Init(input []string) {
-	sol.reports = collections.Map(input, func(s string) []int {
-		return collections.Map(strings.Split(s, " "), numbers.MustAtoi[int])
+	sol.reports = collections.MapTo(input, func(s string) []int {
+		return collections.MapTo(strings.Split(s, " "), numbers.MustAtoi[int])
 	})
 }
 

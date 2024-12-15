@@ -45,7 +45,7 @@ func FromIntTable[N numbers.AnyInt](values [][]N) Matrix {
 
 // FromIntSlice takes a slice of any integer values and create a new rational matrix out of them
 func FromIntSlice[N numbers.AnyInt](input []N, rows, cols int) Matrix {
-	data := collections.Map(input, numbers.RatFromInt[N])
+	data := collections.MapTo(input, numbers.RatFromInt[N])
 	return Matrix{data, rows, cols}
 }
 

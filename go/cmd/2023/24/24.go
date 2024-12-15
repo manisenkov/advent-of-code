@@ -35,8 +35,8 @@ func (sol *Solution) Init(input []string) {
 		posParts := strings.Split(parts[0], ", ")
 		velParts := strings.Split(parts[1], ", ")
 		halestones[i] = Halestone{
-			pos: vec.New(collections.Map(posParts, numbers.MustAtoi[int64])),
-			vel: vec.New(collections.Map(velParts, numbers.MustAtoi[int64])),
+			pos: vec.New(collections.MapTo(posParts, numbers.MustAtoi[int64])),
+			vel: vec.New(collections.MapTo(velParts, numbers.MustAtoi[int64])),
 		}
 	}
 	sol.halestones = halestones
@@ -57,7 +57,7 @@ func (sol *Solution) Part1() any {
 				pos[1].X()-pos[0].X()),
 		}
 	}
-	reduced := collections.Map(sol.halestones, func(hs Halestone) Halestone {
+	reduced := collections.MapTo(sol.halestones, func(hs Halestone) Halestone {
 		return Halestone{
 			pos: hs.pos.Reduce(2),
 			vel: hs.vel.Reduce(2),

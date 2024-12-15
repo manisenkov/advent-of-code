@@ -35,8 +35,8 @@ type Solution struct {
 func (sol *Solution) Init(input []string) {
 	sol.size = [2]int{len(input), len(input[0])}
 	sol.trailheads = make(collections.Set[[2]int])
-	sol.plan = collections.Map(input, func(s string) []int {
-		return collections.Map([]rune(s), func(t rune) int {
+	sol.plan = collections.MapTo(input, func(s string) []int {
+		return collections.MapTo([]rune(s), func(t rune) int {
 			return int(t - '0')
 		})
 	})
