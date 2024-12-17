@@ -57,6 +57,11 @@ func ModInv[N AnyInt](a, m N) N {
 	return x % m
 }
 
+// Itoa converts any given integer to a 10-based string representation
+func Itoa[N AnyInt](n N) string {
+	return strconv.FormatInt(int64(n), 10)
+}
+
 // MustAtoi converts the given string to an integer. It panics in case of an error
 func MustAtoi[N AnyInt](s string) N {
 	s = strings.Trim(s, " \n\t")

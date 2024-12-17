@@ -4,6 +4,27 @@ import "errors"
 
 var ErrEmptySlice = errors.New("slice is empty")
 
+// AllCombinations returns all possible combinations of elements in the given input slice
+func AllCombinations[T any, S ~[]T](input S) [][]T {
+	if len(input) == 0 {
+		return [][]T{
+			{},
+		}
+	}
+	if len(input) == 1 {
+		return [][]T{
+			{},
+			{input[0]},
+		}
+	}
+	res := [][]T{}
+	for _, c := range AllCombinations(input[1:]) {
+		res = append(res, c)
+		res = append(res, append(append([]T{}, input[0]), c...))
+	}
+	return res
+}
+
 // Filter applies predicate to each element of the given slice and return slice with the elements
 // where predicates returned true
 func Filter[T any, S ~[]T](input S, predicate func(T) bool) []T {
