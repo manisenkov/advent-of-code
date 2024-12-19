@@ -4,6 +4,26 @@ import "errors"
 
 var ErrEmptySlice = errors.New("slice is empty")
 
+// All returns true if all items in a slice satisfy the given predicate
+func All[T any, S ~[]T](input S, predicate func(T) bool) bool {
+	for _, item := range input {
+		if !predicate(item) {
+			return false
+		}
+	}
+	return true
+}
+
+// Any returns true if any of the given items satisfies the given predicate
+func Any[T any, S ~[]T](input S, predicate func(T) bool) bool {
+	for _, item := range input {
+		if predicate(item) {
+			return true
+		}
+	}
+	return false
+}
+
 // AllCombinations returns all possible combinations of elements in the given input slice
 func AllCombinations[T any, S ~[]T](input S) [][]T {
 	if len(input) == 0 {
@@ -25,6 +45,20 @@ func AllCombinations[T any, S ~[]T](input S) [][]T {
 	return res
 }
 
+// IsEqualSlices returns true if both given slices have same lengths and contains same elements
+func IsEqualSlices[T comparable, S ~[]T](s1, s2 S) bool {
+	if len(s1) != len(s2) {
+		return false
+	}
+	for i, x := range s1 {
+		y := s2[i]
+		if x != y {
+			return false
+		}
+	}
+	return true
+}
+
 // Filter applies predicate to each element of the given slice and return slice with the elements
 // where predicates returned true
 func Filter[T any, S ~[]T](input S, predicate func(T) bool) []T {
@@ -44,26 +78,6 @@ func MapTo[T, R any, S ~[]T](input S, mapper func(T) R) []R {
 		result[i] = mapper(x)
 	}
 	return result
-}
-
-// All returns true if all items in a slice satisfy the given predicate
-func All[T any, S ~[]T](input S, predicate func(T) bool) bool {
-	for _, item := range input {
-		if !predicate(item) {
-			return false
-		}
-	}
-	return true
-}
-
-// Any returns true if any of the given items satisfies the given predicate
-func Any[T any, S ~[]T](input S, predicate func(T) bool) bool {
-	for _, item := range input {
-		if predicate(item) {
-			return true
-		}
-	}
-	return false
 }
 
 // Reduce takes a slice of values of type T and reduces it to a single value by applying
