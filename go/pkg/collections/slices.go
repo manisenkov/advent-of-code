@@ -100,3 +100,8 @@ func ReduceWithInit[T any, S ~[]T](input S, init T, reducer func(T, T) T) T {
 	}
 	return res
 }
+
+// Unique returns slice contains unique elements from the given slice
+func Unique[T comparable, S ~[]T](input S) S {
+	return SetToSlice[T, S](SetFromSlice(input))
+}
