@@ -2,6 +2,7 @@ package main
 
 import (
 	"maps"
+	"sync"
 
 	"github.com/manisenkov/advent-of-code/pkg/collections"
 	"github.com/manisenkov/advent-of-code/pkg/numbers"
@@ -62,16 +63,28 @@ func (sol *Solution) Part2() any {
 		uniqueDiffs = append(uniqueDiffs, collections.IterToSlice(maps.Keys(diffs))...)
 	}
 	uniqueDiffs = collections.Unique(uniqueDiffs)
-	res := int64(0)
+	ch := make(chan int64)
+	wg := new(sync.WaitGroup)
+	wg.Add(len(uniqueDiffs))
 	for _, diff := range uniqueDiffs {
-		s := int64(0)
-		for _, dt := range diffTable {
-			s += dt[diff]
-		}
-		if s > res {
-			res = s
-		}
+		go func(diff [4]int64) {
+			s := int64(0)
+			for _, dt := range diffTable {
+				s += dt[diff]
+			}
+			ch <- s
+			wg.Done()
+		}(diff)
 	}
+	res := int64(0)
+	go func() {
+		for s := range ch {
+			if s > res {
+				res = s
+			}
+		}
+	}()
+	wg.Wait()
 	return res
 }
 
