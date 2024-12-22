@@ -1,6 +1,9 @@
 package collections
 
-import "errors"
+import (
+	"errors"
+	"iter"
+)
 
 var ErrEmptySlice = errors.New("slice is empty")
 
@@ -69,6 +72,15 @@ func Filter[T any, S ~[]T](input S, predicate func(T) bool) []T {
 		}
 	}
 	return result
+}
+
+// IterToSlice collects all of the items of the given iterator sequence to the slice
+func IterToSlice[T any](input iter.Seq[T]) []T {
+	res := []T{}
+	for x := range input {
+		res = append(res, x)
+	}
+	return res
 }
 
 // MapTo applies the given function to every item in a slice and return slice of results
