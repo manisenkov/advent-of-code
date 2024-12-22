@@ -27,7 +27,7 @@ func (st *Day21TestSuite) Test1() {
 	input := strings.Split(strings.Trim(testInput, " \n"), "\n")
 	st.sol.Init(input)
 	st.Equal(126384, st.sol.Part1())
-	st.Equal(0, st.sol.Part2())
+	st.Equal(154115708116294, st.sol.Part2())
 }
 
 func TestDay21(t *testing.T) {
