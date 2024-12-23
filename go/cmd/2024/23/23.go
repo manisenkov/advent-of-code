@@ -46,9 +46,16 @@ func (sol *Solution) Init(input []string) {
 
 func (sol *Solution) findInterconnectedGroups(curGroups collections.Set[groupKey]) collections.Set[groupKey] {
 	res := make(collections.Set[groupKey])
-	for c := range sol.connections {
-		for grp := range curGroups {
-			if collections.All(grp.items(), func(t string) bool {
+	for grp := range curGroups {
+		items := grp.items()
+		connections := make(collections.Set[string])
+		for _, it := range items {
+			for c := range sol.connections[it] {
+				connections[c] = true
+			}
+		}
+		for c := range connections {
+			if collections.All(items, func(t string) bool {
 				return sol.connections[c][t]
 			}) {
 				newGroup := grp.append(c)
