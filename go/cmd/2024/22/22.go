@@ -1,9 +1,6 @@
 package main
 
 import (
-	"maps"
-	"sync"
-
 	"github.com/manisenkov/advent-of-code/pkg/collections"
 	"github.com/manisenkov/advent-of-code/pkg/numbers"
 	"github.com/manisenkov/advent-of-code/pkg/problem"
@@ -47,45 +44,26 @@ func (sol *Solution) Part1() any {
 
 // Part2 to solve a "gold" part (for a second star)
 func (sol *Solution) Part2() any {
-	diffTable := make([]map[[4]int64]int64, len(sol.table))
+	found := make([]collections.Set[[4]int64], len(sol.table))
+	sums := make(map[[4]int64]int64, len(sol.table))
 	for i, col := range sol.table {
-		diffTable[i] = make(map[[4]int64]int64)
+		found[i] = make(collections.Set[[4]int64])
 		for j := 4; j < 2001; j++ {
 			c := [5]int64{col[j-4], col[j-3], col[j-2], col[j-1], col[j]}
 			d := [4]int64{c[1] - c[0], c[2] - c[1], c[3] - c[2], c[4] - c[3]}
-			if _, ok := diffTable[i][d]; !ok {
-				diffTable[i][d] = c[4]
+			if !found[i][d] {
+				found[i][d] = true
+				sums[d] += c[4]
 			}
 		}
 	}
-	uniqueDiffs := [][4]int64{}
-	for _, diffs := range diffTable {
-		uniqueDiffs = append(uniqueDiffs, collections.IterToSlice(maps.Keys(diffs))...)
-	}
-	uniqueDiffs = collections.Unique(uniqueDiffs)
-	ch := make(chan int64)
-	wg := new(sync.WaitGroup)
-	wg.Add(len(uniqueDiffs))
-	for _, diff := range uniqueDiffs {
-		go func(diff [4]int64) {
-			s := int64(0)
-			for _, dt := range diffTable {
-				s += dt[diff]
-			}
-			ch <- s
-			wg.Done()
-		}(diff)
-	}
-	res := int64(0)
-	go func() {
-		for s := range ch {
-			if s > res {
-				res = s
-			}
+	var maxSum = int64(0)
+	for _, sum := range sums {
+		if sum > maxSum {
+			maxSum = sum
 		}
-	}()
-	wg.Wait()
-	return res
+	}
+	return maxSum
 }
 
 func main() {
