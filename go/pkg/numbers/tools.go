@@ -83,6 +83,22 @@ func MustParseInt[N AnyInt](s string, base int) N {
 	return N(res)
 }
 
+func PowInt[N AnyInt](n N, p int) N {
+	var res N
+	if p < 0 {
+		panic("power must be non-negative")
+	}
+	if p == 0 {
+		res++
+	} else {
+		res = n
+		for ; p > 1; p-- {
+			res *= n
+		}
+	}
+	return res
+}
+
 func Sum[N Number, S ~[]N](input S) N {
 	return collections.Reduce(input, func(a, b N) N {
 		return a + b
