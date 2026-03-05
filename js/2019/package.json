@@ -20,7 +20,7 @@
     "prettier": "^3.0.3"
   },
   "dependencies": {
-    "immutable": "^4.3.4"
+    "immutable": "^4.3.8"
   },
   "volta": {
     "node": "20.9.0",
