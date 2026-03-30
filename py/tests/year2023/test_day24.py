@@ -2,7 +2,6 @@ from io import StringIO
 
 from adventofcode.year2023.day24 import Day24
 
-
 INPUT = """19, 13, 30 @ -2,  1, -2
 18, 19, 22 @ -1, -1, -2
 20, 25, 34 @ -2, -2, -4
