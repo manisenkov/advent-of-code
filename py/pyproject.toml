@@ -16,7 +16,7 @@ mypy = "^1.7.1"
 ruff = "^0.1.6"
 ipython = "^8.18.1"
 ipdb = "^0.13.13"
-pytest = "^7.4.3"
+pytest = "^9.0.3"
 
 [tool.ruff]
 line-length = 88
