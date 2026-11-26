@@ -6,7 +6,7 @@ authors = ["Maksim Anisenkov <manisenkov@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "^3.14"
 networkx = "^3.2.1"
 sympy = "^1.12"
 
